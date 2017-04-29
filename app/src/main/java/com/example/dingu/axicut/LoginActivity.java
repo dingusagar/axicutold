@@ -1,6 +1,7 @@
 package com.example.dingu.axicut;
 
 import android.app.ProgressDialog;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,11 +33,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        progress = new ProgressDialog(this);
 
         emailField = (EditText)findViewById(R.id.email);
         passwordField = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.login);
-
 
         ButtonAnimator.buttonEffect(loginButton); // onClick animation defined in ButtonAnimator Class
 
@@ -48,6 +49,27 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
 
     }
 
@@ -73,6 +95,10 @@ public class LoginActivity extends AppCompatActivity {
             });
             progress.dismiss();
 
+        }
+        else
+        {
+            Toast.makeText(LoginActivity.this,"Fields cannot be empty..",Toast.LENGTH_SHORT).show();
         }
     }
 }
