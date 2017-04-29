@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "763909470169",
+    "firebase_url": "https://axicut-3fe9b.firebaseio.com",
+    "project_id": "axicut-3fe9b",
+    "storage_bucket": "axicut-3fe9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763909470169:android:5dd23f7ceb25079f",
+        "android_client_info": {
+          "package_name": "com.example.dingu.axicut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763909470169-2ftdnvrd6377006jal5vgre7kgaqf8no.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dingu.axicut",
+            "certificate_hash": "8c867bb6026b927f5f998d7dc9171792860b42f3"
+          }
+        },
+        {
+          "client_id": "763909470169-bqoqu0nfqooi5detjsr6d0e9v6j9o5be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwf5SKvRD1WKH5xDfpEW0WD5ejKsDNDVE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763909470169-bqoqu0nfqooi5detjsr6d0e9v6j9o5be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
