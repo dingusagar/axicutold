@@ -1,5 +1,6 @@
 package com.example.dingu.axicut;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +28,9 @@ public class AdminOptions extends AppCompatActivity {
                 switch(i)
                 {
                     case 0:
-                        // add a user
+                        Intent intent = new Intent(AdminOptions.this,AdminAddUser.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                     case 1:
                         // remove a user
