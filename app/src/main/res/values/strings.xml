@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">axicut</string>
+
+    <string-array name="adminOptions">
+        <item>Add User</item>
+        <item>Remove User</item>
+        <item>Add Company</item>
+        <item>Remove Company</item>
+        <item>Search WorkOrders</item>
+
+    </string-array>
 </resources>
