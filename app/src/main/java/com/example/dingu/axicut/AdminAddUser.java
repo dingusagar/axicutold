@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,10 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminAddUser extends AppCompatActivity {
 
-    public enum UserMode{
-        INWARD,DESIGN,DESPACTCH,ADMIN
-    }
-    UserMode userMode ;
+
+    UserMode userMode ;  // An enum of user modes
     boolean radioButtonChecked = false;
     ProgressDialog progress;
 
@@ -58,7 +58,7 @@ public class AdminAddUser extends AppCompatActivity {
     private void registerNewUser() {
 
         final String name = nameField.getText().toString().trim();
-        String email = emailField.getText().toString().trim();
+        final String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked)
@@ -73,6 +73,7 @@ public class AdminAddUser extends AppCompatActivity {
                         String userID = mAuth.getCurrentUser().getUid();
                         DatabaseReference currentUserDB = mdatabaseRefUsers.child(userID);
                         currentUserDB.child("name").setValue(name);
+                        currentUserDB.child("email").setValue(email);
                         currentUserDB.child("userMode").setValue(userMode);
                         progress.dismiss();
 
@@ -80,6 +81,12 @@ public class AdminAddUser extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progress.dismiss();
+                    Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                 }
             });
         }
