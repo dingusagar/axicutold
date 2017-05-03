@@ -1,12 +1,14 @@
 package com.example.dingu.axicut;
 
 
+import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,7 @@ public class InwardEntry extends AppCompatActivity {
     EditText timeText;
     SimpleDateFormat formatter;
     Calendar calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,27 @@ public class InwardEntry extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+
+
+        timeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(InwardEntry.this, new TimePickerDialog.OnTimeSetListener() {
+
+
+                    @Override
+                    public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1) {
+                        timeText.setText( i + ":" + i1);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
 
