@@ -1,6 +1,8 @@
 package com.example.dingu.axicut;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,29 +16,63 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+/*
+* From InwardEntry Activity a SaleOrder Object is passed via intent .
+* This object is received here as newSaleOrder.
+* All though newSaleOrder contains an ArrayList of WorkOrders,
+* a local Arraylist of WorkOrders is created in the onCreate of this Activity which
+* is finally copied to the Arraylist inside newSaleOrder
+*
+* After the UI is filled with details , FillWorkOrderList() is called when the user performs the confirm button
+* This populates newSaleOrder completely and will start to write to the database
+*
+* About the UI
+* everytime user presses plus button , a new workOrder View is created in the list.
+* There is a cross button for each item in the list view to remove that from the list
+*
+* When an item is removed from the listview , all the workorder numbers of other items are
+* updated using the method correctWorkOrderNumbers()
+* */
+
+
 
 public class InwardEntryPart2 extends AppCompatActivity {
 
     private ViewGroup mContainerView;
     ArrayList<WorkOrder> workOrders;
     Button confirmButton;
+    SaleOrder newSaleOrder;
+    ProgressDialog progress;
+    DatabaseReference dbRefOrders; // database reference to all orders
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inward_entry_part2);
 
+        dbRefOrders = FirebaseDatabase.getInstance().getReference().child("Orders");
+        progress = new ProgressDialog(this);
+
+        newSaleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
+
         mContainerView = (ViewGroup) findViewById(R.id.container);
-        workOrders = new ArrayList<>();
+        workOrders = new ArrayList<>(); // temporary Arraylist of WorkOrders which will finally be written into newSaleOrder's Arraylist in FillWorkList() method
 
         confirmButton = (Button)findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FillWorkOrderList();
-                Log.e("APP","Workorders : \n\n " + workOrders.toString());
+                //Log.e("APP","Workorders : \n\n " + newSaleOrder.workOrders.toString());
             }
         });
 
@@ -101,7 +137,7 @@ public class InwardEntryPart2 extends AppCompatActivity {
         mContainerView.addView(newView, 0);
     }
 
-    public void FillWorkOrderList()
+    public void FillWorkOrderList() // getting data from UI to a local arraylist called workorders
     {
         for(int i = 0; i<mContainerView.getChildCount();i++)
         {
@@ -127,8 +163,30 @@ public class InwardEntryPart2 extends AppCompatActivity {
             et = (EditText)view.findViewById(R.id.remark);
             workOrder.setInspectionRemark(et.getText().toString());
 
-            workOrders.add(workOrder);
+            workOrders.add(workOrder);  // adding to local workOrders List
         }
+
+        newSaleOrder.setWorkOrders(workOrders);  // coping the local list of workorders to original list in newSaleOrder
+
+        // everything is ready to be added to the database
+
+        progress.setMessage("Adding new Sale Order...");
+        progress.show();
+        dbRefOrders.child(newSaleOrder.getSaleOrderNumber()).setValue(newSaleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+        progress.dismiss();
+
     }
 
     public void correctWorkOrderNumbers()

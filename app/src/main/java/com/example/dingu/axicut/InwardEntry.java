@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
+
+
 public class InwardEntry extends AppCompatActivity {
 
     EditText dateText;
@@ -31,18 +33,18 @@ public class InwardEntry extends AppCompatActivity {
     SimpleDateFormat formatter;
     Calendar calendar;
     Button createWorkOrderButton;
-    ProgressDialog progress;
 
-    DatabaseReference dbRefOrders; // database reference to all orders
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inward_entry);
 
-        dbRefOrders = FirebaseDatabase.getInstance().getReference().child("Orders");
 
-        progress = new ProgressDialog(this);
+
+
 
         dateText = (EditText) findViewById(R.id.date);
         timeText = (EditText) findViewById(R.id.time);
@@ -127,7 +129,7 @@ public class InwardEntry extends AppCompatActivity {
     }
 
     private void gotoWorkOrderEntryActivity() {
-        SaleOrder newOrder = new SaleOrder();
+        final SaleOrder newOrder = new SaleOrder();
 
         newOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
         newOrder.setCustomerDCNumber(customerDCText.getText().toString());
@@ -135,19 +137,10 @@ public class InwardEntry extends AppCompatActivity {
         newOrder.setDate(dateText.getText().toString());
         newOrder.setTime(timeText.getText().toString());
 
-        progress.show();
-        dbRefOrders.push().setValue(newOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startActivity(new Intent(getApplicationContext(),InwardEntryPart2.class));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-        progress.dismiss();
+        Intent intent  = new  Intent(getApplicationContext(),InwardEntryPart2.class);
+        intent.putExtra("SaleOrder",newOrder);
+        startActivity(intent);
+
 
 
     }

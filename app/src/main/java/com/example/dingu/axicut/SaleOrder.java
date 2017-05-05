@@ -1,12 +1,13 @@
 package com.example.dingu.axicut;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by dingu on 6/5/17.
  */
 
-public class SaleOrder {
+public class SaleOrder implements Serializable{
 
     private String SaleOrderNumber;
     private String Date;

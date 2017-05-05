@@ -5,13 +5,13 @@ package com.example.dingu.axicut;
  */
 
 public class WorkOrder {
-    int WorkOrderNumber;
-    String MaterialType;
-    String LotNumber;
-    float Thickness;
-    float Length;
-    float Breadth;
-    String InspectionRemark;
+    private int WorkOrderNumber;
+    private String MaterialType;
+    private String LotNumber;
+    private float Thickness;
+    private float Length;
+    private float Breadth;
+    private String InspectionRemark;
 
     public WorkOrder(int workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
         WorkOrderNumber = workOrderNumber;
@@ -81,7 +81,7 @@ public class WorkOrder {
     }
 
     @Override
-    public String toString()
+    public String toString() // for debugging
     {
         return ("\n[" + getWorkOrderNumber() + "   " + getLotNumber() + " " );
     }
