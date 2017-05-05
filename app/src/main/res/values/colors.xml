@@ -6,4 +6,5 @@
     <color name="greyColor">#c2c2c2</color>
     <color name="linkColor">#1557d2</color>
     <color name="loginText">#eceef2</color>
+    <color name="list_header">#667ffc</color>
 </resources>

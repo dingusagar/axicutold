@@ -83,35 +83,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp" />
 
-    <Spinner
-        android:layout_width="248dp"
-        android:layout_height="52dp"
-        android:id="@+id/materialType"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/saleOrder"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/numOfWO"
-        android:hint="number of work orders"
-        app:layout_constraintTop_toBottomOf="@+id/materialType"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp" />
-
     <Button
         android:text="Create Work Orders"
         android:layout_width="0dp"

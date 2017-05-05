@@ -10,8 +10,11 @@
 
     </string-array>
 
-
-
-
+    <string-array name="materials">
+        <item>MS</item>
+        <item>DS</item>
+        <item>VS</item>
+        <item>TS</item>
+    </string-array>
 
 </resources>
