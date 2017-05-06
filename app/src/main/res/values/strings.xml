@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">axicut</string>
+    <string name="app_name">Axicut</string>
 
     <string-array name="adminOptions">
         <item>Add User</item>

@@ -21,9 +21,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         try{
             VideoView videoHolder = (VideoView)findViewById(R.id.SplashVideo);
-//            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
-//                    + R.raw.someVideo);
-//            videoHolder.setVideoURI(video);
+            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
+                    + R.raw.axicut_splash_vid);
+           videoHolder.setVideoURI(video);
             videoHolder.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {

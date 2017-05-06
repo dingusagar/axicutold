@@ -9,18 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:theme="@style/myTheme">
-
-        <activity android:name=".InwardEntry">
-
+            android:theme="@style/myTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".InwardEntry" />
         <activity android:name=".AdminOptions" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AdminAddUser" />
         <activity android:name=".InwardEntryPart2"></activity>

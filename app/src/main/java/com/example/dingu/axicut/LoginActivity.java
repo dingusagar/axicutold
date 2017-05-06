@@ -2,11 +2,13 @@ package com.example.dingu.axicut;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         emailField = (EditText)findViewById(R.id.email);
         passwordField = (EditText)findViewById(R.id.password);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
 
         ButtonAnimator.buttonEffect(loginButton); // onClick animation defined in ButtonAnimator Class
