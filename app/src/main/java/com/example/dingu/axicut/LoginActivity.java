@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.dingu.axicut.Admin.*;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                     case ADMIN:
                         // the user is inward type
                         Log.e("app","admin identified");
-                        intent = new Intent(LoginActivity.this, AdminOptions.class);
+                        intent = new Intent(LoginActivity.this, Admin.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         break;
@@ -157,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                         // the user is design type
                         break;
 
-                    case DESPACTCH:
+                    case DESPATCH:
                         // the user is despatch type
                         break;
 
