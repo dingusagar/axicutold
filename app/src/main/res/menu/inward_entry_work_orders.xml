@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Adds an item to the list. -->
+    <item android:id="@+id/action_add_item"
+        android:title="add new workOrder"
+        android:icon="@mipmap/ic_action_new"
+        app:showAsAction="ifRoom" />
+
+</menu>

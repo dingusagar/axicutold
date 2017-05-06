@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/list_header"
+        android:padding="6dp">
+
+
+
+        <TextView
+            android:text="Work Order :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            android:layout_weight="0.15"
+            android:textStyle="normal|bold"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="W0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/workOrderNo"
+            android:layout_weight="1"
+            android:textStyle="normal|bold"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+        <ImageButton
+            android:src="@mipmap/ic_list_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_button"
+            android:background="#00ffffff" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:showDividers="middle"
+        android:divider="?android:dividerVertical"
+        android:layout_marginTop="3dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="3dp">
+            <TextView
+                android:text="Material Type : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/materialSpinner"
+                android:layout_weight="1"
+                android:entries="@array/materials" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="3dp">
+            <TextView
+                android:text="Lot No : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lotNoSpinner"
+                android:layout_weight="1"
+                android:entries="@array/materials" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:text="Sheet Size :"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
+
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:ems="10"
+            android:id="@+id/size1"
+            android:layout_weight="4"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1240"
+            android:ems="10"
+            android:id="@+id/size2"
+            android:layout_weight="4"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1250"
+            android:ems="10"
+            android:id="@+id/size3"
+            android:layout_weight="4"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <TextView
+        android:text="Inspection Remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/remark"
+        android:layout_weight="0.13" />
+
+</LinearLayout>
