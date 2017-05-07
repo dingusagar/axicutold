@@ -15,5 +15,12 @@
         android:layout_height="match_parent"
         android:id="@+id/projRecyclList">
     </android.support.v7.widget.RecyclerView>
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/plus"
+        app:layout_anchor="@id/projRecyclList"
+        app:layout_anchorGravity="bottom|end"/>
 </RelativeLayout>
