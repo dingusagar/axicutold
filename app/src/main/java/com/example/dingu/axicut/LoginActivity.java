@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     UserMode userMode;
 
 
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private DatabaseReference mdatabaseUsers;  // to reference the users details in the database
 
     @Override
@@ -150,6 +150,8 @@ public class LoginActivity extends AppCompatActivity {
                         // the user is inward type
                         Log.e("app","admin identified");
                         intent = new Intent(LoginActivity.this, Admin.class);
+                        intent.putExtra("name",getUsername());
+                        intent.putExtra("id",getUserID());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         break;
@@ -176,5 +178,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public static String getUserID(){
+            return mAuth.getCurrentUser().getEmail();
+    }
+    public static String getUsername(){
+        return mAuth.getCurrentUser().getDisplayName();
+    }
 
 }

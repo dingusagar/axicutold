@@ -24,7 +24,7 @@
         android:layout_above="@+id/CenterRef"
         android:id="@+id/EmailLayout"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:textAlignment="center"
         android:textColorHint="#ffffff"
         >
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/CenterRef"
         android:id="@+id/PasswordLayout"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:textColorHint="#ffffff"
         >
