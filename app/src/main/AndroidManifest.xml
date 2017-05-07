@@ -26,7 +26,8 @@
             android:name=".Admin.Admin"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Admin.Projector"></activity>
+        <activity android:name=".Admin.Projector">
+        </activity>
     </application>
 
 </manifest>
