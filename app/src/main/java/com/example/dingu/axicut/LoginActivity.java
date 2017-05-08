@@ -2,11 +2,13 @@ package com.example.dingu.axicut;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.dingu.axicut.Admin.*;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     UserMode userMode;
 
 
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private DatabaseReference mdatabaseUsers;  // to reference the users details in the database
 
     @Override
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         emailField = (EditText)findViewById(R.id.email);
         passwordField = (EditText)findViewById(R.id.password);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
 
         ButtonAnimator.buttonEffect(loginButton); // onClick animation defined in ButtonAnimator Class
@@ -145,7 +149,9 @@ public class LoginActivity extends AppCompatActivity {
                     case ADMIN:
                         // the user is inward type
                         Log.e("app","admin identified");
-                        intent = new Intent(LoginActivity.this, AdminOptions.class);
+                        intent = new Intent(LoginActivity.this, Admin.class);
+                        intent.putExtra("name",getUsername());
+                        intent.putExtra("id",getUserID());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         break;
@@ -154,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                         // the user is design type
                         break;
 
-                    case DESPACTCH:
+                    case DESPATCH:
                         // the user is despatch type
                         break;
 
@@ -172,5 +178,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public static String getUserID(){
+            return mAuth.getCurrentUser().getEmail();
+    }
+    public static String getUsername(){
+        return mAuth.getCurrentUser().getDisplayName();
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.example.dingu.axicut;
+package com.example.dingu.axicut.Admin;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.dingu.axicut.Admin.AdminAddUser;
+import com.example.dingu.axicut.R;
 
 public class AdminOptions extends AppCompatActivity {
 

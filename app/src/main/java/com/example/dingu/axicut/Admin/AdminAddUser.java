@@ -1,4 +1,4 @@
-package com.example.dingu.axicut;
+package com.example.dingu.axicut.Admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.UserMode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -61,15 +63,13 @@ public class AdminAddUser extends AppCompatActivity {
         final String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked)
-        {
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked) {
             progress.setMessage("Adding new user..");
             progress.show();
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful())
-                    {
+                    if (task.isSuccessful()) {
                         String userID = mAuth.getCurrentUser().getUid();
                         DatabaseReference currentUserDB = mdatabaseRefUsers.child(userID);
                         currentUserDB.child("name").setValue(name);
@@ -77,7 +77,7 @@ public class AdminAddUser extends AppCompatActivity {
                         currentUserDB.child("userMode").setValue(userMode);
                         progress.dismiss();
 
-                        Intent intent = new Intent(AdminAddUser.this,AdminOptions.class);
+                        Intent intent = new Intent(AdminAddUser.this, AdminOptions.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
@@ -86,9 +86,10 @@ public class AdminAddUser extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progress.dismiss();
-                    Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Oops : Error - " + e.toString(), Toast.LENGTH_LONG).show();
                 }
             });
+
         }
     }
 
@@ -108,7 +109,7 @@ public class AdminAddUser extends AppCompatActivity {
                 break;
             case R.id.radio_despatch:
                 if (radioButtonChecked)
-                    userMode = UserMode.DESPACTCH;
+                    userMode = UserMode.DESPATCH;
                 break;
             case R.id.radio_admin:
                 if (radioButtonChecked)

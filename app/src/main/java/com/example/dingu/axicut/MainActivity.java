@@ -1,5 +1,6 @@
 package com.example.dingu.axicut;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,7 +13,7 @@ import android.widget.VideoView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         try{
             VideoView videoHolder = (VideoView)findViewById(R.id.SplashVideo);
-//            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
-//                    + R.raw.someVideo);
-//            videoHolder.setVideoURI(video);
+            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
+                    + R.raw.axicut_splash_vid);
+           videoHolder.setVideoURI(video);
             videoHolder.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
