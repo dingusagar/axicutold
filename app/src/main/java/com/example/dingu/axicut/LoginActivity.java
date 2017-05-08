@@ -133,39 +133,41 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // getting the string userMode in DB to enum userMode
-                userMode = UserMode.valueOf(dataSnapshot.child(userID).child("userMode").getValue().toString());
-                Log.e("app","user mode = "+userMode);
-                Intent intent;
-                switch (userMode)
-                {
-                    case INWARD :
-                        // the user is inward type
-                        Log.e("app","inward identified");
-                        intent = new Intent(LoginActivity.this, InwardEntrySaleOrder.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        break;
+               if(dataSnapshot.hasChild(userID)) { // only if the user is present in the db
+                   // getting the string userMode in DB to enum userMode
+                   userMode = UserMode.valueOf(dataSnapshot.child(userID).child("userMode").getValue().toString());
+                   Log.e("app", "user mode = " + userMode);
+                   Intent intent;
+                   switch (userMode) {
+                       case INWARD:
+                           // the user is inward type
+                           Log.e("app", "inward identified");
+                           intent = new Intent(LoginActivity.this, InwardEntrySaleOrder.class);
+                           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                           startActivity(intent);
+                           break;
 
-                    case ADMIN:
-                        // the user is inward type
-                        Log.e("app","admin identified");
-                        intent = new Intent(LoginActivity.this, AdminActivity.class);
-                        intent.putExtra("name",getUsername());
-                        intent.putExtra("id",getUserID());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        break;
+                       case ADMIN:
+                           // the user is inward type
+                           Log.e("app", "admin identified");
+                           intent = new Intent(LoginActivity.this, AdminActivity.class);
+                           intent.putExtra("name", getUsername());
+                           intent.putExtra("id", getUserID());
+                           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                           startActivity(intent);
+                           break;
 
-                    case DESIGN:
-                        // the user is design type
-                        break;
+                       case DESIGN:
+                           // the user is design type
+                           break;
 
-                    case DESPATCH:
-                        // the user is despatch type
-                        break;
+                       case DESPATCH:
+                           // the user is despatch type
+                           break;
 
-                }
+                   }
+               }else
+                   Toast.makeText(LoginActivity.this,"User was not found in database..Contact Admin",Toast.LENGTH_SHORT).show();
 
 
             }
