@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.dingu.axicut.MainActivity;
 import com.example.dingu.axicut.R;
-
-import org.w3c.dom.Text;
 
 public class Admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -98,7 +94,6 @@ public class Admin extends AppCompatActivity
         switch (id){
             case R.id.nav_users:
                 Intent intent = new Intent(this,Projector.class);
-                intent.putExtra("Adapter",NavigationOptions.USER);
                 startActivity(intent);
                 break;
         }
