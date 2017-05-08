@@ -35,7 +35,7 @@ public class InwardEntrySaleOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inward_entry);
+        setContentView(R.layout.activity_inward_entry_saleorder);
 
 
 
