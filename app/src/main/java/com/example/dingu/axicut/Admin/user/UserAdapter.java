@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dingu.axicut.Admin.AdminAddUser;
-import com.example.dingu.axicut.Admin.PlusClickerAdapter;
 import com.example.dingu.axicut.Admin.PlusClickerAdapter;
 import com.example.dingu.axicut.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;

@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Admin;
+package com.example.dingu.axicut.Admin.user;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Admin.Admin;
+import com.example.dingu.axicut.Admin.Projector;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.UserMode;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,10 +78,6 @@ public class AdminAddUser extends AppCompatActivity {
                         currentUserDB.child("email").setValue(email);
                         currentUserDB.child("userMode").setValue(userMode);
                         progress.dismiss();
-
-                        Intent intent = new Intent(AdminAddUser.this, AdminOptions.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {

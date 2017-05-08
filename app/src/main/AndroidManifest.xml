@@ -18,9 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InwardEntry" />
-        <activity android:name=".Admin.AdminAddUser" />
+        <activity android:name=".Admin.user.AdminAddUser" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".Admin.AdminOptions" />
         <activity android:name=".InwardEntryPart2" />
         <activity
             android:name=".Admin.Admin"
