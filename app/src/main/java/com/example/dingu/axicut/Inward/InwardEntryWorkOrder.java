@@ -1,4 +1,4 @@
-package com.example.dingu.axicut;
+package com.example.dingu.axicut.Inward;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.MainActivity;
+import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +49,7 @@ import java.util.ArrayList;
 
 
 
-public class InwardEntryPart2 extends AppCompatActivity {
+public class InwardEntryWorkOrder extends AppCompatActivity {
 
     private ViewGroup mContainerView;
     ArrayList<WorkOrder> workOrders;

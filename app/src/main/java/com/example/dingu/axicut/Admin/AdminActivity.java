@@ -16,8 +16,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.Utils.Navigation.NavigationOptions;
+import com.example.dingu.axicut.Utils.Navigation.Projector;
 
-public class Admin extends AppCompatActivity
+public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private TextView headerText;
         private TextView headerId;
@@ -94,7 +96,7 @@ public class Admin extends AppCompatActivity
         switch (id){
             case R.id.nav_users:
                 Intent intent = new Intent(this,Projector.class);
-                intent.putExtra("Adapter",NavigationOptions.USER);
+                intent.putExtra("Adapter", NavigationOptions.USER);
                 startActivity(intent);
                 break;
         }

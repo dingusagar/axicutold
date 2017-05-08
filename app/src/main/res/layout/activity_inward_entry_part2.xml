@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#88b7ba">
         <ScrollView android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scroll"
@@ -20,8 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:showDividers="middle"
-                android:divider="?android:dividerHorizontal"
                 android:animateLayoutChanges="true"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />

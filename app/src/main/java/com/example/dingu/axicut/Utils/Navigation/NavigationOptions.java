@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Admin;
+package com.example.dingu.axicut.Utils.Navigation;
 
 /**
  * Created by grey-hat on 7/5/17.

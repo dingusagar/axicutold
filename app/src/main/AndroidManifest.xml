@@ -17,16 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InwardEntry" />
+        <activity android:name=".Inward.InwardEntrySaleOrder" />
         <activity android:name=".Admin.user.AdminAddUser" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".InwardEntryPart2" />
+        <activity android:name=".Inward.InwardEntryWorkOrder" />
         <activity
-            android:name=".Admin.Admin"
+            android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Admin.Projector"
+            android:name=".Utils.Navigation.Projector"
             android:label="@string/title_activity_projector"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

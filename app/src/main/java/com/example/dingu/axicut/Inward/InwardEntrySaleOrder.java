@@ -1,22 +1,17 @@
-package com.example.dingu.axicut;
+package com.example.dingu.axicut.Inward;
 
 
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.SaleOrder;
 
 
 import java.text.SimpleDateFormat;
@@ -25,7 +20,7 @@ import java.util.Calendar;
 
 
 
-public class InwardEntry extends AppCompatActivity {
+public class InwardEntrySaleOrder extends AppCompatActivity {
 
     EditText dateText;
     EditText timeText;
@@ -68,7 +63,7 @@ public class InwardEntry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment();
-                cdp.show(InwardEntry.this.getSupportFragmentManager(), "Material Calendar Example");
+                cdp.show(InwardEntrySaleOrder.this.getSupportFragmentManager(), "Material Calendar Example");
                 cdp.setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
@@ -95,7 +90,7 @@ public class InwardEntry extends AppCompatActivity {
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(InwardEntry.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(InwardEntrySaleOrder.this, new TimePickerDialog.OnTimeSetListener() {
 
 
                     @Override
@@ -137,7 +132,7 @@ public class InwardEntry extends AppCompatActivity {
         newOrder.setDate(dateText.getText().toString());
         newOrder.setTime(timeText.getText().toString());
 
-        Intent intent  = new  Intent(getApplicationContext(),InwardEntryPart2.class);
+        Intent intent  = new  Intent(getApplicationContext(),InwardEntryWorkOrder.class);
         intent.putExtra("SaleOrder",newOrder);
         startActivity(intent);
 
