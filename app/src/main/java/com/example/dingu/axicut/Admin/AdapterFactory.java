@@ -1,5 +1,7 @@
 package com.example.dingu.axicut.Admin;
 
+import android.view.View;
+
 import com.example.dingu.axicut.Admin.user.UserAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
@@ -8,12 +10,13 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
  */
 
 public abstract class AdapterFactory {
-    public static FirebaseRecyclerAdapter getAdapter(NavigationOptions option){
+    public static PlusClickerAdapter getPlusClickerAdapter(NavigationOptions option){
     switch (option){
         case USER:
-            return UserAdapter.getAdapter();
+            return new UserAdapter();
     }
-
         return null;
     }
+
+
 }

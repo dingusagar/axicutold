@@ -20,17 +20,21 @@ public class Projector extends AppCompatActivity {
     protected ProgressDialog progressDialog;
     protected RecyclerView recyclerView;
     protected FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private PlusClickerAdapter plusClickerAdapter;
+    NavigationOptions option;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proj);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        option=(NavigationOptions)getIntent().getSerializableExtra("Adapter");
         progressDialog = new ProgressDialog(this);
         recyclerView = (RecyclerView)findViewById(R.id.projRecyclList);
-        firebaseRecyclerAdapter=AdapterFactory.getAdapter(NavigationOptions.USER);
+        plusClickerAdapter = AdapterFactory.getPlusClickerAdapter(option);
+        firebaseRecyclerAdapter=plusClickerAdapter.getAdapter();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(UserAdapter.onPlusClicked());
+        fab.setOnClickListener(plusClickerAdapter.onPlusClicked());
     }
 
     @Override

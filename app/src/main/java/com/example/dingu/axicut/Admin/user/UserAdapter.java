@@ -1,18 +1,15 @@
 package com.example.dingu.axicut.Admin.user;
 
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.VideoView;
 
 import com.example.dingu.axicut.Admin.AdminAddUser;
-import com.example.dingu.axicut.Admin.Projector;
+import com.example.dingu.axicut.Admin.PlusClickerAdapter;
+import com.example.dingu.axicut.Admin.PlusClickerAdapter;
 import com.example.dingu.axicut.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,10 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by grey-hat on 7/5/17.
  */
 
-public abstract class UserAdapter {
-    private static DatabaseReference databaseRef= FirebaseDatabase.getInstance().getReference().child("Users");
-    private static FirebaseRecyclerAdapter<User,UserViewHolder> userAdapter;
-    public static FirebaseRecyclerAdapter<User,UserViewHolder> getAdapter(){
+public class UserAdapter implements PlusClickerAdapter {
+    private DatabaseReference databaseRef= FirebaseDatabase.getInstance().getReference().child("Users");
+    private  FirebaseRecyclerAdapter<User,UserViewHolder> userAdapter;
+    public FirebaseRecyclerAdapter<User,UserViewHolder> getAdapter(){
         userAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(User.class, R.layout.user_card_view,UserViewHolder.class,databaseRef) {
             @Override
             protected void populateViewHolder(final UserViewHolder viewHolder, User model, int position) {
@@ -44,7 +41,7 @@ public abstract class UserAdapter {
         return userAdapter;
     }
 
-    public static View.OnClickListener onPlusClicked(){
+    public View.OnClickListener onPlusClicked(){
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

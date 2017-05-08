@@ -94,6 +94,7 @@ public class Admin extends AppCompatActivity
         switch (id){
             case R.id.nav_users:
                 Intent intent = new Intent(this,Projector.class);
+                intent.putExtra("Adapter",NavigationOptions.USER);
                 startActivity(intent);
                 break;
         }
