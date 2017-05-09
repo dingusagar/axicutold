@@ -28,7 +28,7 @@
         <activity
             android:name=".Utils.Navigation.Projector"
             android:label="@string/title_activity_projector"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

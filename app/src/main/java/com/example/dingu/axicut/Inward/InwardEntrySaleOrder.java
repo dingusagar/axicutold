@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.example.dingu.axicut.R;
@@ -22,12 +25,14 @@ import java.util.Calendar;
 
 public class InwardEntrySaleOrder extends AppCompatActivity {
 
-    EditText dateText;
-    EditText timeText;
-    EditText customerNameText , customerDCText,saleOrderNumberText;
+    TextView dateText;
+    TextView timeText;
+    TextView saleOrderNumberText;
+    Spinner customerDCNumber;
     SimpleDateFormat formatter;
     Calendar calendar;
-    Button createWorkOrderButton;
+    Button createWorkOrderButton ;
+    ImageButton dateButton , timeButton;
 
 
 
@@ -41,14 +46,16 @@ public class InwardEntrySaleOrder extends AppCompatActivity {
 
 
 
-        dateText = (EditText) findViewById(R.id.date);
-        timeText = (EditText) findViewById(R.id.time);
+        dateText = (TextView) findViewById(R.id.dateText);
+        timeText = (TextView) findViewById(R.id.timeText);
 
-        customerNameText = (EditText)findViewById(R.id.customerName);
-        customerDCText = (EditText)findViewById(R.id.customerDC);
-        saleOrderNumberText = (EditText)findViewById(R.id.saleOrder);
+        dateButton = (ImageButton)findViewById(R.id.dateButton) ;
+        timeButton = (ImageButton)findViewById(R.id.timeButton) ;
 
-        createWorkOrderButton = (Button)findViewById(R.id.createWO);
+        customerDCNumber = (Spinner) findViewById(R.id.customerDC);
+        saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
+
+        createWorkOrderButton = (Button)findViewById(R.id.addWorkOrders);
         createWorkOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +66,7 @@ public class InwardEntrySaleOrder extends AppCompatActivity {
 
 
         // setting up date picker
-        dateText.setOnClickListener(new View.OnClickListener() {
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment();
@@ -84,7 +91,7 @@ public class InwardEntrySaleOrder extends AppCompatActivity {
 
 
         // setting up time picker
-        timeText.setOnClickListener(new View.OnClickListener() {
+        timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -127,8 +134,8 @@ public class InwardEntrySaleOrder extends AppCompatActivity {
         final SaleOrder newOrder = new SaleOrder();
 
         newOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
-        newOrder.setCustomerDCNumber(customerDCText.getText().toString());
-        newOrder.setCustomerName(customerNameText.getText().toString());
+        newOrder.setCustomerDCNumber(customerDCNumber.getSelectedItem().toString());
+        newOrder.setCustomerName("");
         newOrder.setDate(dateText.getText().toString());
         newOrder.setTime(timeText.getText().toString());
 
