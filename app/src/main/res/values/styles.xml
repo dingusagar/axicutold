@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="myTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen"></style>
+    <style name="myTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen"/>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -18,4 +18,12 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:fontFamily">casual</item>
+
+    </style>
 </resources>
