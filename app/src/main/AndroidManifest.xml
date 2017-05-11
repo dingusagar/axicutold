@@ -27,8 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Utils.Navigation.Projector"
-            android:label="@string/title_activity_projector"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_projector" />
         <activity
             android:name=".Inward.InwardAddEditSaleOrder"
             android:label="@string/title_activity_inward_main"
