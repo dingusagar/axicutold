@@ -1,10 +1,12 @@
 package com.example.dingu.axicut;
 
+import java.io.Serializable;
+
 /**
  * Created by dingu on 6/5/17.
  */
 
-public class WorkOrder {
+public class WorkOrder implements Serializable{
     private int WorkOrderNumber;
     private String MaterialType;
     private String LotNumber;
@@ -83,6 +85,6 @@ public class WorkOrder {
     @Override
     public String toString() // for debugging
     {
-        return ("\n[" + getWorkOrderNumber() + "   " + getLotNumber() + " " );
+        return ("\n[" + getWorkOrderNumber() + "   " + getLotNumber() + "  ]" );
     }
 }

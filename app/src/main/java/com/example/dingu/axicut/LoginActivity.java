@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardEntrySaleOrder;
+import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                        case INWARD:
                            // the user is inward type
                            Log.e("app", "inward identified");
-                           intent = new Intent(LoginActivity.this, InwardEntrySaleOrder.class);
+                           intent = new Intent(LoginActivity.this, InwardMainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                            startActivity(intent);
                            break;
