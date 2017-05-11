@@ -2,6 +2,7 @@ package com.example.dingu.axicut.Inward;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -144,12 +145,29 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             }
         });
 
+        confirmButton = (Button)findViewById(R.id.confirmButton);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (view.isEnabled()) {
+                    view.setEnabled(false);
+                }
+                UpdateSaleOrderObject();
+                UpdateWorkOrderObjectsFromListView();
+                writeBackOnDatabase();
+
+            }
+        });
+
 
         inwardAction = (InwardAction)getIntent().getSerializableExtra("InwardAction");
 
         if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
         {
             newSaleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
+            confirmButton.setEnabled(true);
+            confirmButton.setTextColor(Color.rgb(0,150,20));
         }
         else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
         {
@@ -166,6 +184,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     {
                         newSaleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
                         saleOrderNumberText.setText(newSaleOrder.getSaleOrderNumber());
+                        confirmButton.setEnabled(true);
+                        confirmButton.setTextColor(Color.rgb(0,150,20));
                     }
                 }
 
@@ -182,17 +202,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
 
 
-        confirmButton = (Button)findViewById(R.id.confirmButton);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                UpdateSaleOrderObject();
-                UpdateWorkOrderObjectsFromListView();
-                writeBackOnDatabase();
-
-            }
-        });
 
     }
 
@@ -309,11 +319,11 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         dbRefOrders.child(newSaleOrder.getSaleOrderNumber()).setValue(newSaleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-            dbRefUtils.child("LastSaleOrderNumber").setValue(newSaleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
+                dbRefUtils.child("LastSaleOrderNumber").setValue(newSaleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
-                    goBackToPreviousActivity.start();
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -322,6 +332,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                 }
             });
+                Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+                goBackToPreviousActivity.start();
 
 
             }
@@ -404,7 +416,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                Thread.sleep(3500); // As I am using LENGTH_LONG in Toast
+                Thread.sleep(3000); // As I am using LENGTH_LONG in Toast
                 InwardAddEditSaleOrder.this.finish();
             } catch (Exception e) {
                 e.printStackTrace();

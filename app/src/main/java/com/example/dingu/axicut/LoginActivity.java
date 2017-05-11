@@ -66,6 +66,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        if(mAuth.getCurrentUser() != null)
+        {
+            getUserMode();
+        }
+
 
 
     }

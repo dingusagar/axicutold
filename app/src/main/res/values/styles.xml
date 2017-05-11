@@ -15,9 +15,21 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.LoginTheme"  >
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="colorAccent">#33ccff</item>
+
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyActionBar" parent="@android:style/Widget.ActionBar">
+        <item name="android:background">#e9002633</item>
+    </style>
 
     <style name="MyTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/colorPrimaryDark</item>

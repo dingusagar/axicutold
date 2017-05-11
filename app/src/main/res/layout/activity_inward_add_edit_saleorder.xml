@@ -40,22 +40,7 @@
 
             <include layout="@layout/saleorder_details_linear"
                />
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
-            <!--<include layout="@layout/saleorder_details"></include>-->
 
-            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:src="@mipmap/steelbg"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:scaleType="fitXY"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="Click Me "/>&ndash;&gt;-->
-        <!--</LinearLayout>-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -77,7 +62,8 @@
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp" />
+                android:paddingRight="16dp"
+                android:paddingBottom="100dp"/>
 
 
         </android.support.v4.widget.NestedScrollView>
@@ -102,6 +88,7 @@
         android:layout_height="wrap_content"
         android:text="Confirm Entry"
         android:id="@+id/confirmButton"
+        android:enabled="false"
         android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
