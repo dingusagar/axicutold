@@ -8,8 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/lasercut"
-    android:alpha="0.76"
+    android:background="@drawable/loginbg"
     tools:context="com.example.dingu.axicut.LoginActivity">
 
     <RelativeLayout
@@ -28,22 +27,23 @@
         android:textAlignment="center"
         android:textColorHint="#ffffff"
         >
+
         <EditText
             android:id="@+id/email"
+            style="@style/MyTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textSize="27sp"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:hint="Email"
-            android:fontFamily="cursive"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
             android:includeFontPadding="false"
+            android:inputType="textEmailAddress"
             android:padding="5dp"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Holo.Large"
-            android:layout_alignParentLeft="true" />
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -67,22 +67,22 @@
         android:layout_marginBottom="8dp"
         android:textColorHint="#ffffff"
         >
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="cursive"
-        android:textSize="27sp"
-        android:layout_marginTop="5dp"
-        android:hint="Password"
-        android:inputType="text"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:includeFontPadding="false"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:layout_alignParentLeft="true"/>
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/MyTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:hint="Password"
+            android:includeFontPadding="false"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            android:textColor="#ffffff"
+            android:textSize="24sp" />
     </android.support.design.widget.TextInputLayout>
 
 

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dingu.axicut.Admin.PlusClickerAdapter;
+import com.example.dingu.axicut.Utils.Navigation.CustomAdapterHolder;
 import com.example.dingu.axicut.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by grey-hat on 7/5/17.
  */
 
-public class UserAdapter implements PlusClickerAdapter {
+public class UserAdapterHolder implements CustomAdapterHolder {
     private DatabaseReference databaseRef= FirebaseDatabase.getInstance().getReference().child("Users");
     private  FirebaseRecyclerAdapter<User,UserViewHolder> userAdapter;
     public FirebaseRecyclerAdapter<User,UserViewHolder> getAdapter(){

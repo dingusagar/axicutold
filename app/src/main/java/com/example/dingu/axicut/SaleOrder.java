@@ -1,7 +1,11 @@
 package com.example.dingu.axicut;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by dingu on 6/5/17.
@@ -9,66 +13,67 @@ import java.util.ArrayList;
 
 public class SaleOrder implements Serializable{
 
-    private String SaleOrderNumber;
-    private String Date;
-    private String Time;
-    private String CustomerName;
-    private String CustomerDCNumber;
+    private String saleOrderNumber;
+    private String date;
+    private String time;
+    private String customerName;
+    private String customerDCNumber;
     private  ArrayList<WorkOrder> workOrders;
 
     public SaleOrder(String saleOrderNumber, String date, String time, String customerName, String customerDCNumber) {
-        SaleOrderNumber = saleOrderNumber;
-        Date = date;
-        Time = time;
-        CustomerName = customerName;
-        CustomerDCNumber = customerDCNumber;
+        this.saleOrderNumber = saleOrderNumber;
+        this.date = date;
+        this.time = time;
+        this.customerName = customerName;
+        this.customerDCNumber = customerDCNumber;
         workOrders = new ArrayList<>();
     }
     public SaleOrder()
     {
         workOrders = new ArrayList<>();
+
     }
 
 
 
     public String getSaleOrderNumber() {
-        return SaleOrderNumber;
+        return saleOrderNumber;
     }
 
     public void setSaleOrderNumber(String saleOrderNumber) {
-        SaleOrderNumber = saleOrderNumber;
+        this.saleOrderNumber = saleOrderNumber;
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
     }
 
     public String getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.time = time;
     }
 
     public String getCustomerName() {
-        return CustomerName;
+        return customerName;
     }
 
     public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+        this.customerName = customerName;
     }
 
     public String getCustomerDCNumber() {
-        return CustomerDCNumber;
+        return customerDCNumber;
     }
 
     public void setCustomerDCNumber(String customerDCNumber) {
-        CustomerDCNumber = customerDCNumber;
+        this.customerDCNumber = customerDCNumber;
     }
 
     public ArrayList<WorkOrder> getWorkOrders() {
@@ -80,6 +85,37 @@ public class SaleOrder implements Serializable{
     }
 
 
+
+    public void invalidateSaleOrderNumber(Long serverTimeStamp , String lastSalerOrderNumber)
+    {
+        String newSONumber;
+        Log.e("App"," Fun timeStamp : " + serverTimeStamp);
+        SimpleDateFormat yearFormater = new SimpleDateFormat("yy");
+        SimpleDateFormat monthFormater = new SimpleDateFormat("MM");
+
+        String serverYear = yearFormater.format(new Date(serverTimeStamp));
+        String serverMonth = monthFormater.format(new Date(serverTimeStamp));
+
+
+        // date of last sale order
+        String last_SO_Month = lastSalerOrderNumber.substring(4,6);
+        String last_SO_Year = lastSalerOrderNumber.substring(2,4);
+
+        if(serverMonth.equals(last_SO_Month) && serverYear.equals(last_SO_Year)) // last sale order was made today
+        {
+            String SO_lastSegment = lastSalerOrderNumber.substring(6,9);
+            int newNumber = Integer.parseInt(SO_lastSegment)+1;
+            newSONumber = "SO"+last_SO_Year+last_SO_Month + String.format("%03d",newNumber); // formatting so that 1 is expressed as 001
+        }
+        else
+        {
+            newSONumber = "SO"+serverYear+serverMonth + "000";
+        }
+
+        this.setSaleOrderNumber(newSONumber);
+
+
+    }
 
 
 

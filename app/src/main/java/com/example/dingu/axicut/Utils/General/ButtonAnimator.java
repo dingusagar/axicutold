@@ -1,4 +1,4 @@
-package com.example.dingu.axicut;
+package com.example.dingu.axicut.Utils.General;
 
 import android.graphics.PorterDuff;
 import android.view.MotionEvent;

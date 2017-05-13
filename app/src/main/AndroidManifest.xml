@@ -9,26 +9,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/myTheme">
+            android:name=".LoginActivity"
+           android:theme="@style/AppTheme.LoginTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InwardEntry" />
         <activity android:name=".Admin.user.AdminAddUser" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".InwardEntryPart2" />
+        <activity android:name=".Inward.InwardMainActivity" />
+        <activity android:name=".MainActivity" />
         <activity
-            android:name=".Admin.Admin"
+            android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Admin.Projector"
-            android:label="@string/title_activity_projector"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".Utils.Navigation.Projector"
+            android:label="@string/title_activity_projector" />
+        <activity
+            android:name=".Inward.InwardAddEditSaleOrder"
+            android:label="@string/title_activity_inward_main"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
