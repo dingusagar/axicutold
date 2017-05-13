@@ -93,12 +93,16 @@ public class InwardMainActivity extends AppCompatActivity {
                         intent.putExtra("SaleOrder",model);
                         intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
                         startActivity(intent);
+
                     }
                 });
             }
         };
 
+
+
         saleOrderList.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.notifyDataSetChanged();
     }
 
 
