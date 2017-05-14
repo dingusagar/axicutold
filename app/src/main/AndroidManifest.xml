@@ -32,7 +32,8 @@
             android:name=".Inward.InwardAddEditSaleOrder"
             android:label="@string/title_activity_inward_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Admin.Company.AdminAddCompany"></activity>
+        <activity android:name=".Admin.Company.AdminAddCompany" />
+        <activity android:name=".Admin.Materials.AdminAddMaterials"></activity>
     </application>
 
 </manifest>

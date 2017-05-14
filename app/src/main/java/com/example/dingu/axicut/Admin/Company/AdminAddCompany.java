@@ -39,5 +39,6 @@ public class AdminAddCompany extends AppCompatActivity {
         final Company company = new Company(companyName,companyId);
         if(companyName!=null && companyId !=null)
         dbRef.push().setValue(company);
+        onBackPressed();
     }
 }

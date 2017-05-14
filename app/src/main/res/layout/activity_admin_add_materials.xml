@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dingu.axicut.Admin.Materials.AdminAddMaterials">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/MaterialName"
+        android:inputType="text"
+        android:layout_above="@+id/CenterRef"
+        android:hint="Material name"
+        android:textAlignment="center"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CenterRef"
+        android:layout_centerInParent="true">
+    </RelativeLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_below="@+id/CenterRef"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/MaterialId"
+        android:hint="Material id"
+        android:textAlignment="center"/>
+    <Button
+        android:text="Add Material"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddMaterial"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
