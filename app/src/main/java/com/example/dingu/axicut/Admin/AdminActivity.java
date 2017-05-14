@@ -92,13 +92,19 @@ public class AdminActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent intent;
         switch (id){
             case R.id.nav_users:
-                Intent intent = new Intent(this,Projector.class);
+                intent = new Intent(this,Projector.class);
                 intent.putExtra("Adapter", NavigationOptions.USER);
                 startActivity(intent);
                 break;
+            case R.id.nav_company:
+                intent = new Intent(this,Projector.class);
+                intent.putExtra("Adapter", NavigationOptions.COMPANY);
+                startActivity(intent);
+                break;
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
