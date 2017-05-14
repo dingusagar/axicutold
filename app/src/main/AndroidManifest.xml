@@ -26,6 +26,7 @@
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:theme="@style/AppTheme.NoActionBar"
             android:name=".Utils.Navigation.Projector"
             android:label="@string/title_activity_projector" />
         <activity
