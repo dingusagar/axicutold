@@ -89,6 +89,8 @@
         android:text="Confirm Entry"
         android:id="@+id/confirmButton"
         android:enabled="false"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/button_disabled_text_color"
         android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 

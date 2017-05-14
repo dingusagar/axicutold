@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
 
-        ButtonAnimator.buttonEffect(loginButton); // onClick animation defined in ButtonAnimator Class
+        ButtonAnimator.setEffect(loginButton, ButtonAnimator.Effects.SIMPLE_ON_TOUCH_GREY); // onClick animation defined in ButtonAnimator Class
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

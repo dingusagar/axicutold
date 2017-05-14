@@ -2,10 +2,14 @@ package com.example.dingu.axicut.Inward;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,7 +64,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     Calendar calendar;
     ImageButton dateButton , timeButton;
 
-
+    Vibrator vibrator;
+    int VIBRATE_DURATION = 100;
 
 
     InwardAction inwardAction;
@@ -145,17 +151,38 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             }
         });
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         confirmButton = (Button)findViewById(R.id.confirmButton);
+        ButtonAnimator.setEffect(confirmButton, ButtonAnimator.Effects.REVERSE_BACKGROUND_FOREGROUND);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (view.isEnabled()) {
-                    view.setEnabled(false);
-                }
-                UpdateSaleOrderObject();
-                UpdateWorkOrderObjectsFromListView();
-                writeBackOnDatabase();
+                vibrator.vibrate(VIBRATE_DURATION);
+                final Button button = (Button)view;
+                new AlertDialog.Builder(InwardAddEditSaleOrder.this)
+                        .setTitle("Confirm Entry")
+                        .setMessage("Do you want to save the changes ?")
+                        .setIcon(R.mipmap.db_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//
+                                if (button.isEnabled()) {
+                                    button.setEnabled(false);
+                                    button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_disabled_text_color));
+                                }
+                                UpdateSaleOrderObject();
+                                UpdateWorkOrderObjectsFromListView();
+                                writeBackOnDatabase();
+                            }})
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
+                            }
+                        }).show();
+
 
             }
         });
@@ -167,7 +194,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         {
             newSaleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
             confirmButton.setEnabled(true);
-            confirmButton.setTextColor(Color.rgb(0,150,20));
+            confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
         }
         else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
         {
@@ -185,7 +212,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                         newSaleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
                         saleOrderNumberText.setText(newSaleOrder.getSaleOrderNumber());
                         confirmButton.setEnabled(true);
-                        confirmButton.setTextColor(Color.rgb(0,150,20));
+                        confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
                     }
                 }
 
@@ -198,10 +225,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         }
 
         InvalidateViews(inwardAction); // put existing stuffs accross different views based on InwardACtion
-
-
-
-
 
 
     }
@@ -377,6 +400,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 WorkOrder w = WOrdersList.get(i);
                 addItem();
                 View view = mContainerView.getChildAt(0);
+
 
                 Spinner sp = (Spinner)view.findViewById(R.id.materialSpinner);
                 sp.setSelection( ( (ArrayAdapter) sp.getAdapter()).getPosition(w.getMaterialType()) );
