@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         progressMessage = (TextView)findViewById(R.id.progressMessage);
 
         mAuth = FirebaseAuth.getInstance();
-        mdatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mdatabaseUsers = MyDatabase.getDatabase().getInstance().getReference().child("Users");
+        mdatabaseUsers.keepSynced(true);
 
 
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,7 +53,8 @@ public class InwardMainActivity extends AppCompatActivity {
             }
         });
 
-        myDBRef = FirebaseDatabase.getInstance().getReference("Orders");
+        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
+        myDBRef.keepSynced(true);
 
         saleOrderList = (RecyclerView)findViewById(R.id.InwardRecyclerList);
         saleOrderList.setHasFixedSize(true);
@@ -105,6 +107,7 @@ public class InwardMainActivity extends AppCompatActivity {
 
 
         saleOrderList.setAdapter(firebaseRecyclerAdapter);
+
         firebaseRecyclerAdapter.notifyDataSetChanged();
     }
 
