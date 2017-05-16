@@ -15,6 +15,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Inward">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
     <style name="AppTheme.LoginTheme"  >
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
