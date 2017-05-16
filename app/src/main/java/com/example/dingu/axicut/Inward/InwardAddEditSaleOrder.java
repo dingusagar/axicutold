@@ -355,13 +355,26 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         progress.setMessage("Adding new Sale Order...");
         progress.show();
-        dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
-                dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        if(saleOrder.isValidSaleOrderNumber())
+        {
+            dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
+                        dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+                    goBackToPreviousActivity.start();
 
 
                 }
@@ -371,17 +384,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                 }
             });
-                Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
-                goBackToPreviousActivity.start();
+        }else
+            Toast.makeText(getApplicationContext(),"Opps : Invalid SaleOrder Number ",Toast.LENGTH_LONG).show();
 
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-            }
-        });
         progress.dismiss();
 
     }

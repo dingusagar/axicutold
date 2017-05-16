@@ -20,6 +20,8 @@ public class SaleOrder implements Serializable{
     private String customerDCNumber;
     private  ArrayList<WorkOrder> workOrders;
 
+    private final static int SALE_ORDER_NUM_LENGTH = 9;
+
     public SaleOrder(String saleOrderNumber, String date, String time, String customerName, String customerDCNumber) {
         this.saleOrderNumber = saleOrderNumber;
         this.date = date;
@@ -116,6 +118,19 @@ public class SaleOrder implements Serializable{
 
 
     }
+
+    public boolean isValidSaleOrderNumber()
+    {
+        String saleorderNumber = getSaleOrderNumber();
+
+        if(saleorderNumber.length() == SALE_ORDER_NUM_LENGTH && saleorderNumber.startsWith("SO"))
+            return true;
+        else
+            return false;
+
+    }
+
+
 
 
 
