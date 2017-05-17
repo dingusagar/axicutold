@@ -99,10 +99,18 @@ public class AdminActivity extends AppCompatActivity
         int id = item.getItemId();
 
         Intent intent;
+        intent = new Intent(this,Projector.class);
         switch (id){
             case R.id.nav_users:
-                intent = new Intent(this,Projector.class);
                 intent.putExtra("Adapter", NavigationOptions.USER);
+                startActivity(intent);
+                break;
+            case R.id.nav_company:
+                intent.putExtra("Adapter", NavigationOptions.COMPANY);
+                startActivity(intent);
+                break;
+            case R.id.nav_materials:
+                intent.putExtra("Adapter", NavigationOptions.MATERIALS);
                 startActivity(intent);
                 break;
             case R.id.nav_logout:
@@ -111,8 +119,9 @@ public class AdminActivity extends AppCompatActivity
                 startActivity(intent);
                 finish();
                 break;
-        }
 
+        }
+        
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

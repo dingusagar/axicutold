@@ -30,6 +30,7 @@ public class UserAdapterHolder implements CustomAdapterHolder {
                     @Override
                     public void onClick(View v) {
                         getRef(viewHolder.getAdapterPosition()).removeValue();
+                        notifyDataSetChanged();
                     }
                 });
             }
