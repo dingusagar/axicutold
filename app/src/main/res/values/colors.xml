@@ -8,4 +8,7 @@
     <color name="loginText">#eceef2</color>
     <color name="list_header">#2a45a4</color>
     <color name="light_text_color">#cfecf2b3</color>
+    <color name="button_disabled_text_color">#81ffffff</color>
+    <color name="button_enabled_text_color">#ffffff</color>
+
 </resources>

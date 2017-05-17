@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by dingu on 10/5/17.
  */
 
-public class SaleOrderViewHolder extends RecyclerView.ViewHolder{
+public  class SaleOrderViewHolder extends RecyclerView.ViewHolder{
     View mview;
     TextView saleOrderText;
     TextView numOfWorkOrders;

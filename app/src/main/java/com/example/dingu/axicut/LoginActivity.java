@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
 
 
-    private ProgressDialog progress;
+    private ProgressBar progressBar;
+    private TextView progressMessage;
     UserMode userMode;
 
 
@@ -47,17 +51,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
-        mdatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressMessage = (TextView)findViewById(R.id.progressMessage);
 
-        progress = new ProgressDialog(this);
+        mAuth = FirebaseAuth.getInstance();
+        mdatabaseUsers = MyDatabase.getDatabase().getInstance().getReference().child("Users");
+        mdatabaseUsers.keepSynced(true);
+
+
 
         emailField = (EditText)findViewById(R.id.email);
         passwordField = (EditText)findViewById(R.id.password);
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
 
-        ButtonAnimator.buttonEffect(loginButton); // onClick animation defined in ButtonAnimator Class
+        ButtonAnimator.setEffect(loginButton, ButtonAnimator.Effects.SIMPLE_ON_TOUCH_GREY); // onClick animation defined in ButtonAnimator Class
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +74,30 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        progressMessage.setText("just a sec...");
         if(mAuth.getCurrentUser() != null)
         {
+            progressBar.setVisibility(View.VISIBLE);
+            progressMessage.setText("retrieving user details...");
+            emailField.setText(mAuth.getCurrentUser().getEmail());
             getUserMode();
+        }else //
+        {
+            progressBar.setVisibility(View.GONE);
+            progressMessage.setText("");
+
         }
-
-
-
     }
 
     private Boolean exit = false;
@@ -99,11 +124,14 @@ public class LoginActivity extends AppCompatActivity {
     private void checkAndLogin() {
         String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
-        progress.setMessage("Logging in ..");
+
+
 
         if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) //
         {
-            progress.show();
+            progressBar.setVisibility(View.VISIBLE);
+            progressMessage.setText("Logging in ...");
+
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,10 +145,12 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(LoginActivity.this,"Error Login : "+ e.toString(),Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    progressMessage.setText("");
                 }
             });
 
-            progress.dismiss();
+
 
         }
         else
@@ -132,8 +162,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getUserMode() {
         final String userID = mAuth.getCurrentUser().getUid();
-        progress.setMessage("Verifying user..");
-        progress.show();
+
+        progressBar.setVisibility(View.VISIBLE);
+        progressMessage.setText("Verifiying User...");
+
         mdatabaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -141,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                if(dataSnapshot.hasChild(userID)) { // only if the user is present in the db
                    // getting the string userMode in DB to enum userMode
                    userMode = UserMode.valueOf(dataSnapshot.child(userID).child("userMode").getValue().toString());
-                   Log.e("app", "user mode = " + userMode);
+
                    Intent intent;
                    switch (userMode) {
                        case INWARD:
@@ -170,7 +202,9 @@ public class LoginActivity extends AppCompatActivity {
                            // the user is despatch type
                            break;
 
+
                    }
+                   finish();
                }else
                    Toast.makeText(LoginActivity.this,"User was not found in database..Contact Admin",Toast.LENGTH_SHORT).show();
 
@@ -179,10 +213,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                progressMessage.setText("");
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(LoginActivity.this,"DB Error : "+databaseError,Toast.LENGTH_SHORT).show();
             }
         });
-        progress.dismiss();
+
 
     }
 

@@ -15,14 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.Navigation.NavigationOptions;
 import com.example.dingu.axicut.Utils.Navigation.Projector;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private TextView headerText;
         private TextView headerId;
+
+        private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class AdminActivity extends AppCompatActivity
             }
         });
 
+        auth = FirebaseAuth.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,20 +97,31 @@ public class AdminActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Intent intent=new Intent(this,Projector.class);
+
+        Intent intent;
+        intent = new Intent(this,Projector.class);
         switch (id){
             case R.id.nav_users:
                 intent.putExtra("Adapter", NavigationOptions.USER);
+                startActivity(intent);
                 break;
             case R.id.nav_company:
                 intent.putExtra("Adapter", NavigationOptions.COMPANY);
+                startActivity(intent);
                 break;
             case R.id.nav_materials:
                 intent.putExtra("Adapter", NavigationOptions.MATERIALS);
+                startActivity(intent);
+                break;
+            case R.id.nav_logout:
+                auth.signOut();
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
         }
-        startActivity(intent);
+        
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

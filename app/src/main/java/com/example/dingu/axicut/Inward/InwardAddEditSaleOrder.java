@@ -2,10 +2,14 @@ package com.example.dingu.axicut.Inward;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +29,8 @@ import android.widget.Toast;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +51,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     ViewGroup mContainerView;
     ArrayList<WorkOrder> workOrders;
     Button confirmButton;
-    SaleOrder newSaleOrder;
+    SaleOrder saleOrder;
     ProgressDialog progress;
     DatabaseReference dbRefOrders; // database reference to all orders
     DatabaseReference dbRefUtils ;//  reference to utilities in database like lastsaleOrderNumber , Server.TimeStamp
@@ -59,9 +65,10 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     Calendar calendar;
     ImageButton dateButton , timeButton;
 
+    Vibrator vibrator;
+    int VIBRATE_DURATION = 100;
 
-
-
+    TextView workOrderListEmptyMessage;
     InwardAction inwardAction;
 
     @Override
@@ -74,24 +81,18 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         progress = new ProgressDialog(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                addItem(); // adds a workorder view
-            }
-        });
-
+        calendar = Calendar.getInstance();
 
         // acts as list view
         mContainerView = (ViewGroup) findViewById(R.id.container);
-        workOrders = new ArrayList<>(); // temporary Arraylist of WorkOrders which will finally be written into newSaleOrder's Arraylist in FillWorkList() method
+        workOrderListEmptyMessage = (TextView) findViewById(R.id.list_empty_message);
+
+        workOrders = new ArrayList<>(); // temporary Arraylist of WorkOrders which will finally be written into saleOrder's Arraylist in FillWorkList() method
 
         // db references
-        dbRefOrders = FirebaseDatabase.getInstance().getReference().child("Orders");
-        dbRefUtils = FirebaseDatabase.getInstance().getReference().child("Utils");
+        dbRefOrders = MyDatabase.getDatabase().getInstance().getReference().child("Orders");
+        dbRefUtils = MyDatabase.getDatabase().getInstance().getReference().child("Utils");
+
 
         // sale order header view
         dateText = (TextView) findViewById(R.id.dateText);
@@ -114,11 +115,10 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                             formatter = new SimpleDateFormat("dd/MM/yyyy");
                             String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                             Date date = formatter.parse(dateInString);
-
                             dateText.setText(formatter.format(date).toString());
 
                         } catch (Exception ex) {
-                            dateText.setText(ex.getMessage().toString());
+                           displayError(ex);
                         }
                     }
                 });
@@ -139,138 +139,156 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1) {
                         timeText.setText( i + ":" + i1);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, false);// 12 hour time is displayed , but stored as 24 hour clock time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }
         });
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         confirmButton = (Button)findViewById(R.id.confirmButton);
+        ButtonAnimator.setEffect(confirmButton, ButtonAnimator.Effects.REVERSE_BACKGROUND_FOREGROUND);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (view.isEnabled()) {
-                    view.setEnabled(false);
-                }
-                UpdateSaleOrderObject();
-                UpdateWorkOrderObjectsFromListView();
-                writeBackOnDatabase();
-
+                confirmButtonAction(view);
             }
         });
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                workOrderListEmptyMessage.setVisibility(View.GONE);
+                addNewWorkOrderView();
+            }
+        });
+
 
 
         inwardAction = (InwardAction)getIntent().getSerializableExtra("InwardAction");
 
         if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
         {
-            newSaleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
+            saleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
             confirmButton.setEnabled(true);
-            confirmButton.setTextColor(Color.rgb(0,150,20));
+            confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
         }
         else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
         {
-            newSaleOrder = new SaleOrder();
-
-            dbRefUtils.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);
-            dbRefUtils.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Long serverTimeStamp = (Long) dataSnapshot.child("ServerTimeStamp").getValue();
-                    String lastSaleOrderNumber = (String) dataSnapshot.child("LastSaleOrderNumber").getValue();
-
-                    if(serverTimeStamp != null && lastSaleOrderNumber != null)
-                    {
-                        newSaleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
-                        saleOrderNumberText.setText(newSaleOrder.getSaleOrderNumber());
-                        confirmButton.setEnabled(true);
-                        confirmButton.setTextColor(Color.rgb(0,150,20));
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
+            saleOrder = setUpNewSaleOrder();  // this will take care of the valid saleOrder number
         }
 
         InvalidateViews(inwardAction); // put existing stuffs accross different views based on InwardACtion
 
-
-
-
+        if(mContainerView.getChildCount() == 0)
+            workOrderListEmptyMessage.setVisibility(View.VISIBLE);
 
 
     }
 
+    private void confirmButtonAction(View view) {
+        vibrator.vibrate(VIBRATE_DURATION);
+        final Button button = (Button)view;
+        new AlertDialog.Builder(InwardAddEditSaleOrder.this)
+                .setTitle("Confirm Entry")
+                .setMessage("Do you want to save the changes ?")
+                .setIcon(R.mipmap.db_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inward_entry_work_orders, menu);
-        return true;
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//
+                        if (button.isEnabled()) {
+                            button.setEnabled(false);
+                            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_disabled_text_color));
+                        }
+                        UpdateSaleOrderObject();
+                        UpdateWorkOrderObjectsFromListView();
+                        writeBackOnDatabase();
+                    }})
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
+                    }
+                }).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private SaleOrder setUpNewSaleOrder() {
+        saleOrder = new SaleOrder();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        dbRefUtils.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);
+        dbRefUtils.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Long serverTimeStamp = (Long) dataSnapshot.child("ServerTimeStamp").getValue();
+                String lastSaleOrderNumber = (String) dataSnapshot.child("LastSaleOrderNumber").getValue();
+
+                if(serverTimeStamp != null && lastSaleOrderNumber != null)
+                {
+                    saleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
+                    saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
+                    confirmButton.setEnabled(true);
+                    confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return saleOrder;
+
     }
 
-    private void addItem() {
-        // Instantiate a new "row" view.
-        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(
+    private void displayError(Exception e) {
+        Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+    }
+
+
+    private void addNewWorkOrderView() {
+
+        final ViewGroup newWorkOrderView = (ViewGroup) LayoutInflater.from(this).inflate(
                 R.layout.workorder_list_item, mContainerView, false);
 
-        TextView tv = (TextView)newView.findViewById(R.id.workOrderNo);
+        TextView tv = (TextView)newWorkOrderView.findViewById(R.id.workOrderNo);
         tv.setText("W"+(mContainerView.getChildCount()+1));
 
         // Set a click listener for the "X" button in the row that will remove the row.
-        newView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
+        newWorkOrderView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Remove the row from its parent (the container view).
                 // Because mContainerView has android:animateLayoutChanges set to true,
                 // this removal is automatically animated.
 
-                int pos = mContainerView.indexOfChild(newView);
-
-                mContainerView.removeView(newView);
+                mContainerView.removeView(newWorkOrderView);
                 correctWorkOrderNumbers();
 
-                // If there are no rows remaining, show the empty view.
-//                if (mContainerView.getChildCount() == 0) {
-//                    findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
-//                }
+                // If there are no rows remaining, show the empty textview message.
+                if (mContainerView.getChildCount() == 0) {
+                    workOrderListEmptyMessage.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         // Because mContainerView has android:animateLayoutChanges set to true,
         // adding this view is automatically animated.
-        mContainerView.addView(newView, 0);
+        mContainerView.addView(newWorkOrderView, 0);
     }
 
 
 
     public void UpdateSaleOrderObject()
     {
-        newSaleOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
-        newSaleOrder.setCustomerDCNumber(customerDCNumber.getSelectedItem().toString());
-        newSaleOrder.setCustomerName("");
-        newSaleOrder.setDate(dateText.getText().toString());
-        newSaleOrder.setTime(timeText.getText().toString());
+        saleOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
+        saleOrder.setCustomerDCNumber(customerDCNumber.getSelectedItem().toString());
+        saleOrder.setCustomerName("");
+        saleOrder.setDate(dateText.getText().toString());
+        saleOrder.setTime(timeText.getText().toString());
     }
 
     public void UpdateWorkOrderObjectsFromListView() // getting data from UI to a local arraylist called workorders
@@ -303,7 +321,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             workOrders.add(workOrder);  // adding to local workOrders List
         }
 
-        newSaleOrder.setWorkOrders(workOrders);  // coping the local list of workorders to original list in newSaleOrder
+        saleOrder.setWorkOrders(workOrders);  // coping the local list of workorders to original list in saleOrder
 
 
     }
@@ -316,13 +334,26 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         progress.setMessage("Adding new Sale Order...");
         progress.show();
-        dbRefOrders.child(newSaleOrder.getSaleOrderNumber()).setValue(newSaleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
-                dbRefUtils.child("LastSaleOrderNumber").setValue(newSaleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        if(saleOrder.isValidSaleOrderNumber())
+        {
+            dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
+                        dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+                    goBackToPreviousActivity.start();
 
 
                 }
@@ -332,17 +363,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                 }
             });
-                Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
-                goBackToPreviousActivity.start();
+        }else
+            Toast.makeText(getApplicationContext(),"Opps : Invalid SaleOrder Number ",Toast.LENGTH_LONG).show();
 
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-            }
-        });
         progress.dismiss();
 
     }
@@ -361,22 +384,24 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
     private void InvalidateViews(InwardAction inwardAction) {
 
+
         if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
         {
-            saleOrderNumberText.setText(newSaleOrder.getSaleOrderNumber());
-            customerDCNumber.setSelection( ( (ArrayAdapter) customerDCNumber.getAdapter()).getPosition(newSaleOrder.getCustomerDCNumber()) );
-            dateText.setText(newSaleOrder.getDate());
-            timeText.setText(newSaleOrder.getTime());
+            saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
+            customerDCNumber.setSelection( ( (ArrayAdapter) customerDCNumber.getAdapter()).getPosition(saleOrder.getCustomerDCNumber()) );
+            dateText.setText(saleOrder.getDate());
+            timeText.setText(saleOrder.getTime());
 
             //populating workorders
 
-           ArrayList<WorkOrder> WOrdersList = newSaleOrder.getWorkOrders();
+           ArrayList<WorkOrder> WOrdersList = saleOrder.getWorkOrders();
 
             for(int i = 0 ; i < WOrdersList.size() ; i++)
             {
                 WorkOrder w = WOrdersList.get(i);
-                addItem();
+                addNewWorkOrderView();
                 View view = mContainerView.getChildAt(0);
+
 
                 Spinner sp = (Spinner)view.findViewById(R.id.materialSpinner);
                 sp.setSelection( ( (ArrayAdapter) sp.getAdapter()).getPosition(w.getMaterialType()) );
@@ -400,9 +425,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             }
         }else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
         {
-            calendar = Calendar.getInstance();
+
             formatter = new SimpleDateFormat("dd/MM/yyyy");
-            dateText.setText(formatter.format(new Date()));  // sets the present date
+            dateText.setText(formatter.format(new Date()));
             formatter = new SimpleDateFormat("HH:mm");
             timeText.setText(formatter.format(new Date()));
         }

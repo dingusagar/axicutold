@@ -22,8 +22,8 @@ public class Projector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proj);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         option=(NavigationOptions)getIntent().getSerializableExtra("Adapter");
         progressDialog = new ProgressDialog(this);
         recyclerView = (RecyclerView)findViewById(R.id.projRecyclList);
