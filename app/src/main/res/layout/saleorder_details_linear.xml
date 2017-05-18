@@ -62,6 +62,7 @@
             android:id="@+id/customerDC"
             android:layout_width="206dp"
             android:layout_height="41dp"
+            
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="19dp"

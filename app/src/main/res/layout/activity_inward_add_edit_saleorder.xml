@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.dingu.axicut.Inward.InwardAddEditSaleOrder"
-    android:background="#f2b7b9">
+    android:background="@color/primary_light">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,8 +65,8 @@
               android:layout_height="match_parent"
               android:animateLayoutChanges="true"
               android:orientation="vertical"
-              android:paddingLeft="16dp"
-              android:paddingRight="16dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
               android:paddingBottom="100dp"/>
 
 
@@ -74,7 +74,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/list_empty_message"
-              style="@style/MyTextViewStyle"
+              style="@style/MyTextViewStyleSecondary"
               android:text="@string/work_order_list_empty_message"
               android:layout_gravity="center"
               android:textAlignment="center"

@@ -3,63 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_view_margin"
-    app:cardCornerRadius="@dimen/card_view_radius">
+    android:layout_margin="@dimen/card_view_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/MyTextViewStyle"
-                android:padding="@dimen/medium_font_padding"
-                android:text="     Sale Order :"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/saleOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/MyTextViewStyle"
-                android:padding="@dimen/medium_font_padding"
-                android:text="s000"
-                />
-        </LinearLayout>
-
+        android:padding="5dp"
+        android:background="@color/primary_light">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="@color/bpWhite">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/medium_font_padding"
-                android:text="Num of Work orders :"
-                style="@style/MyTextViewStyle"/>
 
-            <TextView
-                android:id="@+id/numOfWO"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/medium_font_padding"
-                android:text="w000"
-                style="@style/MyTextViewStyle" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyTextViewStylePrimary"
+                    android:padding="@dimen/medium_font_padding"
+                    android:text="     Sale Order :"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/saleOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyTextViewStylePrimary"
+                    android:padding="@dimen/medium_font_padding"
+                    android:text="s000"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium_font_padding"
+                    android:text="Num of Work orders :"
+                    style="@style/MyTextViewStyleSecondary"/>
+
+                <TextView
+                    android:id="@+id/numOfWO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium_font_padding"
+                    android:text="w000"
+                    style="@style/MyTextViewStyleSecondary" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
-
     </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

@@ -37,10 +37,18 @@
         <item name="android:background">#e9002633</item>
     </style>
 
-    <style name="MyTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+    <style name="MyTextViewStylePrimary" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/primary_text</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">casual</item>
+
+    </style>
+
+    <style name="MyTextViewStyleSecondary" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:fontFamily">casual</item>
 
     </style>

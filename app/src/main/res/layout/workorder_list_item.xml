@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="3dp"
-    android:layout_margin="@dimen/card_view_margin"
-    app:cardCornerRadius="@dimen/card_view_radius"
+    android:layout_marginTop="@dimen/card_view_margin"
     android:elevation="@dimen/card_view_elevation">
 
     <LinearLayout
@@ -54,7 +53,7 @@
                 android:id="@+id/delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="#c9ed0a0a"
+                android:background="@color/colorAccent"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:src="@mipmap/ic_close_white_24dp" />
@@ -171,12 +170,13 @@
             android:layout_marginTop="10dp" />
 
         <EditText
+            android:id="@+id/remark"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:inputType="textPersonName"
+            android:layout_weight="0.22"
             android:ems="10"
-            android:id="@+id/remark"
-            android:layout_weight="0.13" />
+            android:inputType="textMultiLine"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>
 

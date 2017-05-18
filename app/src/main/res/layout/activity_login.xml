@@ -30,7 +30,6 @@
 
         <EditText
             android:id="@+id/email"
-            style="@style/MyTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -69,7 +68,6 @@
 
         <EditText
             android:id="@+id/password"
-            style="@style/MyTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/CenterRef"

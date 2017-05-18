@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="greyColor">#c2c2c2</color>
-    <color name="linkColor">#1557d2</color>
+
+
+
+
+
+
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="primary_light">#B2DFDB</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+
     <color name="loginText">#eceef2</color>
-    <color name="list_header">#2a45a4</color>
+    <color name="list_header">@color/colorPrimaryDark</color>
     <color name="light_text_color">#cfecf2b3</color>
     <color name="button_disabled_text_color">#81ffffff</color>
     <color name="button_enabled_text_color">#ffffff</color>
 
 </resources>
+
+
+<!--<color name="colorPrimary">#9C27B0</color>-->
+<!--<color name="colorPrimaryDark">#7B1FA2</color>-->
+<!--<color name="primary_light">#E1BEE7</color>-->
+<!--<color name="colorAccent">#e40509</color>-->
+<!--<color name="primary_text">#212121</color>-->
+<!--<color name="secondary_text">#757575</color>-->
+<!--<color name="icons">#FFFFFF</color>-->
+<!--<color name="divider">#BDBDBD</color>-->
