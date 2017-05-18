@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,8 +33,10 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.WorkOrder;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +58,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     ProgressDialog progress;
     DatabaseReference dbRefOrders; // database reference to all orders
     DatabaseReference dbRefUtils ;//  reference to utilities in database like lastsaleOrderNumber , Server.TimeStamp
+
+    View parentLayout;
 
 
     TextView dateText;
@@ -79,6 +84,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        parentLayout = findViewById(R.id.parent_layout);
         progress = new ProgressDialog(this);
 
         calendar = Calendar.getInstance();
@@ -352,7 +358,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                             }
                         });
-                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
                     goBackToPreviousActivity.start();
 
 
@@ -362,11 +370,15 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                 }
+            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    progress.dismiss();
+                }
             });
         }else
             Toast.makeText(getApplicationContext(),"Opps : Invalid SaleOrder Number ",Toast.LENGTH_LONG).show();
 
-        progress.dismiss();
 
     }
 
