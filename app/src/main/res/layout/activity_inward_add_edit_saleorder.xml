@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_height="match_parent"
+<FrameLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.dingu.axicut.Inward.InwardAddEditSaleOrder"
-    android:background="@color/primary_light">
+    android:background="@color/grey_background">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/coordinator_layout"
         android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -53,6 +54,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.example.dingu.axicut.Inward.InwardAddEditSaleOrder"
+
             tools:showIn="@layout/activity_inward_add_edit_saleorder">
 
       <FrameLayout
@@ -75,6 +77,7 @@
               android:layout_height="match_parent"
               android:id="@+id/list_empty_message"
               style="@style/MyTextViewStyleSecondary"
+              android:textColor="@color/colorPrimaryDark"
               android:text="@string/work_order_list_empty_message"
               android:layout_gravity="center"
               android:textAlignment="center"
@@ -99,14 +102,21 @@
 
 </android.support.design.widget.CoordinatorLayout>
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm Entry"
-        android:id="@+id/confirmButton"
-        android:enabled="false"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/button_disabled_text_color"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Entry"
+            android:id="@+id/confirmButton"
+            android:enabled="false"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/primary_light"
+            android:layout_alignParentBottom="true"
+            />
+
     </RelativeLayout>
+
+    </FrameLayout>
 

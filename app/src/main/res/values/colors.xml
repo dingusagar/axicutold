@@ -16,6 +16,7 @@
     <color name="divider">#BDBDBD</color>
 
 
+    <color name="grey_background">#68636463</color>
     <color name="loginText">#eceef2</color>
     <color name="list_header">@color/colorPrimaryDark</color>
     <color name="light_text_color">#cfecf2b3</color>
