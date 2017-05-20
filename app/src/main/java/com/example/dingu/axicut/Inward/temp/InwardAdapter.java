@@ -1,18 +1,22 @@
 package com.example.dingu.axicut.Inward.temp;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dingu.axicut.Inward.InwardAction;
 import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -104,12 +108,14 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
         View mview;
         TextView saleOrderText;
         TextView numOfWorkOrders;
+        LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
             saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
+            linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
 
 
         }
