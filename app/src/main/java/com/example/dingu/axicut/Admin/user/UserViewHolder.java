@@ -38,6 +38,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
             case INWARD:
                 modeText = "Inward";
                 break;
+            case DESIGN:
+                modeText="Design";
+                break;
             case DESPATCH:
                 modeText="Despatch";
                 break;

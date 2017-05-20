@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Inward;
+package com.example.dingu.axicut.Design;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Inward.InwardAction;
+import com.example.dingu.axicut.Inward.InwardAdapter;
+import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
+import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -28,7 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-public class InwardMainActivity extends AppCompatActivity{
+public class DesignMainActivity extends AppCompatActivity {
 
     private DatabaseReference myDBRef;
     RecyclerView saleOrderRecyclerView;
@@ -36,7 +40,7 @@ public class InwardMainActivity extends AppCompatActivity{
     protected FloatingActionButton fab;
 
 
-    ArrayList <SaleOrder> saleOrderArrayList;
+    ArrayList<SaleOrder> saleOrderArrayList;
     InwardAdapter inwardAdapter;
 
 
@@ -44,14 +48,13 @@ public class InwardMainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inward_main);
+        setContentView(R.layout.activity_design_main);
 
         mAuth = FirebaseAuth.getInstance();
 
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
-        setupFabButton();
-        saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
+        saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
         saleOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,7 +63,7 @@ public class InwardMainActivity extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() == null)
                 {
-                    Intent intent = new Intent(InwardMainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(DesignMainActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
@@ -188,18 +191,6 @@ public class InwardMainActivity extends AppCompatActivity{
             }, 3 * 1000);
 
         }
-
-    }
-    public void setupFabButton(){
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder.class);
-                intent.putExtra("InwardAction",InwardAction.CREATE_NEW_SALE_ORDER);
-                startActivity(intent);
-            }
-        });
 
     }
 

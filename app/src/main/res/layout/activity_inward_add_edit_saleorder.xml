@@ -55,7 +55,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.example.dingu.axicut.Inward.InwardAddEditSaleOrder"
-
             tools:showIn="@layout/activity_inward_add_edit_saleorder">
 
       <FrameLayout

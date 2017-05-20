@@ -1,6 +1,7 @@
 package com.example.dingu.axicut;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by dingu on 6/5/17.
@@ -14,15 +15,23 @@ public class WorkOrder implements Serializable{
     private float Length;
     private float Breadth;
     private String InspectionRemark;
+    private Date layoutDate;
+    private String layoutName;
 
-    public WorkOrder(int workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
-        WorkOrderNumber = workOrderNumber;
-        MaterialType = materialType;
-        LotNumber = lotNumber;
-        Thickness = thickness;
-        Length = length;
-        Breadth = breadth;
-        InspectionRemark = inspectionRemark;
+    public Date getLayoutDate() {
+        return layoutDate;
+    }
+
+    public void setLayoutDate(Date layoutDate) {
+        this.layoutDate = layoutDate;
+    }
+
+    public String getLayoutName() {
+        return layoutName;
+    }
+
+    public void setLayoutName(String layoutName) {
+        this.layoutName = layoutName;
     }
     public WorkOrder(){}
 
