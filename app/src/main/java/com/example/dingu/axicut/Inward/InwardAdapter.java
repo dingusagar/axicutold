@@ -1,8 +1,6 @@
-package com.example.dingu.axicut.Inward.temp;
+package com.example.dingu.axicut.Inward;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +10,10 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.dingu.axicut.Inward.InwardAction;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /**
  * Created by dingu on 17/5/17.
