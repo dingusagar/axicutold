@@ -36,7 +36,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Admin.Company.AdminAddCompany" />
         <activity android:name=".Admin.Materials.AdminAddMaterials" />
-        <activity android:name=".Design.DesignMainActivity"></activity>
+        <activity android:name=".Design.DesignMainActivity" />
+        <activity android:name=".Design.DesignWorkOrder"></activity>
     </application>
 
 </manifest>

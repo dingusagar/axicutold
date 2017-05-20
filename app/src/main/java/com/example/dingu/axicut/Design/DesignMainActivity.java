@@ -41,7 +41,7 @@ public class DesignMainActivity extends AppCompatActivity {
 
 
     ArrayList<SaleOrder> saleOrderArrayList;
-    InwardAdapter inwardAdapter;
+    DesignAdapter designAdapter;
 
 
 
@@ -79,8 +79,8 @@ public class DesignMainActivity extends AppCompatActivity {
         super.onStart();
 
         saleOrderArrayList = new ArrayList<>();
-        inwardAdapter = new InwardAdapter(saleOrderArrayList);
-        saleOrderRecyclerView.setAdapter(inwardAdapter);
+        designAdapter = new DesignAdapter(saleOrderArrayList);
+        saleOrderRecyclerView.setAdapter(designAdapter);
 
         myDBRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -91,7 +91,7 @@ public class DesignMainActivity extends AppCompatActivity {
                     try{
                         SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
                         saleOrderArrayList.add(0,saleOrder);
-                        inwardAdapter.notifyDataSetChanged();
+                        designAdapter.notifyDataSetChanged();
                     }catch (Exception e)
                     {
                         Toast.makeText(getApplicationContext(), "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
@@ -152,7 +152,7 @@ public class DesignMainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                inwardAdapter.getFilter().filter(newText);
+                designAdapter.getFilter().filter(newText);
                 return true;
             }
         });
