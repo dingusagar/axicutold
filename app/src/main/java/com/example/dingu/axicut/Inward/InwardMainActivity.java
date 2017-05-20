@@ -22,7 +22,6 @@ import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +35,7 @@ public class InwardMainActivity extends AppCompatActivity {
     private DatabaseReference myDBRef;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
+
 
 
     ArrayList <SaleOrder> saleOrderArrayList;
