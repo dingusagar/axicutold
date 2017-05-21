@@ -22,14 +22,6 @@ public class SaleOrder implements Serializable{
 
     private final static int SALE_ORDER_NUM_LENGTH = 9;
 
-    public SaleOrder(String saleOrderNumber, String date, String time, String customerName, String customerDCNumber) {
-        this.saleOrderNumber = saleOrderNumber;
-        this.date = date;
-        this.time = time;
-        this.customerName = customerName;
-        this.customerDCNumber = customerDCNumber;
-        workOrders = new ArrayList<>();
-    }
     public SaleOrder()
     {
         workOrders = new ArrayList<>();

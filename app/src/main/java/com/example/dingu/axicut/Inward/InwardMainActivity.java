@@ -30,9 +30,10 @@ import java.util.ArrayList;
 
 public class InwardMainActivity extends AppCompatActivity {
 
-    private DatabaseReference myDBRef;
+    private DatabaseReference myDBRefOrders;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
+
 
 
 
@@ -57,8 +58,10 @@ public class InwardMainActivity extends AppCompatActivity {
             }
         });
 
-        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRef.keepSynced(true);
+        myDBRefOrders = MyDatabase.getDatabase().getInstance().getReference("Orders");
+        myDBRefOrders.keepSynced(true);
+
+        InwardUtilities.fetchDataFromDatabase();
 
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
@@ -70,7 +73,6 @@ public class InwardMainActivity extends AppCompatActivity {
                 if(firebaseAuth.getCurrentUser() == null)
                 {
                     Intent intent = new Intent(InwardMainActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }
@@ -88,7 +90,7 @@ public class InwardMainActivity extends AppCompatActivity {
         inwardAdapter = new InwardAdapter(saleOrderArrayList);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
-        myDBRef.addChildEventListener(new ChildEventListener() {
+        myDBRefOrders.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -199,4 +201,9 @@ public class InwardMainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
 }
