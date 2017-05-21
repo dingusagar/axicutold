@@ -1,5 +1,6 @@
 package com.example.dingu.axicut.Design;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -27,12 +28,12 @@ import static com.example.dingu.axicut.R.id.saleOrder;
  */
 
 public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder>{
-
+    private Context context;
     private ArrayList<WorkOrder> workOrderList;
 
-    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList) {
+    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList,Context context) {
         this.workOrderList=workOrderList;
-
+        this.context=context;
     }
 
     @Override
@@ -52,8 +53,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setSize1(String.valueOf(workOrder.getThickness()));
         holder.setSize2(String.valueOf(workOrder.getLength()));
         holder.setSize3(String.valueOf(workOrder.getBreadth()));
+        holder.setLayoutText(workOrder.getLayoutName());
         holder.layoutEditTextListener.updatePosition(position);
-
 
     }
 
@@ -82,6 +83,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             size3=(TextView)mview.findViewById(R.id.size3);
             layoutText=(EditText)mview.findViewById(R.id.DesignLayout);
             layoutText.addTextChangedListener(layoutEditTextListener);
+
         }
 
         public  void setMaterialText(String text){
@@ -93,7 +95,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         public void setSize1(String text){size1.setText(text);}
         public void setSize2(String text){size1.setText(text);}
         public void setSize3(String text){size1.setText(text);}
-
+        public void setLayoutText(String text){layoutText.setText(text);}
     }
     private class LayoutEditTextListener implements TextWatcher{
 
@@ -110,6 +112,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String changedLayout=s.toString();
             workOrderList.get(position).setLayoutName(changedLayout);
+            ((DesignWorkOrder)context).setUpdateValue(position,true);
+
         }
 
         @Override

@@ -32,7 +32,10 @@ public class WorkOrder implements Serializable{
     public void setLayoutName(String layoutName) {
         this.layoutName = layoutName;
     }
-    public WorkOrder(){}
+    public WorkOrder(){
+        layoutDate=new Date();
+        layoutName="";
+    }
 
     public int getWorkOrderNumber() {
         return WorkOrderNumber;

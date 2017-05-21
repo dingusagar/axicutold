@@ -37,7 +37,6 @@ public class DesignMainActivity extends AppCompatActivity {
     private DatabaseReference myDBRef;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
-    protected FloatingActionButton fab;
 
 
     ArrayList<SaleOrder> saleOrderArrayList;
