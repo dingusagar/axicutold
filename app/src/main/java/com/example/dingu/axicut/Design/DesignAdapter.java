@@ -34,7 +34,6 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         this.saleOrderList = saleOrderList;
 
     }
-
     @Override
     public Filter getFilter() {
         return new Filter() {

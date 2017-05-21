@@ -17,7 +17,6 @@ public class WorkOrder implements Serializable{
     private String InspectionRemark;
     private Date layoutDate;
     private String layoutName;
-
     public Date getLayoutDate() {
         return layoutDate;
     }

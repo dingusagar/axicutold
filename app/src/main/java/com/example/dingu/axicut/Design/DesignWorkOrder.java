@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -20,7 +22,7 @@ public class DesignWorkOrder extends AppCompatActivity {
     private WorkOrderAdapter workOrderAdapter;
    private ArrayList<WorkOrder> workOrderArrayList;
     private SaleOrder saleOrder;
-
+private Button saveButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
