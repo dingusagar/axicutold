@@ -107,6 +107,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                     public void onClick(DialogInterface dialog, int which) {
                         FragmentManager fm =((ProductionWorkOrder)context).getSupportFragmentManager();
                         ProdTimer dialogFrag = new ProdTimer();
+                        dialogFrag.setCancelable(false);
                         dialogFrag.show(fm,"Timer");
 
                     }

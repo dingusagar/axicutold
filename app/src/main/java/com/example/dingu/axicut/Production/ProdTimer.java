@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,11 +22,10 @@ import com.example.dingu.axicut.R;
  */
 public class ProdTimer extends DialogFragment {
 
-    private ImageButton startButton;
-    private ImageButton pauseButton;
-    private ImageButton stopButton;
-    private TextView timerValue;
-
+    private ImageButton startPauseButton;
+    private ImageButton saveButton;
+    private EditText timerValue;
+    private boolean isRunning;
     private long startTime = 0L;
 
     private Handler customHandler = new Handler();
@@ -49,22 +49,21 @@ public class ProdTimer extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        startButton=(ImageButton) getView().findViewById(R.id.startButton);
-        pauseButton=(ImageButton)getView().findViewById(R.id.pauseButton);
-        stopButton=(ImageButton)getView().findViewById(R.id.stopButton);
-        timerValue=(TextView)getView().findViewById(R.id.timertext);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        startPauseButton=(ImageButton)getView().findViewById(R.id.startPauseButton);
+        timerValue=(EditText) getView().findViewById(R.id.timertext);
+        startPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTime = SystemClock.uptimeMillis();
-                customHandler.postDelayed(updateTimerThread, 0);
-            }
-        });
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timeSwapBuff += timeInMilliseconds;
-                customHandler.removeCallbacks(updateTimerThread);
+                if(!isRunning){
+                    startTimer();
+                    startPauseButton.setImageResource(R.drawable.pause);
+                    isRunning=true;
+                }
+                else {
+                    pauseTimer();
+                    startPauseButton.setImageResource(R.drawable.start);
+                    isRunning=false;
+                }
             }
         });
     }
@@ -85,4 +84,12 @@ public class ProdTimer extends DialogFragment {
 
     };
 
+    public void pauseTimer(){
+        timeSwapBuff += timeInMilliseconds;
+        customHandler.removeCallbacks(updateTimerThread);
+    }
+    public void startTimer(){
+        startTime = SystemClock.uptimeMillis();
+        customHandler.postDelayed(updateTimerThread, 0);
+    }
 }
