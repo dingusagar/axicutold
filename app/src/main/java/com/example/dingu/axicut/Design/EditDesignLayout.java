@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.dingu.axicut.Admin.Company.Company;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -33,6 +34,7 @@ public class EditDesignLayout extends DialogFragment {
     private Button saveButton;
     private SaleOrder saleOrder;
     private int workOrderPos;
+    private DesignLayoutCommunicator communicator;
     public EditDesignLayout() {
         // Required empty public constructor
     }
@@ -42,8 +44,9 @@ public class EditDesignLayout extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        saleOrder=(SaleOrder)getArguments().get("SaleOrder");
-        workOrderPos=getArguments().getInt("WorkOrder");
+        communicator = (DesignLayoutCommunicator)getArguments().get("Communicator");
+        this.saleOrder=communicator.getSaleOrder();
+        this.workOrderPos=communicator.getWorkOrderPos();
         return inflater.inflate(R.layout.edit_design_layout_fragment, container, false);
     }
 
@@ -56,12 +59,15 @@ public class EditDesignLayout extends DialogFragment {
             public void onClick(View v) {
                 EditText designLayout = (EditText)getView().findViewById(R.id.designLayoutEditText);
                 updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
+                WorkOrder wo = saleOrder.getWorkOrders().get(workOrderPos);
+                wo.setLayoutName(designLayout.getText().toString());
+                communicator.adapterNotify(wo);
                 dismiss();
             }
         });
     }
     public Date getDateFromServer(){
-        final Date[] currentDate = new Date[1];
+        final Date[] currentDate = {new Date()};
         DatabaseReference dbRefUtils;
         dbRefUtils = MyDatabase.getDatabase().getInstance().getReference().child("Utils");
         dbRefUtils.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);

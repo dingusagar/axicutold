@@ -73,8 +73,24 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                 FragmentManager fm = ((DesignWorkOrder)context).getSupportFragmentManager();
                 EditDesignLayout editDesignFragment = new EditDesignLayout();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("SaleOrder",saleOrder);
-                bundle.putInt("WorkOrder",holder.getAdapterPosition());
+                DesignLayoutCommunicator communicator = new DesignLayoutCommunicator() {
+                    @Override
+                    public SaleOrder getSaleOrder() {
+                        return saleOrder;
+                    }
+
+                    @Override
+                    public int getWorkOrderPos() {
+                        return holder.getAdapterPosition();
+                    }
+
+                    @Override
+                    public void adapterNotify(WorkOrder wo) {
+                        workOrderList.set(holder.getAdapterPosition(),wo);
+                        notifyDataSetChanged();
+                    }
+                };
+                bundle.putSerializable("Communicator",communicator);
                 editDesignFragment.setArguments(bundle);
                 editDesignFragment.show(fm,"Design layout");
             }
