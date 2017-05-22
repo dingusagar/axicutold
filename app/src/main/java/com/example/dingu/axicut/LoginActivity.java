@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.dingu.axicut.Design.DesignMainActivity;
 import com.example.dingu.axicut.Inward.InwardMainActivity;
+import com.example.dingu.axicut.Production.ProductionActivity;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -202,8 +203,11 @@ public class LoginActivity extends AppCompatActivity {
                            break;
 
                        case PRODUCTION:
-                           // the user is despatch type
+                           Log.e("app", "Production identified");
+                           intent = new Intent(LoginActivity.this, ProductionActivity.class);
+                           startActivity(intent);
                            break;
+
 
 
                    }

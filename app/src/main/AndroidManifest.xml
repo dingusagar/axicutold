@@ -37,7 +37,10 @@
         <activity android:name=".Admin.Company.AdminAddCompany" />
         <activity android:name=".Admin.Materials.AdminAddMaterials" />
         <activity android:name=".Design.DesignMainActivity" />
-        <activity android:name=".Design.DesignWorkOrder"></activity>
+        <activity android:name=".Design.DesignWorkOrder" />
+        <activity
+            android:name=".Production.ProductionActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
