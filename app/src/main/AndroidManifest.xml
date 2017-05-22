@@ -40,7 +40,8 @@
         <activity android:name=".Design.DesignWorkOrder" />
         <activity
             android:name=".Production.ProductionActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Production.ProductionWorkOrder"></activity>
     </application>
 
 </manifest>

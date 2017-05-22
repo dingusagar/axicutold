@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.dingu.axicut.Design.DesignAdapter;
 import com.example.dingu.axicut.Design.DesignWorkOrder;
+import com.example.dingu.axicut.Production.ProductionWorkOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 
@@ -79,7 +80,7 @@ public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.Vi
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),DesignWorkOrder.class);
+                Intent intent = new Intent(v.getContext(),ProductionWorkOrder.class);
                 intent.putExtra("SaleOrder",saleOrder);
                 v.getContext().startActivity(intent);
             }
