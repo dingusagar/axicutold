@@ -1,6 +1,8 @@
 package com.example.dingu.axicut;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * Created by dingu on 6/5/17.
@@ -14,7 +16,54 @@ public class WorkOrder implements Serializable{
     private float Length;
     private float Breadth;
     private String InspectionRemark;
+    private Date layoutDate;
+    private String layoutName;
+    private Date prodDate;
+    private String prodName;
+    private String prodTime;
 
+
+    public String getProdTime() {
+        return prodTime;
+    }
+
+    public void setProdTime(String prodTime) {
+        this.prodTime = prodTime;
+    }
+
+    public Date getProdDate() {
+        return prodDate;
+    }
+
+    public void setProdDate(Date prodDate) {
+        this.prodDate = prodDate;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
+    public Date getLayoutDate() {
+        return layoutDate;
+    }
+
+    public void setLayoutDate(Date layoutDate) {
+        this.layoutDate = layoutDate;
+    }
+
+    public String getLayoutName() {
+        return layoutName;
+    }
+
+    public void setLayoutName(String layoutName) {
+        this.layoutName = layoutName;
+    }
+    public WorkOrder(){}
+  
     public String getDespatchDC() {
         return despatchDC;
     }
@@ -61,8 +110,8 @@ public class WorkOrder implements Serializable{
         Length = length;
         Breadth = breadth;
         InspectionRemark = inspectionRemark;
+
     }
-    public WorkOrder(){}
 
     public int getWorkOrderNumber() {
         return WorkOrderNumber;

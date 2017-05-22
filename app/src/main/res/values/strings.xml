@@ -29,4 +29,8 @@
     <string name="title_activity_inward_main">InwardMainActivity</string>
     <string name="work_order_list_empty_message">Touch the plus button to add work orders</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_production">ProductionActivity</string>
+
 </resources>

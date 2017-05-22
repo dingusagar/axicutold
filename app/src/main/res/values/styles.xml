@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="myTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen"/>
+    <style name="myTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen" />
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -21,7 +21,7 @@
 
     </style>
 
-    <style name="AppTheme.LoginTheme"  >
+    <style name="AppTheme.LoginTheme">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>

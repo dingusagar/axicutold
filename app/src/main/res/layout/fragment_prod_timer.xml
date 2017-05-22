@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    android:layout_height="match_parent" >
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/CloseButton"
+            android:background="#ffffff"
+            android:src="@drawable/close"
+            android:scaleType="centerCrop"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <RelativeLayout
+    android:id="@+id/TimerDisplay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/timertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:inputType="time"
+        android:textSize="45sp"
+        android:textColor="#000000"
+        android:text="00:00:00" />
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/controls"
+    android:layout_below="@+id/TimerDisplay">
+    <ImageButton
+        android:id="@+id/startPauseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/Reset"
+        android:layout_margin="20dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/start"/>
+    <ImageButton
+        android:id="@+id/Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/reset"/>
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/Reset"
+        android:layout_margin="20dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/save" />
+</RelativeLayout>
+</RelativeLayout>
+</FrameLayout>

@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:text="DESIGN"
             android:onClick="onProfileRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radio_despatch"
+        <RadioButton android:id="@+id/radio_production"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DESPATCH"
+            android:text="PRODUCTION"
             android:onClick="onProfileRadioButtonClicked"/>
         <RadioButton android:id="@+id/radio_admin"
             android:layout_width="wrap_content"

@@ -16,7 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Design.DesignMainActivity;
 import com.example.dingu.axicut.Inward.InwardMainActivity;
+import com.example.dingu.axicut.Production.ProductionActivity;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -195,12 +197,17 @@ public class LoginActivity extends AppCompatActivity {
                            break;
 
                        case DESIGN:
-                           // the user is design type
+                           Log.e("app", "Design identified");
+                           intent = new Intent(LoginActivity.this, DesignMainActivity.class);
+                           startActivity(intent);
                            break;
 
-                       case DESPATCH:
-                           // the user is despatch type
+                       case PRODUCTION:
+                           Log.e("app", "Production identified");
+                           intent = new Intent(LoginActivity.this, ProductionActivity.class);
+                           startActivity(intent);
                            break;
+
 
 
                    }

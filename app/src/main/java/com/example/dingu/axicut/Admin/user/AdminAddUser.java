@@ -102,9 +102,9 @@ public class AdminAddUser extends AppCompatActivity {
                 if (radioButtonChecked)
                     userMode = UserMode.DESIGN;
                 break;
-            case R.id.radio_despatch:
+            case R.id.radio_production:
                 if (radioButtonChecked)
-                    userMode = UserMode.DESPATCH;
+                    userMode = UserMode.PRODUCTION;
                 break;
             case R.id.radio_admin:
                 if (radioButtonChecked)

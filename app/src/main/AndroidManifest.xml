@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".Admin.user.AdminAddUser" />
         <activity android:name=".Inward.InwardMainActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
@@ -36,6 +36,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Admin.Company.AdminAddCompany" />
         <activity android:name=".Admin.Materials.AdminAddMaterials" />
+        <activity android:name=".Design.DesignMainActivity" />
+        <activity android:name=".Design.DesignWorkOrder" />
+        <activity
+            android:name=".Production.ProductionActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Production.ProductionWorkOrder"></activity>
         <activity android:name=".Inward.Despatch.DespatchScrapActivity"
             android:theme="@style/AppTheme.NoActionBar" ></activity>
     </application>

@@ -119,7 +119,6 @@ public class AdminActivity extends AppCompatActivity
                 startActivity(intent);
                 finish();
                 break;
-
         }
         
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

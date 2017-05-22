@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Inward;
+package com.example.dingu.axicut.Design;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Inward.InwardAction;
+import com.example.dingu.axicut.Inward.InwardAdapter;
+import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
+import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -28,45 +32,28 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-public class InwardMainActivity extends AppCompatActivity{
+public class DesignMainActivity extends AppCompatActivity {
 
-    private DatabaseReference myDBRefOrders;
+    private DatabaseReference myDBRef;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
 
 
-    FloatingActionButton fab;
-
-
-    int MenuItemId = R.id.inward_entry;
-
-
-
-    ArrayList <SaleOrder> saleOrderArrayList;
-    InwardAdapter inwardAdapter;
+    ArrayList<SaleOrder> saleOrderArrayList;
+    DesignAdapter designAdapter;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inward_main);
+        setContentView(R.layout.activity_design_main);
 
         mAuth = FirebaseAuth.getInstance();
 
-
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
-        setupFabButton();
-
-
-        myDBRefOrders = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRefOrders.keepSynced(true);
-
-        InwardUtilities.fetchDataFromDatabase();
-        InwardUtilities.fetchServerTimeStamp();
-
-        saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
+        saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
         saleOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -75,7 +62,8 @@ public class InwardMainActivity extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() == null)
                 {
-                    Intent intent = new Intent(InwardMainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(DesignMainActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }
@@ -90,10 +78,10 @@ public class InwardMainActivity extends AppCompatActivity{
         super.onStart();
 
         saleOrderArrayList = new ArrayList<>();
-        inwardAdapter = new InwardAdapter(saleOrderArrayList,this);
-        saleOrderRecyclerView.setAdapter(inwardAdapter);
+        designAdapter = new DesignAdapter(saleOrderArrayList);
+        saleOrderRecyclerView.setAdapter(designAdapter);
 
-        myDBRefOrders.addChildEventListener(new ChildEventListener() {
+        myDBRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -102,7 +90,7 @@ public class InwardMainActivity extends AppCompatActivity{
                     try{
                         SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
                         saleOrderArrayList.add(0,saleOrder);
-                        inwardAdapter.notifyDataSetChanged();
+                        designAdapter.notifyDataSetChanged();
                     }catch (Exception e)
                     {
                         Toast.makeText(getApplicationContext(), "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
@@ -163,7 +151,7 @@ public class InwardMainActivity extends AppCompatActivity{
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                inwardAdapter.getFilter().filter(newText);
+                designAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -176,34 +164,11 @@ public class InwardMainActivity extends AppCompatActivity{
         {
             case R.id.logout:
                 mAuth.getInstance().signOut();
-                break;
-            case R.id.inward_entry:
-                item.setChecked(true);
-                changeMode(item.getItemId());
-                break;
-            case R.id.despatch_entry:
-                item.setChecked(true);
-                changeMode(item.getItemId());
-                break;
 
 
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void changeMode(int itemId) {
-        MenuItemId = itemId;
-        if(MenuItemId == R.id.inward_entry)
-        {
-            fab.setVisibility(View.VISIBLE);
-        }
-        else if(MenuItemId == R.id.despatch_entry)
-        {
-            fab.setVisibility(View.GONE);
-        }
-
-
     }
 
 
@@ -227,18 +192,5 @@ public class InwardMainActivity extends AppCompatActivity{
         }
 
     }
-    public void setupFabButton(){
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder.class);
-                intent.putExtra("InwardAction",InwardAction.CREATE_NEW_SALE_ORDER);
-                startActivity(intent);
-            }
-        });
-
-    }
-
 
 }

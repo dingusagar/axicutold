@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    tools:context="com.example.dingu.axicut.Design.EditDesignLayout">
+
+    <!-- TODO: Update blank fragment layout -->
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/designLayoutEditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Enter design layout"/>
+    <ImageButton
+        android:id="@+id/workOrderSaveButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+        android:src="@drawable/right_chevron"
+        android:background="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+      <Button
+          android:id="@+id/CancelButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/designLayoutEditText"
+          android:layout_centerHorizontal="true"
+          android:text="Cancel"/>
+  </RelativeLayout>
+
+</RelativeLayout>

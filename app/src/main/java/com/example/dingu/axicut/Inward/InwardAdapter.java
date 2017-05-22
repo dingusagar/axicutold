@@ -17,6 +17,8 @@ import com.example.dingu.axicut.SaleOrder;
 
 import java.util.ArrayList;
 
+import static com.example.dingu.axicut.R.id.saleOrder;
+
 /**
  * Created by dingu on 17/5/17.
  */
@@ -25,6 +27,12 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
 
     private ArrayList<SaleOrder> filteredSaleOrderList;
     private ArrayList<SaleOrder> saleOrderList;
+
+
+
+    public InwardAdapter(ArrayList<SaleOrder> saleOrderList) {
+        this.filteredSaleOrderList = saleOrderList;
+        this.saleOrderList = saleOrderList;
     private Context context;
 
 
@@ -48,6 +56,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
         final SaleOrder saleOrder = filteredSaleOrderList.get(position);
         holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
         holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
+
 
 
         holder.mview.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +131,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
+
             saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);

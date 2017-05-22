@@ -230,7 +230,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         saleOrder = new SaleOrder();
 
         dbRefUtils.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);
-        dbRefUtils.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRefUtils.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Long serverTimeStamp = (Long) dataSnapshot.child("ServerTimeStamp").getValue();
