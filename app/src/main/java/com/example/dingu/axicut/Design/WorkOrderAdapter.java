@@ -154,7 +154,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         }
 
         public void setDateText(Date date) {
-            if (date != null) dateText.setText(date.getDate()+"/"+date.getMonth()+"/"+date.getYear());
+            if (date != null) dateText.setText(date.getDate()+"/"+date.getMonth()+"/"+String.valueOf(date.getYear()+1900));
         }
     }
 

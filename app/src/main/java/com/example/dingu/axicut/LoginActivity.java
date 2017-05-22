@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                            startActivity(intent);
                            break;
 
-                       case DESPATCH:
+                       case PRODUCTION:
                            // the user is despatch type
                            break;
 

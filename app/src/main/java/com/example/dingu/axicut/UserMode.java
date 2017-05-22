@@ -5,5 +5,5 @@ package com.example.dingu.axicut;
  */
 
 public  enum UserMode{
-    INWARD,DESIGN,DESPATCH,ADMIN
+    INWARD,DESIGN,PRODUCTION,ADMIN
 }
