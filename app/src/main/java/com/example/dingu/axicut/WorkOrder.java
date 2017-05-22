@@ -33,8 +33,6 @@ public class WorkOrder implements Serializable{
         this.layoutName = layoutName;
     }
     public WorkOrder(){
-        layoutDate=new Date();
-        layoutName="";
     }
 
     public int getWorkOrderNumber() {
