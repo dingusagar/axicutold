@@ -106,6 +106,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         dateButton = (ImageButton)findViewById(R.id.dateButton) ;
         timeButton = (ImageButton)findViewById(R.id.timeButton) ;
         customerDCNumber = (Spinner) findViewById(R.id.customerDC);
+        customerDCNumber.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerDCNumbers()));
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
 
        // setting up date picker
@@ -151,6 +152,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             }
         });
 
+
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         confirmButton = (Button)findViewById(R.id.confirmButton);
         ButtonAnimator.setEffect(confirmButton, ButtonAnimator.Effects.REVERSE_BACKGROUND_FOREGROUND);
@@ -193,6 +196,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
 
     }
+
+
 
     private void confirmButtonAction(View view) {
         vibrator.vibrate(VIBRATE_DURATION);
@@ -262,6 +267,12 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         TextView tv = (TextView)newWorkOrderView.findViewById(R.id.workOrderNo);
         tv.setText("W"+(mContainerView.getChildCount()+1));
+
+        Spinner sp = (Spinner)newWorkOrderView.findViewById(R.id.materialSpinner);
+        sp.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getMaterialTypes()));
+
+//        sp = (Spinner)newWorkOrderView.findViewById(R.id.lotNoSpinner);
+//        sp.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.lotNos));
 
         // Set a click listener for the "X" button in the row that will remove the row.
         newWorkOrderView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
@@ -356,9 +367,11 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+                                progress.dismiss();
+
                             }
                         });
-//                    Toast.makeText(getApplicationContext(),"Successfully added records",Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                     Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                     goBackToPreviousActivity.start();
@@ -369,15 +382,14 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
                     progress.dismiss();
+
                 }
             });
         }else
             Toast.makeText(getApplicationContext(),"Opps : Invalid SaleOrder Number ",Toast.LENGTH_LONG).show();
+             progress.dismiss();
+
 
 
     }

@@ -52,4 +52,13 @@
         <item name="android:fontFamily">casual</item>
 
     </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">#8f8f8f</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+
+    </style>
 </resources>
