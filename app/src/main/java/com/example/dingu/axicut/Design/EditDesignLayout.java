@@ -34,6 +34,7 @@ public class EditDesignLayout extends DialogFragment {
     private Button saveButton;
     private SaleOrder saleOrder;
     private int workOrderPos;
+    private static Date date;
     private DesignLayoutCommunicator communicator;
     public EditDesignLayout() {
         // Required empty public constructor
@@ -57,10 +58,12 @@ public class EditDesignLayout extends DialogFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date=getDateFromServer();
                 EditText designLayout = (EditText)getView().findViewById(R.id.designLayoutEditText);
                 updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
                 WorkOrder wo = saleOrder.getWorkOrders().get(workOrderPos);
                 wo.setLayoutName(designLayout.getText().toString());
+                wo.setLayoutDate(date);
                 communicator.adapterNotify(wo);
                 dismiss();
             }
@@ -88,7 +91,11 @@ public class EditDesignLayout extends DialogFragment {
 
     public void updateWorkOrderLayoutToDatabase(String layout){
       DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
-      DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderPos)).child("layoutName");
-        workOrderRef.setValue(layout);
+      DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderPos));
+      DatabaseReference layoutRef = workOrderRef.child("layoutName");
+       DatabaseReference dateRef = workOrderRef.child("layoutDate");
+        layoutRef.setValue(layout);
+        dateRef.setValue(date);
+
     }
 }
