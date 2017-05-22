@@ -24,6 +24,7 @@ public class ProdTimer extends DialogFragment {
 
     private ImageButton startPauseButton;
     private ImageButton saveButton;
+    private ImageButton resetButton;
     private EditText timerValue;
     private boolean isRunning;
     private long startTime = 0L;
@@ -51,6 +52,17 @@ public class ProdTimer extends DialogFragment {
         super.onStart();
         startPauseButton=(ImageButton)getView().findViewById(R.id.startPauseButton);
         timerValue=(EditText) getView().findViewById(R.id.timertext);
+        resetButton=(ImageButton)getView().findViewById(R.id.Reset);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+                if(isRunning){
+                    startPauseButton.setImageResource(R.drawable.start);
+                    isRunning=false;
+                }
+            }
+        });
         startPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,5 +103,11 @@ public class ProdTimer extends DialogFragment {
     public void startTimer(){
         startTime = SystemClock.uptimeMillis();
         customHandler.postDelayed(updateTimerThread, 0);
+    }
+    public void resetTimer(){
+        updatedTime=0L;
+        timeSwapBuff=0L;
+        timerValue.setText("00:00:00");
+        customHandler.removeCallbacks(updateTimerThread);
     }
 }
