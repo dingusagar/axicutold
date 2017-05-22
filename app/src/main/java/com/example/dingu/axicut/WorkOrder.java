@@ -2,6 +2,7 @@ package com.example.dingu.axicut;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * Created by dingu on 6/5/17.
@@ -19,6 +20,15 @@ public class WorkOrder implements Serializable{
     private String layoutName;
     private Date prodDate;
     private String prodName;
+    private String prodTime;
+
+    public String getProdTime() {
+        return prodTime;
+    }
+
+    public void setProdTime(String prodTime) {
+        this.prodTime = prodTime;
+    }
 
     public Date getProdDate() {
         return prodDate;

@@ -85,8 +85,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                     }
 
                     @Override
-                    public void adapterNotify(WorkOrder wo) {
-                        workOrderList.set(holder.getAdapterPosition(),wo);
+                    public void adapterNotify() {
                         notifyDataSetChanged();
                     }
                 };

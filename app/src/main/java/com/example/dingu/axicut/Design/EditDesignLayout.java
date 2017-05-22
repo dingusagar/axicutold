@@ -67,7 +67,7 @@ public class EditDesignLayout extends DialogFragment {
                 WorkOrder wo = saleOrder.getWorkOrders().get(workOrderPos);
                 wo.setLayoutName(designLayout.getText().toString());
                 wo.setLayoutDate(date);
-                communicator.adapterNotify(wo);
+                communicator.adapterNotify();
                 dismiss();
             }
         });
@@ -78,7 +78,7 @@ public class EditDesignLayout extends DialogFragment {
            }
        });
     }
-    public Date getDateFromServer(){
+    public static Date getDateFromServer(){
         final Date[] currentDate = {new Date()};
         DatabaseReference dbRefUtils;
         dbRefUtils = MyDatabase.getDatabase().getInstance().getReference().child("Utils");

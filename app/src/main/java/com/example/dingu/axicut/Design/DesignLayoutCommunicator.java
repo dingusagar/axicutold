@@ -12,6 +12,6 @@ import java.io.Serializable;
 public interface DesignLayoutCommunicator extends Serializable {
      SaleOrder getSaleOrder();
      int getWorkOrderPos();
-     void adapterNotify(WorkOrder workOrder);
+     void adapterNotify();
 
 }

@@ -226,6 +226,7 @@
                 android:layout_alignParentRight="true"/>
 
         <RelativeLayout
+            android:id="@+id/operatorNameDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Prod_date_text">
@@ -246,6 +247,27 @@
                 android:text=" - "
                 android:textSize="20sp" />
         </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operatorNameDisplay">
+
+                <TextView
+                    android:id="@+id/TimeDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recorded Time"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"/>
+
+                <TextView
+                    android:id="@+id/timeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=" - "
+                    android:textSize="20sp" />
+            </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"

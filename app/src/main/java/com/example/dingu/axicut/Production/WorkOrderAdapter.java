@@ -96,6 +96,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setDateText(workOrder.getLayoutDate());
         holder.setProdOperator(workOrder.getProdName());
         holder.setProductionDate(workOrder.getProdDate());
+        holder.setTimeTaken(workOrder.getProdTime());
         holder.timerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +109,25 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                         FragmentManager fm =((ProductionWorkOrder)context).getSupportFragmentManager();
                         ProdTimer dialogFrag = new ProdTimer();
                         dialogFrag.setCancelable(false);
+                        Bundle bundle = new Bundle();
+                        ProductionLayoutCommunicator communicator = new ProductionLayoutCommunicator() {
+                            @Override
+                            public SaleOrder getSaleOrder() {
+                                return saleOrder;
+                            }
+
+                            @Override
+                            public int getWorkOrderPos() {
+                                return holder.getAdapterPosition();
+                            }
+
+                            @Override
+                            public void adapterNotify() {
+                                notifyDataSetChanged();
+                            }
+                        };
+                        bundle.putSerializable("Communicator",communicator);
+                        dialogFrag.setArguments(bundle);
                         dialogFrag.show(fm,"Timer");
 
                     }
@@ -130,7 +150,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText,layoutText,productionDate,prodOperator;
+                size1, size2, size3, dateText,layoutText,productionDate,prodOperator,timeTaken;
         private ImageButton timerButton;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -147,6 +167,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             dateText = (TextView) mview.findViewById(R.id.DateModified);
             productionDate=(TextView)mview.findViewById(R.id.prod_date);
             prodOperator=(TextView)mview.findViewById(R.id.operatorName);
+            timeTaken=(TextView)mview.findViewById(R.id.timeText);
 
         }
 
@@ -190,6 +211,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         }
         public void setProdOperator(String text){
             prodOperator.setText(text);
+        }
+        public void setTimeTaken(String time){
+            timeTaken.setText(time);
         }
     }
 
