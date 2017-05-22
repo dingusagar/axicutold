@@ -22,6 +22,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/controls"
     android:layout_below="@+id/TimerDisplay">
     <ImageButton
         android:id="@+id/startButton"
@@ -48,5 +49,9 @@
         android:background="#FFFFFF"
         android:src="@drawable/stop" />
 </RelativeLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/controls"/>
 </RelativeLayout>
 </FrameLayout>
