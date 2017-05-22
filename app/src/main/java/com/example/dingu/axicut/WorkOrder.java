@@ -15,6 +15,44 @@ public class WorkOrder implements Serializable{
     private float Breadth;
     private String InspectionRemark;
 
+    public String getDespatchDC() {
+        return despatchDC;
+    }
+
+    public void setDespatchDC(String despatchDC) {
+        this.despatchDC = despatchDC;
+    }
+
+    public String getDespatchDate() {
+        return despatchDate;
+    }
+
+    public void setDespatchDate(String despatchDate) {
+        this.despatchDate = despatchDate;
+    }
+
+    public String getScrapDC() {
+        return scrapDC;
+    }
+
+    public void setScrapDC(String scrapDC) {
+        this.scrapDC = scrapDC;
+    }
+
+    public String getScrapDate() {
+        return scrapDate;
+    }
+
+    public void setScrapDate(String scrapDate) {
+        this.scrapDate = scrapDate;
+    }
+
+    private String despatchDC = "";
+    private String despatchDate = "";
+
+    private String scrapDC = "";
+    private String scrapDate = "";
+
     public WorkOrder(int workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
         WorkOrderNumber = workOrderNumber;
         MaterialType = materialType;

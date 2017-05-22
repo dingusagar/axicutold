@@ -335,7 +335,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             workOrder.setInspectionRemark(et.getText().toString());
 
             Log.e("App",workOrder.toString());
-            workOrders.add(0,workOrder);  // adding to local workOrders List
+            workOrders.add(workOrder);  // adding to local workOrders List
         }
 
         saleOrder.setWorkOrders(workOrders);  // coping the local list of workorders to original list in saleOrder

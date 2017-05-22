@@ -34,7 +34,10 @@ public class InwardMainActivity extends AppCompatActivity {
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
 
+    FloatingActionButton fab;
 
+
+    int MenuItemId = R.id.inward_entry;
 
 
     ArrayList <SaleOrder> saleOrderArrayList;
@@ -48,7 +51,7 @@ public class InwardMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inward_main);
 
         mAuth = FirebaseAuth.getInstance();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +65,7 @@ public class InwardMainActivity extends AppCompatActivity {
         myDBRefOrders.keepSynced(true);
 
         InwardUtilities.fetchDataFromDatabase();
+        InwardUtilities.fetchServerTimeStamp();
 
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
@@ -87,7 +91,7 @@ public class InwardMainActivity extends AppCompatActivity {
         super.onStart();
 
         saleOrderArrayList = new ArrayList<>();
-        inwardAdapter = new InwardAdapter(saleOrderArrayList);
+        inwardAdapter = new InwardAdapter(saleOrderArrayList,this);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
         myDBRefOrders.addChildEventListener(new ChildEventListener() {
@@ -173,11 +177,34 @@ public class InwardMainActivity extends AppCompatActivity {
         {
             case R.id.logout:
                 mAuth.getInstance().signOut();
+                break;
+            case R.id.inward_entry:
+                item.setChecked(true);
+                changeMode(item.getItemId());
+                break;
+            case R.id.despatch_entry:
+                item.setChecked(true);
+                changeMode(item.getItemId());
+                break;
 
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void changeMode(int itemId) {
+        MenuItemId = itemId;
+        if(MenuItemId == R.id.inward_entry)
+        {
+            fab.setVisibility(View.VISIBLE);
+        }
+        else if(MenuItemId == R.id.despatch_entry)
+        {
+            fab.setVisibility(View.GONE);
+        }
+
+
     }
 
 

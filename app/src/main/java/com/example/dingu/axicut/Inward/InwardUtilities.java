@@ -4,9 +4,11 @@ import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -33,7 +35,14 @@ public  class InwardUtilities {
     static String[] customerDCNumbers = {""};
     static String[] materialTypes = {""};
     static String[] lotNos = {""};
+
+    public static String getServerDate() {
+        return serverDate;
+    }
+
+    static String serverDate;
     static DatabaseReference dbRefUtilities = MyDatabase.getDatabase().getInstance().getReference("InwardUtilities");
+    static DatabaseReference dbRefTimeStamp = MyDatabase.getDatabase().getInstance().getReference("Utils");
 
     public static void fetchDataFromDatabase()
     {
@@ -62,4 +71,31 @@ public  class InwardUtilities {
             }
         });
     }
+
+   public static void fetchServerTimeStamp()
+   {
+       dbRefTimeStamp.keepSynced(true);
+       dbRefTimeStamp.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);
+       dbRefTimeStamp.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+
+               Long timeStamp = dataSnapshot.child("ServerTimeStamp").getValue(Long.class);
+               if(timeStamp != null)
+               {
+                   SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    serverDate =  formatter.format(new Date(timeStamp));
+
+               }
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       });
+   }
+
+
 }

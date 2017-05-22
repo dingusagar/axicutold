@@ -1,5 +1,6 @@
 package com.example.dingu.axicut.Inward;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.dingu.axicut.Inward.Despatch.DespatchScrapActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 
@@ -23,11 +25,13 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
 
     private ArrayList<SaleOrder> filteredSaleOrderList;
     private ArrayList<SaleOrder> saleOrderList;
+    private Context context;
 
 
-    public InwardAdapter(ArrayList<SaleOrder> saleOrderList) {
+    public InwardAdapter(ArrayList<SaleOrder> saleOrderList , Context context) {
         this.filteredSaleOrderList = saleOrderList;
         this.saleOrderList = saleOrderList;
+        this.context = context;
 
     }
 
@@ -45,13 +49,24 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
         holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
         holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
 
+
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
-                intent.putExtra("SaleOrder",saleOrder);
-                intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
-                v.getContext().startActivity(intent);
+
+                if(((InwardMainActivity)context).MenuItemId == R.id.inward_entry)
+                {
+                    Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
+                    intent.putExtra("SaleOrder",saleOrder);
+                    intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
+                    v.getContext().startActivity(intent);
+                }else if(((InwardMainActivity)context).MenuItemId == R.id.despatch_entry)
+                {
+                    Intent intent = new Intent(v.getContext(),DespatchScrapActivity.class);
+                    intent.putExtra("SaleOrder",saleOrder);
+                    v.getContext().startActivity(intent);
+                }
+
             }
         });
 

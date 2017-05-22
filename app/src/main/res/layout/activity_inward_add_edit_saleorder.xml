@@ -28,7 +28,7 @@
             android:fitsSystemWindows="true"
             app:titleEnabled="false"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
 
             <android.support.v7.widget.Toolbar
