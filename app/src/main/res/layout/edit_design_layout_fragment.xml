@@ -8,20 +8,30 @@
   <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true">
+      android:layout_centerVertical="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true">
     <EditText
         android:id="@+id/designLayoutEditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="Enter design layout"/>
-    <Button
+    <ImageButton
         android:id="@+id/workOrderSaveButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Save"
-        android:layout_below="@+id/designLayoutEditText"
-        android:layout_centerHorizontal="true"/>
-
+        android:src="@drawable/right_chevron"
+        android:background="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+      <Button
+          android:id="@+id/CancelButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/designLayoutEditText"
+          android:layout_centerHorizontal="true"
+          android:text="Cancel"/>
   </RelativeLayout>
 
 </RelativeLayout>

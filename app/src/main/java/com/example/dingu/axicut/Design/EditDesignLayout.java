@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.dingu.axicut.Admin.Company.Company;
 import com.example.dingu.axicut.R;
@@ -31,7 +32,8 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class EditDesignLayout extends DialogFragment {
-    private Button saveButton;
+    private ImageButton saveButton;
+    private Button cancelButton;
     private SaleOrder saleOrder;
     private int workOrderPos;
     private static Date date;
@@ -54,7 +56,8 @@ public class EditDesignLayout extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        saveButton = (Button)getView().findViewById(R.id.workOrderSaveButton);
+        saveButton = (ImageButton)getView().findViewById(R.id.workOrderSaveButton);
+        cancelButton = (Button)getView().findViewById(R.id.CancelButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +71,12 @@ public class EditDesignLayout extends DialogFragment {
                 dismiss();
             }
         });
+       cancelButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               dismiss();
+           }
+       });
     }
     public Date getDateFromServer(){
         final Date[] currentDate = {new Date()};
