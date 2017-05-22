@@ -187,8 +187,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/lastModifiedText"
@@ -210,20 +209,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
-
             <TextView
-                android:id="@+id/Prod_date"
+                android:id="@+id/Prod_date_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:text="Production Date"
                 android:textSize="18sp"
                 android:textStyle="normal|bold"/>
+            <TextView
+                android:id="@+id/prod_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Prod_date">
+            android:layout_below="@+id/Prod_date_text">
 
             <TextView
                 android:id="@+id/operatorNameText"
@@ -245,10 +250,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Switch
+        <ImageButton
+            android:id="@+id/TimerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/stopwatch"
+            android:background="#FFFFFF"/>
         </RelativeLayout>
     </LinearLayout>
 

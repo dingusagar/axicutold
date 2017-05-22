@@ -17,6 +17,25 @@ public class WorkOrder implements Serializable{
     private String InspectionRemark;
     private Date layoutDate;
     private String layoutName;
+    private Date prodDate;
+    private String prodName;
+
+    public Date getProdDate() {
+        return prodDate;
+    }
+
+    public void setProdDate(Date prodDate) {
+        this.prodDate = prodDate;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
     public Date getLayoutDate() {
         return layoutDate;
     }

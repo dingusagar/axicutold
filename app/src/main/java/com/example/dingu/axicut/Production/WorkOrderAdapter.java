@@ -5,13 +5,17 @@ package com.example.dingu.axicut.Production;
  */
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.dingu.axicut.Design.DesignLayoutCommunicator;
@@ -90,7 +94,31 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setSize3(String.valueOf(workOrder.getBreadth()));
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
+        holder.setProdOperator(workOrder.getProdName());
+        holder.setProductionDate(workOrder.getProdDate());
+        holder.timerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Do you want to start timing for the production machine ??");
+                builder.setCancelable(false);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FragmentManager fm =((ProductionWorkOrder)context).getSupportFragmentManager();
+                        ProdTimer dialogFrag = new ProdTimer();
+                        dialogFrag.show(fm,"Timer");
 
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+            }
+        });
     }
 
     @Override
@@ -101,10 +129,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText,layoutText;
+                size1, size2, size3, dateText,layoutText,productionDate,prodOperator;
+        private ImageButton timerButton;
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
+            timerButton=(ImageButton) mview.findViewById(R.id.TimerButton);
             materialText = (TextView) mview.findViewById(R.id.materialText);
             lotNoText = (TextView) mview.findViewById(R.id.lotNoText);
             workOrderText = (TextView) mview.findViewById(R.id.workOrderNo);
@@ -114,6 +144,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             size3 = (TextView) mview.findViewById(R.id.size3);
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
+            productionDate=(TextView)mview.findViewById(R.id.prod_date);
+            prodOperator=(TextView)mview.findViewById(R.id.operatorName);
 
         }
 
@@ -151,6 +183,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
 
         public void setDateText(Date date) {
             if (date != null) dateText.setText(date.getDate()+"/"+date.getMonth()+"/"+String.valueOf(date.getYear()+1900));
+        }
+        public void setProductionDate(Date date){
+            if (date != null)productionDate.setText(date.getDate()+"/"+date.getMonth()+"/"+String.valueOf(date.getYear()+1900));
+        }
+        public void setProdOperator(String text){
+            prodOperator.setText(text);
         }
     }
 
