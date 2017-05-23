@@ -87,6 +87,10 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         final SaleOrder saleOrder = filteredSaleOrderList.get(position);
         holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
         holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
+        holder.numOfDesign.setText("" + saleOrder.getNumOfLayouts());
+        holder.numProd.setText("" +saleOrder.getNumOfProduced());
+        holder.numDespatched.setText("" +saleOrder.getNumOfDespatched());
+        holder.numScraped.setText("" +saleOrder.getNumScrapped());
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,16 +108,18 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         View mview;
-        TextView saleOrderText;
-        TextView numOfWorkOrders;
-        LinearLayout linearLayout;
+        TextView saleOrderText,numOfWorkOrders,companyName,numOfDesign,numProd,numDespatched,numScraped;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
             saleOrderText = (TextView)mview.findViewById(R.id.adminSaleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
-            linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
+            companyName=(TextView)mview.findViewById(R.id.companyName);
+            numOfDesign=(TextView)mview.findViewById(R.id.numOfDesigns);
+            numProd=(TextView)mview.findViewById(R.id.numOfProd);
+            numDespatched=(TextView)mview.findViewById(R.id.numOfDespatched);
+            numScraped=(TextView)mview.findViewById(R.id.numOfScraps);
         }
     }
     public void addDatabaseListeners() {
@@ -135,6 +141,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
+                if(saleOrder != null)
+                updateSaleOrderAndNotify(saleOrder);
 
             }
 
@@ -153,5 +162,27 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
             }
         });
+    }
+
+    private void updateSaleOrderAndNotify(SaleOrder saleOrder) {
+        for(int i =0 ;i<saleOrderList.size() ; i++)
+        {
+            SaleOrder so = saleOrderList.get(i);
+            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
+            {
+                saleOrderList.set(i,saleOrder);
+            }
+        }
+
+        for(int i =0 ;i<filteredSaleOrderList.size() ; i++)
+        {
+            SaleOrder so = filteredSaleOrderList.get(i);
+            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
+            {
+                saleOrderList.set(i,saleOrder);
+            }
+        }
+
+        notifyDataSetChanged();
     }
 }

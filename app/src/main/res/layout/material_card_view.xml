@@ -22,8 +22,8 @@
             android:gravity="center"
             android:text="Material Name"
             android:textSize="25sp"
-            android:textColor="#3215b2"
-            android:fontFamily="cursive"
+            android:textColor="@color/admin_text_color"
+            style="@style/adminFont"
             android:textStyle="bold"
             android:padding="10dp"
             android:layout_margin="10dp"/>
@@ -39,8 +39,8 @@
             android:gravity="center"
             android:text="Material ID"
             android:textSize="25sp"
-            android:textColor="#3215b2"
-            android:fontFamily="cursive"
+            android:textColor="@color/admin_text_color"
+            style="@style/adminFont"
             android:textStyle="bold" />
         <ImageButton
             android:id="@+id/MaterialRemoveButton"

@@ -58,6 +58,10 @@
         <item name="android:textSize">15sp</item>
 
     </style>
+    <style name="adminFont" parent="android:Widget.TextView">
+        <item name = "android:fontFamily">casual</item>
+
+    </style>
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
