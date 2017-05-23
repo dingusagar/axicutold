@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static FirebaseAuth mAuth;
-    private DatabaseReference mdatabaseUsers;  // to reference the users details in the database
+    public static DatabaseReference mdatabaseUsers;  // to reference the users details in the database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,26 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mdatabaseUsers = MyDatabase.getDatabase().getInstance().getReference().child("Users");
         mdatabaseUsers.keepSynced(true);
-
-
-
         emailField = (EditText)findViewById(R.id.email);
         passwordField = (EditText)findViewById(R.id.password);
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
-
         ButtonAnimator.setEffect(loginButton, ButtonAnimator.Effects.SIMPLE_ON_TOUCH_GREY); // onClick animation defined in ButtonAnimator Class
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkAndLogin();
             }
         });
-
-
-
-
 
     }
 
@@ -164,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getUserMode() {
         final String userID = mAuth.getCurrentUser().getUid();
-
         progressBar.setVisibility(View.VISIBLE);
         progressMessage.setText("Verifiying User...");
 
@@ -175,7 +165,6 @@ public class LoginActivity extends AppCompatActivity {
                if(dataSnapshot.hasChild(userID)) { // only if the user is present in the db
                    // getting the string userMode in DB to enum userMode
                    userMode = UserMode.valueOf(dataSnapshot.child(userID).child("userMode").getValue().toString());
-
                    Intent intent;
                    switch (userMode) {
                        case INWARD:
