@@ -13,4 +13,13 @@
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
 
+    <group android:id="@+id/Mode"
+        android:checkableBehavior="single">
+        <item android:id="@+id/inward_entry"
+            android:title="Inward Entry"
+            android:checked="true"/>
+        <item android:id="@+id/despatch_entry"
+            android:title="Despatch Entry"/>
+    </group>
+
 </menu>

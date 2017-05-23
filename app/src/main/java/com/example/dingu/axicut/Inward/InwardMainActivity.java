@@ -30,10 +30,16 @@ import java.util.ArrayList;
 
 public class InwardMainActivity extends AppCompatActivity{
 
-    private DatabaseReference myDBRef;
+    private DatabaseReference myDBRefOrders;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
-    protected FloatingActionButton fab;
+
+
+    FloatingActionButton fab;
+
+
+    int MenuItemId = R.id.inward_entry;
+
 
 
     ArrayList <SaleOrder> saleOrderArrayList;
@@ -48,9 +54,18 @@ public class InwardMainActivity extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
 
+
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
         setupFabButton();
+
+
+        myDBRefOrders = MyDatabase.getDatabase().getInstance().getReference("Orders");
+        myDBRefOrders.keepSynced(true);
+
+        InwardUtilities.fetchDataFromDatabase();
+        InwardUtilities.fetchServerTimeStamp();
+
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
         saleOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,7 +76,6 @@ public class InwardMainActivity extends AppCompatActivity{
                 if(firebaseAuth.getCurrentUser() == null)
                 {
                     Intent intent = new Intent(InwardMainActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }
@@ -76,10 +90,10 @@ public class InwardMainActivity extends AppCompatActivity{
         super.onStart();
 
         saleOrderArrayList = new ArrayList<>();
-        inwardAdapter = new InwardAdapter(saleOrderArrayList);
+        inwardAdapter = new InwardAdapter(saleOrderArrayList,this);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
-        myDBRef.addChildEventListener(new ChildEventListener() {
+        myDBRefOrders.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -162,11 +176,34 @@ public class InwardMainActivity extends AppCompatActivity{
         {
             case R.id.logout:
                 mAuth.getInstance().signOut();
+                break;
+            case R.id.inward_entry:
+                item.setChecked(true);
+                changeMode(item.getItemId());
+                break;
+            case R.id.despatch_entry:
+                item.setChecked(true);
+                changeMode(item.getItemId());
+                break;
 
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void changeMode(int itemId) {
+        MenuItemId = itemId;
+        if(MenuItemId == R.id.inward_entry)
+        {
+            fab.setVisibility(View.VISIBLE);
+        }
+        else if(MenuItemId == R.id.despatch_entry)
+        {
+            fab.setVisibility(View.GONE);
+        }
+
+
     }
 
 
@@ -202,5 +239,6 @@ public class InwardMainActivity extends AppCompatActivity{
         });
 
     }
+
 
 }

@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminAddCompany extends AppCompatActivity {
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRef , dbRefQuickAccess;
     private EditText companyNameText;
     private EditText companyIdText;
     private Button addComapanyButton;
@@ -22,6 +22,7 @@ public class AdminAddCompany extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_company);
         dbRef = FirebaseDatabase.getInstance().getReference().child("Company");
+        dbRefQuickAccess = FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("customerDCNumbers");
         companyNameText = (EditText) findViewById(R.id.CompanyName);
         companyIdText = (EditText) findViewById(R.id.ComapanyId);
         addComapanyButton = (Button) findViewById(R.id.AddCompany);
@@ -39,6 +40,7 @@ public class AdminAddCompany extends AppCompatActivity {
         final Company company = new Company(companyName,companyId);
         if(companyName!=null && companyId !=null)
         dbRef.push().setValue(company);
+        dbRefQuickAccess.child(companyId).setValue(true);
         onBackPressed();
     }
 }

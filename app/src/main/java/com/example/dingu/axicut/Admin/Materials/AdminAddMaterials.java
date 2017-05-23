@@ -17,6 +17,8 @@ public class AdminAddMaterials extends AppCompatActivity {
     private EditText id;
     private Button addMaterial;
     private DatabaseReference materialRef= FirebaseDatabase.getInstance().getReference().child("Material");
+    private DatabaseReference materialRefQuickAccess= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("materialTypes");;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class AdminAddMaterials extends AppCompatActivity {
         if(materialDesc!=null && materialId!=null) {
             Material material = new Material(materialDesc, materialId);
             materialRef.push().setValue(material);
+            materialRefQuickAccess.child(material.getDesc()).setValue(true);
             onBackPressed();
         }
     }

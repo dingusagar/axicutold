@@ -22,6 +22,7 @@ public class WorkOrder implements Serializable{
     private String prodName;
     private String prodTime;
 
+
     public String getProdTime() {
         return prodTime;
     }
@@ -61,7 +62,55 @@ public class WorkOrder implements Serializable{
     public void setLayoutName(String layoutName) {
         this.layoutName = layoutName;
     }
-    public WorkOrder(){
+    public WorkOrder(){}
+  
+    public String getDespatchDC() {
+        return despatchDC;
+    }
+
+    public void setDespatchDC(String despatchDC) {
+        this.despatchDC = despatchDC;
+    }
+
+    public String getDespatchDate() {
+        return despatchDate;
+    }
+
+    public void setDespatchDate(String despatchDate) {
+        this.despatchDate = despatchDate;
+    }
+
+    public String getScrapDC() {
+        return scrapDC;
+    }
+
+    public void setScrapDC(String scrapDC) {
+        this.scrapDC = scrapDC;
+    }
+
+    public String getScrapDate() {
+        return scrapDate;
+    }
+
+    public void setScrapDate(String scrapDate) {
+        this.scrapDate = scrapDate;
+    }
+
+    private String despatchDC = "";
+    private String despatchDate = "";
+
+    private String scrapDC = "";
+    private String scrapDate = "";
+
+    public WorkOrder(int workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
+        WorkOrderNumber = workOrderNumber;
+        MaterialType = materialType;
+        LotNumber = lotNumber;
+        Thickness = thickness;
+        Length = length;
+        Breadth = breadth;
+        InspectionRemark = inspectionRemark;
+
     }
 
     public int getWorkOrderNumber() {
