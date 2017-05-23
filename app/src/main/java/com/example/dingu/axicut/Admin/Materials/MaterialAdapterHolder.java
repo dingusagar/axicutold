@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+
+import android.widget.ImageButton;
+
+
 import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.example.dingu.axicut.Admin.Company.AdminAddCompany;
 import com.example.dingu.axicut.Admin.Company.CompanyAdapter;
+
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.Navigation.CustomAdapterHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -40,7 +45,9 @@ public class MaterialAdapterHolder implements CustomAdapterHolder  {
     }
 
     @Override
+
     public RecyclerView.Adapter getAdapter() {
+
         return materialAdapter;
     }
 

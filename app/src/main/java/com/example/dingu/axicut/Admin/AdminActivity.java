@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,13 +23,11 @@ import com.example.dingu.axicut.Utils.Navigation.NavigationOptions;
 import com.example.dingu.axicut.Utils.Navigation.Projector;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class AdminActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-        private TextView headerText;
-        private TextView headerId;
-
-        private FirebaseAuth auth;
-
+public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private TextView headerText;
+    private TextView headerId;
+    private FirebaseAuth auth;
+    private RecyclerView mrecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class AdminActivity extends AppCompatActivity
         headerText.setText(getIntent().getStringExtra("name"));
         headerId=(TextView)navView.findViewById(R.id.headerEmailId);
         headerId.setText(getIntent().getStringExtra("id"));
+        mrecyclerView=(RecyclerView)findViewById(R.id.AdminRecyclerList);
     }
 
     @Override
@@ -68,6 +69,16 @@ public class AdminActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mrecyclerView.setHasFixedSize(true);
+        mrecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdminAdapter adminAdapter = new AdminAdapter(getApplicationContext());
+        mrecyclerView.setAdapter(adminAdapter);
+
     }
 
     @Override

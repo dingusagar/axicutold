@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="30dp"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="7dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/bpWhite">
+
+
+            <RelativeLayout
+                android:id="@+id/SaleOrderDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/SaleOrderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyTextViewStylePrimary"
+                    android:text="Sale Order :"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/adminSaleOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyTextViewStylePrimary"
+                    android:layout_toRightOf="@+id/SaleOrderText"
+                    android:text="s000"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold|italic"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/CompanyDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/SaleOrderDisplay">
+
+                <TextView
+                    android:id="@+id/CompanyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Company :"
+                    android:textSize="18sp"
+                    style="@style/MyTextViewStylePrimary"
+                    android:textStyle="bold|italic"/>
+
+                <TextView
+                    android:id="@+id/companyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyTextViewStylePrimary"
+                    android:layout_marginLeft="10dp"
+                    android:text="Axicut"
+                    android:layout_toRightOf="@+id/CompanyText"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/NumWorkOrderDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/CompanyDisplay"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/WorkOrderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Work orders :"
+                    style="@style/MyTextViewStyleSecondary"/>
+
+                <TextView
+                    android:id="@+id/numOfWO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/WorkOrderText"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/DesignDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/NumWorkOrderDisplay">
+
+                <TextView
+                    android:id="@+id/DesignText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Layouts assigned: "
+                    style="@style/MyTextViewStyleAdminStats"/>
+
+                <TextView
+                    android:id="@+id/numOfDesigns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/DesignText"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/ProductionDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DesignDisplay">
+
+                <TextView
+                    android:id="@+id/ProductionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designs produced: "
+                    style="@style/MyTextViewStyleAdminStats"/>
+
+                <TextView
+                    android:id="@+id/numOfProd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/ProductionText"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/DespatchDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ProductionDisplay">
+
+                <TextView
+                    android:id="@+id/DespatchText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designs despatched: "
+                    style="@style/MyTextViewStyleAdminStats"/>
+
+                <TextView
+                    android:id="@+id/numOfDespatched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/DespatchText"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/ScrapDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DespatchDisplay">
+
+                <TextView
+                    android:id="@+id/ScrapText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scraps despatched: "
+                    style="@style/MyTextViewStyleAdminStats"/>
+
+                <TextView
+                    android:id="@+id/numOfScraps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/ScrapText"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

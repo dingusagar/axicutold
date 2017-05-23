@@ -34,7 +34,6 @@ import java.util.ArrayList;
 
 public class DesignMainActivity extends AppCompatActivity {
 
-    private DatabaseReference myDBRef;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
 
@@ -50,9 +49,6 @@ public class DesignMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_design_main);
 
         mAuth = FirebaseAuth.getInstance();
-
-        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRef.keepSynced(true);
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
         saleOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,53 +72,9 @@ public class DesignMainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         saleOrderArrayList = new ArrayList<>();
-        designAdapter = new DesignAdapter(saleOrderArrayList);
+        designAdapter = new DesignAdapter(getApplicationContext());
         saleOrderRecyclerView.setAdapter(designAdapter);
-
-        myDBRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                if(dataSnapshot != null && dataSnapshot.getValue() != null)
-                {
-                    try{
-                        SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
-                        saleOrderArrayList.add(0,saleOrder);
-                        designAdapter.notifyDataSetChanged();
-                    }catch (Exception e)
-                    {
-                        Toast.makeText(getApplicationContext(), "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
     }
 
 

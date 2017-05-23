@@ -1,11 +1,15 @@
 package com.example.dingu.axicut;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -23,6 +27,7 @@ import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,15 +35,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.example.dingu.axicut.Admin.*;
+
+import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField;
     private EditText passwordField;
     private Button loginButton;
-
+    private TextView forgotPassword;
 
     private ProgressBar progressBar;
     private TextView progressMessage;
@@ -63,6 +71,29 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = (EditText)findViewById(R.id.password);
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
+        forgotPassword=(TextView)findViewById(R.id.ForgotPasswordText);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Editable username = emailField.getText();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setCancelable(false);
+                if(username!=null && !username.toString().isEmpty()){
+                    builder.setTitle("Do you want to send a reset link to " + username.toString() + " ?");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendResetPasswordLink(username.toString().trim(),getApplicationContext());
+                        }
+                    });
+                    builder.setNegativeButton("Cancel",null);
+                    builder.show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Please enter your username",Toast.LENGTH_LONG).show();
+
+            }
+        });
         ButtonAnimator.setEffect(loginButton, ButtonAnimator.Effects.SIMPLE_ON_TOUCH_GREY); // onClick animation defined in ButtonAnimator Class
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,18 +110,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
 
         progressMessage.setText("just a sec...");
-        if(mAuth.getCurrentUser() != null)
-        {
-            progressBar.setVisibility(View.VISIBLE);
-            progressMessage.setText("retrieving user details...");
-            emailField.setText(mAuth.getCurrentUser().getEmail());
-            getUserMode();
-        }else //
-        {
             progressBar.setVisibility(View.GONE);
             progressMessage.setText("");
 
-        }
+
     }
 
     private Boolean exit = false;
@@ -226,6 +249,20 @@ public class LoginActivity extends AppCompatActivity {
     }
     public static String getUsername(){
         return mAuth.getCurrentUser().getDisplayName();
+    }
+
+    public static void sendResetPasswordLink(final String email, final Context context){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context,"Password reset link sent to " + email, Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

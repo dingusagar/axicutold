@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Design;
+package com.example.dingu.axicut.Admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardAction;
-import com.example.dingu.axicut.Inward.InwardAdapter;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
+import com.example.dingu.axicut.Design.DesignAdapter;
+import com.example.dingu.axicut.Design.DesignWorkOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -28,16 +27,16 @@ import java.util.ArrayList;
 import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
- * Created by root on 20/5/17.
+ * Created by root on 23/5/17.
  */
 
-public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder> implements Filterable {
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
 
     private ArrayList<SaleOrder> filteredSaleOrderList;
     private ArrayList<SaleOrder> saleOrderList=new ArrayList<>();
     private DatabaseReference myDBRef;
     private Context context;
-    public DesignAdapter(Context context) {
+    public AdminAdapter(Context context) {
         this.filteredSaleOrderList = saleOrderList;
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
@@ -78,8 +77,8 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inward_main_page_list_item,parent,false);
-            return new DesignAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_main_card_view,parent,false);
+        return new ViewHolder(view);
 
     }
 
@@ -88,12 +87,17 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         final SaleOrder saleOrder = filteredSaleOrderList.get(position);
         holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
         holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
+        holder.companyName.setText(saleOrder.getCustomerName());
+        holder.numOfDesign.setText("" + saleOrder.getNumOfLayouts());
+        holder.numProd.setText("" +saleOrder.getNumOfProduced());
+        holder.numDespatched.setText("" +saleOrder.getNumOfDespatched());
+        holder.numScraped.setText("" +saleOrder.getNumScrapped());
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),DesignWorkOrder.class);
+                Intent intent = new Intent(v.getContext(),AdminWorkOrder.class);
                 intent.putExtra("SaleOrder",saleOrder);
-                v.getContext().startActivity(intent);
+               v.getContext().startActivity(intent);
             }
         });
     }
@@ -105,16 +109,18 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         View mview;
-        TextView saleOrderText;
-        TextView numOfWorkOrders;
-        LinearLayout linearLayout;
+        TextView saleOrderText,numOfWorkOrders,companyName,numOfDesign,numProd,numDespatched,numScraped;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
-            saleOrderText = (TextView)mview.findViewById(saleOrder);
+            saleOrderText = (TextView)mview.findViewById(R.id.adminSaleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
-            linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
+            companyName=(TextView)mview.findViewById(R.id.companyName);
+            numOfDesign=(TextView)mview.findViewById(R.id.numOfDesigns);
+            numProd=(TextView)mview.findViewById(R.id.numOfProd);
+            numDespatched=(TextView)mview.findViewById(R.id.numOfDespatched);
+            numScraped=(TextView)mview.findViewById(R.id.numOfScraps);
         }
     }
     public void addDatabaseListeners() {
@@ -136,6 +142,9 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
+                if(saleOrder != null)
+                updateSaleOrderAndNotify(saleOrder);
 
             }
 
@@ -154,5 +163,27 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
 
             }
         });
+    }
+
+    private void updateSaleOrderAndNotify(SaleOrder saleOrder) {
+        for(int i =0 ;i<saleOrderList.size() ; i++)
+        {
+            SaleOrder so = saleOrderList.get(i);
+            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
+            {
+                saleOrderList.set(i,saleOrder);
+            }
+        }
+
+        for(int i =0 ;i<filteredSaleOrderList.size() ; i++)
+        {
+            SaleOrder so = filteredSaleOrderList.get(i);
+            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
+            {
+                saleOrderList.set(i,saleOrder);
+            }
+        }
+
+        notifyDataSetChanged();
     }
 }

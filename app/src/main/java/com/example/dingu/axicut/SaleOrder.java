@@ -123,8 +123,38 @@ public class SaleOrder implements Serializable{
     }
 
 
+    public int getNumOfLayouts(){
+        int num=0;
+        for(WorkOrder wo: workOrders) {
+            if (wo.getLayoutName() != null && !wo.getLayoutName().isEmpty())
+                num++;
+        }
+        return num;
+    }
+    public int getNumOfProduced(){
+        int num=0;
+        for(WorkOrder wo: workOrders) {
+            if (wo.getProdName() != null && !wo.getProdName().isEmpty())
+                num++;
+        }
+        return num;
+    }
 
-
-
+    public int getNumOfDespatched(){
+        int num=0;
+        for(WorkOrder wo: workOrders) {
+            if (wo.getDespatchDate() != null && !wo.getDespatchDate().isEmpty())
+                num++;
+        }
+        return num;
+    }
+    public int getNumScrapped(){
+        int num=0;
+        for(WorkOrder wo: workOrders) {
+            if (wo.getScrapDate() != null && !wo.getScrapDate().isEmpty())
+                num++;
+        }
+        return num;
+    }
 
 }

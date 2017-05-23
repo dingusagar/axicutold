@@ -22,8 +22,8 @@
             android:gravity="center"
             android:text="Company Name"
             android:textSize="25sp"
-            android:textColor="#3215b2"
-            android:fontFamily="cursive"
+            android:textColor="@color/admin_text_color"
+            style="@style/adminFont"
             android:textStyle="bold"
             android:padding="10dp"
             android:layout_margin="10dp"/>
@@ -39,16 +39,17 @@
             android:gravity="center"
             android:text="Company ID"
             android:textSize="25sp"
-            android:textColor="#3215b2"
-            android:fontFamily="cursive"
+            android:textColor="@color/admin_text_color"
+            style="@style/adminFont"
             android:textStyle="bold" />
-        <Button
+        <ImageButton
             android:id="@+id/CompanyRemoveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:text="Remove"
+            android:src="@drawable/delete"
+            android:background="#ffffff"
             android:layout_margin="10dp"/>
     </RelativeLayout>
 

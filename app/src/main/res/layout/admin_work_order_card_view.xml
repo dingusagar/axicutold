@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="3dp"
-    android:layout_margin="5dp"
     android:layout_marginTop="@dimen/card_view_margin"
-    app:cardCornerRadius="10dp"
-    android:elevation="40dp">
+    android:elevation="@dimen/card_view_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,21 +181,11 @@
                 android:hint="Design Layout"
                 android:textSize="18sp"
                 android:textStyle="normal|bold"/>
-
-            <ImageButton
-                android:id="@+id/designLayoutEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/DesignLayout"
-                android:layout_margin="0dp"
-                android:background="#FFFFFF"
-                android:src="@drawable/edit_icon" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/lastModifiedText"
@@ -216,6 +202,70 @@
                 android:layout_alignParentRight="true"
                 android:text=" - "
                 android:textSize="20sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/Prod_date_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Production Date"
+                android:textSize="18sp"
+                android:textStyle="normal|bold"/>
+            <TextView
+                android:id="@+id/prod_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"/>
+
+            <RelativeLayout
+                android:id="@+id/operatorNameDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Prod_date_text">
+
+                <TextView
+                    android:id="@+id/operatorNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Operator Name "
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"/>
+
+                <TextView
+                    android:id="@+id/operatorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=" - "
+                    android:textSize="20sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operatorNameDisplay">
+
+                <TextView
+                    android:id="@+id/TimeDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recorded Time"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"/>
+
+                <TextView
+                    android:id="@+id/timeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=" - "
+                    android:textSize="20sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
