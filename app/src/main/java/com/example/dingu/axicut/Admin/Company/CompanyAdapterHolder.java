@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.dingu.axicut.Admin.user.AdminAddUser;
 import com.example.dingu.axicut.Admin.user.User;
@@ -39,7 +40,7 @@ public class CompanyAdapterHolder implements CustomAdapterHolder {
         companyAdapter=new FirebaseRecyclerAdapter<Company, CompanyViewHolder>(Company.class, R.layout.company_card_view,CompanyViewHolder.class,databaseRef) {
             @Override
             protected void populateViewHolder(final CompanyViewHolder viewHolder, Company model, int position) {
-                Button removeButton = (Button)viewHolder.mView.findViewById(R.id.CompanyRemoveButton);
+                ImageButton removeButton = (ImageButton)viewHolder.mView.findViewById(R.id.CompanyRemoveButton);
                 viewHolder.setCompanyName(model.getComapanyName());
                 viewHolder.setCompanyId(model.getCompanyId());
                 removeButton.setOnClickListener(new View.OnClickListener() {

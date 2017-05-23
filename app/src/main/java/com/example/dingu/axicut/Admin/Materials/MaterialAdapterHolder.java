@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.Navigation.CustomAdapterHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,7 +37,7 @@ public class MaterialAdapterHolder implements CustomAdapterHolder {
         materialAdapter = new FirebaseRecyclerAdapter<Material, MaterialViewHolder>(Material.class, R.layout.material_card_view,MaterialViewHolder.class,databaseRef) {
             @Override
             protected void populateViewHolder(final MaterialViewHolder viewHolder, Material model, int position) {
-                Button removeButton = (Button)viewHolder.mView.findViewById(R.id.MaterialRemoveButton);
+                ImageButton removeButton = (ImageButton)viewHolder.mView.findViewById(R.id.MaterialRemoveButton);
                 viewHolder.setName(model.getDesc());
                 viewHolder.setId(model.getId());
                 removeButton.setOnClickListener(new View.OnClickListener() {

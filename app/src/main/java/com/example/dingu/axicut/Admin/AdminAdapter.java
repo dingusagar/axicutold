@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Design;
+package com.example.dingu.axicut.Admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardAction;
-import com.example.dingu.axicut.Inward.InwardAdapter;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
+import com.example.dingu.axicut.Design.DesignAdapter;
+import com.example.dingu.axicut.Design.DesignWorkOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -28,16 +27,16 @@ import java.util.ArrayList;
 import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
- * Created by root on 20/5/17.
+ * Created by root on 23/5/17.
  */
 
-public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder> implements Filterable {
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
 
     private ArrayList<SaleOrder> filteredSaleOrderList;
     private ArrayList<SaleOrder> saleOrderList=new ArrayList<>();
     private DatabaseReference myDBRef;
     private Context context;
-    public DesignAdapter(Context context) {
+    public AdminAdapter(Context context) {
         this.filteredSaleOrderList = saleOrderList;
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
@@ -78,8 +77,8 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inward_main_page_list_item,parent,false);
-            return new DesignAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_main_card_view,parent,false);
+        return new ViewHolder(view);
 
     }
 
@@ -91,9 +90,9 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),DesignWorkOrder.class);
+                Intent intent = new Intent(v.getContext(),AdminWorkOrder.class);
                 intent.putExtra("SaleOrder",saleOrder);
-                v.getContext().startActivity(intent);
+               v.getContext().startActivity(intent);
             }
         });
     }
@@ -112,7 +111,7 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
-            saleOrderText = (TextView)mview.findViewById(saleOrder);
+            saleOrderText = (TextView)mview.findViewById(R.id.adminSaleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
         }
