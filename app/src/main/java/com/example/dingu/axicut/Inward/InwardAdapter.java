@@ -29,15 +29,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
     private ArrayList<SaleOrder> saleOrderList;
     private Context context;
 
-
-
-    public InwardAdapter(ArrayList<SaleOrder> saleOrderList) {
-        this.filteredSaleOrderList = saleOrderList;
-        this.saleOrderList = saleOrderList;
-
-    }
-
-    public InwardAdapter(ArrayList<SaleOrder> saleOrderList , Context context) {
+    public InwardAdapter(ArrayList<SaleOrder> saleOrderList, Context context) {
         this.filteredSaleOrderList = saleOrderList;
         this.saleOrderList = saleOrderList;
         this.context = context;

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,8 +56,7 @@ public class InwardMainActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
 
 
-        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRef.keepSynced(true);
+
         setupFabButton();
 
 
@@ -114,6 +114,7 @@ public class InwardMainActivity extends AppCompatActivity{
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                Log.e("App","last string " + s);
 
             }
 

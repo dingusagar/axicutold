@@ -15,8 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,14 +31,11 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.WorkOrder;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
@@ -65,7 +60,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     TextView dateText;
     TextView timeText;
     TextView saleOrderNumberText;
-    Spinner customerDCNumber;
+    Spinner customerID_Spinner;
     SimpleDateFormat formatter;
     Calendar calendar;
     ImageButton dateButton , timeButton;
@@ -105,8 +100,8 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         timeText = (TextView) findViewById(R.id.timeText);
         dateButton = (ImageButton)findViewById(R.id.dateButton) ;
         timeButton = (ImageButton)findViewById(R.id.timeButton) ;
-        customerDCNumber = (Spinner) findViewById(R.id.customerDC);
-        customerDCNumber.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerDCNumbers()));
+        customerID_Spinner = (Spinner) findViewById(R.id.customerID);
+        customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerIDs()));
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
 
        // setting up date picker
@@ -302,7 +297,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     public void UpdateSaleOrderObject()
     {
         saleOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
-        saleOrder.setCustomerDCNumber(customerDCNumber.getSelectedItem().toString());
+        saleOrder.setCustomerID(customerID_Spinner.getSelectedItem().toString());
         saleOrder.setCustomerName("");
         saleOrder.setDate(dateText.getText().toString());
         saleOrder.setTime(timeText.getText().toString());
@@ -412,7 +407,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
         {
             saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
-            customerDCNumber.setSelection( ( (ArrayAdapter) customerDCNumber.getAdapter()).getPosition(saleOrder.getCustomerDCNumber()) );
+            customerID_Spinner.setSelection( ( (ArrayAdapter) customerID_Spinner.getAdapter()).getPosition(saleOrder.getCustomerID()) );
             dateText.setText(saleOrder.getDate());
             timeText.setText(saleOrder.getTime());
 

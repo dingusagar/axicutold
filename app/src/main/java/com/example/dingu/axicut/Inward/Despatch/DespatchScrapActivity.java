@@ -2,7 +2,6 @@ package com.example.dingu.axicut.Inward.Despatch;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +22,7 @@ import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -48,7 +40,8 @@ public class DespatchScrapActivity extends AppCompatActivity {
     TextView dateText;
     TextView timeText;
     TextView saleOrderNumberText;
-    TextView customerDCNumber;
+    TextView customerIDText;
+    TextView customerDCText;
 
     String currentDate = "";
     @Override
@@ -62,8 +55,9 @@ public class DespatchScrapActivity extends AppCompatActivity {
 
         dateText = (TextView) findViewById(R.id.dateText);
         timeText = (TextView) findViewById(R.id.timeText);
-        customerDCNumber = (TextView) findViewById(R.id.customerDCText);
+        customerIDText = (TextView) findViewById(R.id.customerIDText);
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
+        customerDCText = (TextView) findViewById(R.id.customerDC);
 
 
 
@@ -81,7 +75,8 @@ public class DespatchScrapActivity extends AppCompatActivity {
         workOrderList = saleOrder.getWorkOrders();
 
         saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
-        customerDCNumber.setText(saleOrder.getCustomerDCNumber());
+        customerIDText.setText(saleOrder.getCustomerID());
+        customerIDText.setText(saleOrder.getCustomerID());
         dateText.setText(saleOrder.getDate());
         timeText.setText(saleOrder.getTime());
 
