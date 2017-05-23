@@ -289,7 +289,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         // Because mContainerView has android:animateLayoutChanges set to true,
         // adding this view is automatically animated.
-        mContainerView.addView(newWorkOrderView, 0);
+        mContainerView.addView(newWorkOrderView);
     }
 
 
@@ -419,7 +419,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             {
                 WorkOrder w = WOrdersList.get(i);
                 addNewWorkOrderView();
-                View view = mContainerView.getChildAt(0);
+                View view = mContainerView.getChildAt(mContainerView.getChildCount() - 1);
 
 
                 Spinner sp = (Spinner)view.findViewById(R.id.materialSpinner);

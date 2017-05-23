@@ -30,25 +30,11 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
         userName.setText(name);
     }
     public void setMode(UserMode Mode){
-        String modeText;
-        switch (Mode){
-            case ADMIN:
-                modeText = "Administrator";
-                break;
-            case INWARD:
-                modeText = "Inward";
-                break;
-            case DESIGN:
-                modeText="Design";
-                break;
-            case PRODUCTION:
-                modeText="Production";
-                break;
-            default:
-                modeText="Unknown";
 
-        }
-        userMode.setText(modeText);
+        if(Mode != null)
+        userMode.setText(Mode.toString());
+        else
+            userMode.setText("");
     }
 
     public void setUserEmail(String email){

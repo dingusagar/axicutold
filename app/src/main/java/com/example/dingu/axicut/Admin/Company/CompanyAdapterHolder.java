@@ -2,16 +2,17 @@ package com.example.dingu.axicut.Admin.Company;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.dingu.axicut.Admin.user.AdminAddUser;
-import com.example.dingu.axicut.Admin.user.User;
-import com.example.dingu.axicut.Admin.user.UserViewHolder;
-import com.example.dingu.axicut.R;
+import android.widget.Filter;
+import android.widget.Filterable;
+
+
 import com.example.dingu.axicut.Utils.Navigation.CustomAdapterHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,7 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CompanyAdapterHolder implements CustomAdapterHolder {
     private DatabaseReference databaseRef= FirebaseDatabase.getInstance().getReference().child("Company");
-    private  FirebaseRecyclerAdapter<Company,CompanyViewHolder> companyAdapter;
+    private static RecyclerView.Adapter companyAdapter;
+    public CompanyAdapterHolder(){
+        if(companyAdapter==null)
+            companyAdapter=new CompanyAdapter();
+    }
     @Override
     public View.OnClickListener onPlusClicked() {
         View.OnClickListener fabClicked = new View.OnClickListener() {
@@ -36,22 +41,14 @@ public class CompanyAdapterHolder implements CustomAdapterHolder {
     }
 
     @Override
-    public FirebaseRecyclerAdapter getAdapter() {
-        companyAdapter=new FirebaseRecyclerAdapter<Company, CompanyViewHolder>(Company.class, R.layout.company_card_view,CompanyViewHolder.class,databaseRef) {
-            @Override
-            protected void populateViewHolder(final CompanyViewHolder viewHolder, Company model, int position) {
-                ImageButton removeButton = (ImageButton)viewHolder.mView.findViewById(R.id.CompanyRemoveButton);
-                viewHolder.setCompanyName(model.getComapanyName());
-                viewHolder.setCompanyId(model.getCompanyId());
-                removeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getRef(viewHolder.getAdapterPosition()).removeValue();
-                        notifyDataSetChanged();
-                    }
-                });
-            }
-        };
+
+    public RecyclerView.Adapter getAdapter() {
+
         return companyAdapter;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return ((Filterable)companyAdapter).getFilter();
     }
 }

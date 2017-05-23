@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         progressMessage.setText("Verifiying User...");
 
-        mdatabaseUsers.addValueEventListener(new ValueEventListener() {
+        mdatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -196,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                            intent = new Intent(LoginActivity.this, InwardMainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                            startActivity(intent);
+                           finish();
                            break;
 
                        case ADMIN:
@@ -206,26 +207,28 @@ public class LoginActivity extends AppCompatActivity {
                            intent.putExtra("id", getUserID());
                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                            startActivity(intent);
+                           finish();
                            break;
 
                        case DESIGN:
                            Log.e("app", "Design identified");
                            intent = new Intent(LoginActivity.this, DesignMainActivity.class);
                            startActivity(intent);
+                           finish();
                            break;
 
                        case PRODUCTION:
                            Log.e("app", "Production identified");
                            intent = new Intent(LoginActivity.this, ProductionActivity.class);
                            startActivity(intent);
+                           finish();
                            break;
 
 
 
                    }
-                   finish();
-               }else
-                   Toast.makeText(LoginActivity.this,"User was not found in database..Contact Admin",Toast.LENGTH_SHORT).show();
+
+               }
 
 
             }

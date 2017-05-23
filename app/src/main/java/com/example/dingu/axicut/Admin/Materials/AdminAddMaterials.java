@@ -39,8 +39,8 @@ public class AdminAddMaterials extends AppCompatActivity {
         String materialId = id.getText().toString().trim();
         if(materialDesc!=null && materialId!=null) {
             Material material = new Material(materialDesc, materialId);
-            materialRef.push().setValue(material);
-            materialRefQuickAccess.child(material.getDesc()).setValue(true);
+            materialRef.child(material.getId()).setValue(material);
+            materialRefQuickAccess.child(material.getId()).setValue(true);
             onBackPressed();
         }
     }

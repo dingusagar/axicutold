@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 
     private void autoSignIn(){
         final String userID = mAuth.getCurrentUser().getUid();
-        mdatabaseUsers.addValueEventListener(new ValueEventListener() {
+        mdatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -127,8 +127,7 @@ public class MainActivity extends Activity {
 
                     }
                     finish();
-                }else
-                    Toast.makeText(getApplicationContext(),"User was not found in database..Contact Admin",Toast.LENGTH_SHORT).show();
+                }
 
 
             }

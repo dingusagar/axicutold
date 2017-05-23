@@ -31,4 +31,21 @@ public class Company {
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
+
+    @Override
+    public String toString() {
+        return getCompanyId();
+    }
+
+//    @Override
+//    public boolean equals(Object v) {
+//        boolean retVal = false;
+//
+//        if (v instanceof Company){
+//            Company ptr = (Company) v;
+//            retVal = (ptr.companyId.equals(this.companyId));
+//        }
+//
+//        return retVal;
+//    }
 }
