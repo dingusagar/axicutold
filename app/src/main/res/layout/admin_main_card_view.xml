@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_view_margin">
+    android:elevation="30dp"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="7dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +30,7 @@
                     style="@style/MyTextViewStylePrimary"
                     android:text="Sale Order :"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:id="@+id/adminSaleOrder"
@@ -38,6 +40,7 @@
                     android:layout_toRightOf="@+id/SaleOrderText"
                     android:text="s000"
                     android:layout_marginLeft="10dp"
+                    android:textStyle="bold|italic"
                     />
             </RelativeLayout>
 
@@ -55,7 +58,7 @@
                     android:text="Company :"
                     android:textSize="18sp"
                     style="@style/MyTextViewStylePrimary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold|italic"/>
 
                 <TextView
                     android:id="@+id/companyName"
@@ -66,7 +69,7 @@
                     android:text="Axicut"
                     android:layout_toRightOf="@+id/CompanyText"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold|italic"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/NumWorkOrderDisplay"
@@ -79,7 +82,7 @@
                     android:id="@+id/WorkOrderText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Num of Work orders :"
+                    android:text="Work orders :"
                     style="@style/MyTextViewStyleSecondary"/>
 
                 <TextView
@@ -89,7 +92,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="w000"
                     android:layout_toRightOf="@+id/WorkOrderText"
-                    style="@style/MyTextViewStyleSecondary" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -104,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Layouts assigned: "
-                    style="@style/MyTextViewStyleSecondary"/>
+                    style="@style/MyTextViewStyleAdminStats"/>
 
                 <TextView
                     android:id="@+id/numOfDesigns"
@@ -113,7 +117,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="w000"
                     android:layout_toRightOf="@+id/DesignText"
-                    style="@style/MyTextViewStyleSecondary" />
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/ProductionDisplay"
@@ -126,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Designs produced: "
-                    style="@style/MyTextViewStyleSecondary"/>
+                    style="@style/MyTextViewStyleAdminStats"/>
 
                 <TextView
                     android:id="@+id/numOfProd"
@@ -135,7 +140,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="w000"
                     android:layout_toRightOf="@+id/ProductionText"
-                    style="@style/MyTextViewStyleSecondary" />
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/DespatchDisplay"
@@ -148,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Designs despatched: "
-                    style="@style/MyTextViewStyleSecondary"/>
+                    style="@style/MyTextViewStyleAdminStats"/>
 
                 <TextView
                     android:id="@+id/numOfDespatched"
@@ -157,7 +163,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="w000"
                     android:layout_toRightOf="@+id/DespatchText"
-                    style="@style/MyTextViewStyleSecondary" />
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/ScrapDisplay"
@@ -170,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Scraps despatched: "
-                    style="@style/MyTextViewStyleSecondary"/>
+                    style="@style/MyTextViewStyleAdminStats"/>
 
                 <TextView
                     android:id="@+id/numOfScraps"
@@ -179,7 +186,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="w000"
                     android:layout_toRightOf="@+id/ScrapText"
-                    style="@style/MyTextViewStyleSecondary" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
             </RelativeLayout>
         </RelativeLayout>
 
