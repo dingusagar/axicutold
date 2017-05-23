@@ -4,6 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffffff"
     tools:context="com.example.dingu.axicut.MainActivity">
 
     <VideoView
