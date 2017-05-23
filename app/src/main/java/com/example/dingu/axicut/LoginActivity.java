@@ -1,11 +1,13 @@
 package com.example.dingu.axicut;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -30,15 +32,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.example.dingu.axicut.Admin.*;
+
+import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField;
     private EditText passwordField;
     private Button loginButton;
-
+    private TextView forgotPassword;
 
     private ProgressBar progressBar;
     private TextView progressMessage;
@@ -63,6 +68,19 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = (EditText)findViewById(R.id.password);
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = (Button)findViewById(R.id.login);
+        forgotPassword=(TextView)findViewById(R.id.ForgotPasswordText);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Editable username = emailField.getText();
+            if(username!=null && !username.toString().isEmpty())
+                sendResetPasswordLink(username.toString().trim(),getApplicationContext());
+            else
+                Toast.makeText(getApplicationContext(),"Please enter your username",Toast.LENGTH_LONG).show();
+
+
+            }
+        });
         ButtonAnimator.setEffect(loginButton, ButtonAnimator.Effects.SIMPLE_ON_TOUCH_GREY); // onClick animation defined in ButtonAnimator Class
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,4 +243,12 @@ public class LoginActivity extends AppCompatActivity {
         return mAuth.getCurrentUser().getDisplayName();
     }
 
+    public static void sendResetPasswordLink(final String email, final Context context){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(context,"Password reset link sent to " + email, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

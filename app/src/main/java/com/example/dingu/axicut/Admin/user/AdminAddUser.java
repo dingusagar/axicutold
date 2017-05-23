@@ -16,6 +16,8 @@ import com.example.dingu.axicut.UserMode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -61,20 +63,28 @@ public class AdminAddUser extends AppCompatActivity {
         final String name = nameField.getText().toString().trim();
         final String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
-
+        final FirebaseAuth tempAuth;
+        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+                .setDatabaseUrl("https://axicut-3fe9b.firebaseio.com/")
+                .setApiKey("AIzaSyDKjXmCJ377LALkI87aIX8fa9Km-_OcF68")
+                .setApplicationId("axicut-3fe9b").build();
+        FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(),firebaseOptions,
+                "axicut");
+         tempAuth=FirebaseAuth.getInstance(myApp);
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked) {
             progress.setMessage("Adding new user..");
             progress.show();
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            tempAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        String userID = mAuth.getCurrentUser().getUid();
+                        String userID = tempAuth.getCurrentUser().getUid();
                         DatabaseReference currentUserDB = mdatabaseRefUsers.child(userID);
                         currentUserDB.child("name").setValue(name);
                         currentUserDB.child("email").setValue(email);
                         currentUserDB.child("userMode").setValue(userMode);
                         progress.dismiss();
+                        tempAuth.signOut();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
