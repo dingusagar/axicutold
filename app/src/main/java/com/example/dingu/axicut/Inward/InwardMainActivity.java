@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class InwardMainActivity extends AppCompatActivity{
 
-    private DatabaseReference myDBRefOrders;
+    private DatabaseReference myDBRefOrders,myDBRef;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
 
@@ -132,9 +132,6 @@ public class InwardMainActivity extends AppCompatActivity{
 
             }
         });
-
-
-
     }
 
 
