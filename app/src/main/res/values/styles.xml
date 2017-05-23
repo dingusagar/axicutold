@@ -1,5 +1,5 @@
 <resources>
-
+<string name="ForgotPassword"><u>Forgot password ??</u></string>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
