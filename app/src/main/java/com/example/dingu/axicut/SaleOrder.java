@@ -17,7 +17,7 @@ public class SaleOrder implements Serializable{
     private String date;
     private String time;
     private String customerName;
-    private String customerDCNumber;
+    private String customerID;
     private  ArrayList<WorkOrder> workOrders;
 
     private final static int SALE_ORDER_NUM_LENGTH = 9;
@@ -62,12 +62,12 @@ public class SaleOrder implements Serializable{
         this.customerName = customerName;
     }
 
-    public String getCustomerDCNumber() {
-        return customerDCNumber;
+    public String getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomerDCNumber(String customerDCNumber) {
-        this.customerDCNumber = customerDCNumber;
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 
     public ArrayList<WorkOrder> getWorkOrders() {

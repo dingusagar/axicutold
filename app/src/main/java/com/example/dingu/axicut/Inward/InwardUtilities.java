@@ -16,9 +16,9 @@ import java.util.Map;
  */
 
 public  class InwardUtilities {
-    public static String[] getCustomerDCNumbers() {
+    public static String[] getCustomerIDs() {
 
-        return customerDCNumbers;
+        return customerIDs;
     }
 
     public static String[] getMaterialTypes() {
@@ -32,7 +32,7 @@ public  class InwardUtilities {
         return lotNos;
     }
 
-    static String[] customerDCNumbers = {""};
+    static String[] customerIDs = {""};
     static String[] materialTypes = {""};
     static String[] lotNos = {""};
 
@@ -50,10 +50,10 @@ public  class InwardUtilities {
         dbRefUtilities.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String,Object> map1  = (Map<String, Object>) dataSnapshot.child("customerDCNumbers").getValue();
+                Map<String,Object> map1  = (Map<String, Object>) dataSnapshot.child("customerIDs").getValue();
 
                 if(map1 != null)
-                customerDCNumbers = map1.keySet().toArray(new String[map1.size()]);
+                customerIDs = map1.keySet().toArray(new String[map1.size()]);
 
                 Map<String,Object> map2  = (Map<String, Object>) dataSnapshot.child("materialTypes").getValue();
 

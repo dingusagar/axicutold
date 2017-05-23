@@ -55,8 +55,7 @@ public class InwardMainActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
 
 
-        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRef.keepSynced(true);
+
         setupFabButton();
 
 
@@ -113,6 +112,7 @@ public class InwardMainActivity extends AppCompatActivity{
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
 
 
             }
