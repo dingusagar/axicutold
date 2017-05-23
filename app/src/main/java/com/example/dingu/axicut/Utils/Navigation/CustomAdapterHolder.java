@@ -1,6 +1,9 @@
 package com.example.dingu.axicut.Utils.Navigation;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
@@ -10,5 +13,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 public interface CustomAdapterHolder {
 
     View.OnClickListener onPlusClicked();
-    FirebaseRecyclerAdapter getAdapter();
+    RecyclerView.Adapter getAdapter();
+    Filter getFilter();
 }

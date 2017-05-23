@@ -11,7 +11,7 @@ import com.example.dingu.axicut.R;
  */
 
 public class MaterialViewHolder extends RecyclerView.ViewHolder {
-    View mView;
+    public View mView;
     private TextView materialdesc;
     private TextView materialId;
     public MaterialViewHolder(View itemView) {
