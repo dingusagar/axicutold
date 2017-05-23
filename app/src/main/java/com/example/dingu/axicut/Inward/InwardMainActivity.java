@@ -114,7 +114,11 @@ public class InwardMainActivity extends AppCompatActivity{
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                Log.e("App","last string " + s);
+                SaleOrder updatedSaleorder = dataSnapshot.getValue(SaleOrder.class);
+
+                if(updatedSaleorder!=null)
+                replaceAndNotify(updatedSaleorder);
+
 
             }
 
@@ -133,6 +137,21 @@ public class InwardMainActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private void replaceAndNotify(SaleOrder updatedSaleorder) {
+
+        String saleorderNo = updatedSaleorder.getSaleOrderNumber();
+
+        for(int i=0; i<saleOrderArrayList.size();i++)
+        {
+            if(saleOrderArrayList.get(i).getSaleOrderNumber().equals(saleorderNo))
+            {
+                saleOrderArrayList.set(i,updatedSaleorder);
+                inwardAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
 
