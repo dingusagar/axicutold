@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 
 import com.example.dingu.axicut.Admin.Materials.Material;
 import com.example.dingu.axicut.Admin.Materials.MaterialViewHolder;
@@ -55,7 +56,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> im
         holder.setId(material.getId());
         holder.setName(material.getDesc());
 
-        Button removeButton = (Button) holder.mView.findViewById(R.id.MaterialRemoveButton);
+        ImageButton removeButton = (ImageButton) holder.mView.findViewById(R.id.MaterialRemoveButton);
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,12 +1,14 @@
 package com.example.dingu.axicut.Admin.user;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 
 
 import com.example.dingu.axicut.R;
@@ -54,7 +56,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
         holder.setName(user.getName());
         holder.setMode(user.getUserMode());
 
-        Button removeButton = (Button) holder.mView.findViewById(R.id.UserRemoveButton);
+        ImageButton removeButton = (ImageButton) holder.mView.findViewById(R.id.UserRemoveButton);
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
                     for(DataSnapshot childSnapshot : dataSnapshot.getChildren())
                     {
                         User user = childSnapshot.getValue(User.class);
-                        if(user != null && user.getEmail().equals(email))
+                        if(user.getEmail() != null && user.getEmail().equals(email))
                             childSnapshot.getRef().removeValue();
                     }
                 }
@@ -141,11 +143,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
                 {
                     try{
                         User user = dataSnapshot.getValue(User.class);
+                        Log.e("App","detected : " + user.toString());
                         if(!userList.contains(user))
                         {
                             userList.add(0,user);
                             filteredUserList.add(0,user);
-
+                            Log.e("App","detected ulist: " + userList.toString());
+                            Log.e("App","detected flist: " + filteredUserList.toString());
 
                             notifyDataSetChanged();
                         }
