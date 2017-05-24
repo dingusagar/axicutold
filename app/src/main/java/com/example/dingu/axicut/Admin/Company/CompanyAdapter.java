@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -53,7 +54,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyViewHolder> impl
         holder.setCompanyId(company.getCompanyId());
         holder.setCompanyName(company.getComapanyName());
 
-        Button removeButton = (Button) holder.mView.findViewById(R.id.CompanyRemoveButton);
+        ImageButton removeButton = (ImageButton) holder.mView.findViewById(R.id.CompanyRemoveButton);
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,8 +69,7 @@ public class AdminAddUser extends AppCompatActivity {
                 .setDatabaseUrl("https://axicut-3fe9b.firebaseio.com/")
                 .setApiKey("AIzaSyDKjXmCJ377LALkI87aIX8fa9Km-_OcF68")
                 .setApplicationId("axicut-3fe9b").build();
-        FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(),firebaseOptions,
-                "axicut");
+        FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(),firebaseOptions,"axicut");
          tempAuth=FirebaseAuth.getInstance(myApp);
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked) {
             progress.setMessage("Adding new user..");
@@ -78,19 +78,18 @@ public class AdminAddUser extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        String userID = tempAuth.getCurrentUser().getUid();
-                        DatabaseReference currentUserDB = mdatabaseRefUsers.child(userID);
-                        currentUserDB.child("name").setValue(name);
-                        currentUserDB.child("email").setValue(email);
-                        currentUserDB.child("userMode").setValue(userMode);
+                        User user = new User(email,name,userMode);
+                        mdatabaseRefUsers.push().setValue(user);
                         progress.dismiss();
                         tempAuth.signOut();
+                        onBackPressed();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progress.dismiss();
+//                    Log.e("App","Error sign up " + e);
                     Toast.makeText(getApplicationContext(), "Oops : Error - " + e.toString(), Toast.LENGTH_LONG).show();
                 }
             });

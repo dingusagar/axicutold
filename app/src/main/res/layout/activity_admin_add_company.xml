@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dingu.axicut.Admin.Company.AdminAddCompany">
+
+    <EditText
+        android:id="@+id/ComapanyId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/CenterRef"
+        android:ems="10"
+        android:hint="Comapany ID"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,23 +36,25 @@
         android:id="@+id/CenterRef"
         android:layout_centerInParent="true">
     </RelativeLayout>
+
     <EditText
+        android:id="@+id/CompanyDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:layout_below="@+id/CenterRef"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/ComapanyId"
+        android:layout_below="@+id/ComapanyId"
+        android:ems="10"
         android:hint="Comapany ID"
-        android:textAlignment="center"/>
+        android:inputType="textEmailAddress"
+        android:textAlignment="center" />
     <Button
         android:text="Add Company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/AddCompany"
         android:background="@color/colorPrimary"
+        android:textColor="@color/bpWhite"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

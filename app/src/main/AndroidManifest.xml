@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".Admin.user.AdminAddUser" />
         <activity android:name=".Inward.InwardMainActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.LoginTheme" />
         <activity
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
