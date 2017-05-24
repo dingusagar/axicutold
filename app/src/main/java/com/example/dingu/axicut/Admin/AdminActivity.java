@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +30,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private TextView headerId;
     private FirebaseAuth auth;
     private RecyclerView mrecyclerView;
+    AdminAdapter adminAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +79,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         super.onStart();
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdminAdapter adminAdapter = new AdminAdapter(getApplicationContext());
+         adminAdapter = new AdminAdapter(getApplicationContext());
         mrecyclerView.setAdapter(adminAdapter);
 
     }
@@ -85,7 +88,27 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.admin, menu);
-        return true;
+
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        search(searchView);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void search(SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adminAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     @Override
