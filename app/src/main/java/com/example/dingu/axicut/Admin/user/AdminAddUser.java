@@ -112,7 +112,8 @@ public class AdminAddUser extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         User user = new User(email,name,userMode);
-                        mdatabaseRefUsers.push().setValue(user);
+                        String userId = tempAuth.getCurrentUser().getUid();
+                        mdatabaseRefUsers.child(userId).setValue(user);
                         progress.dismiss();
                         tempAuth.signOut();
                         onBackPressed();

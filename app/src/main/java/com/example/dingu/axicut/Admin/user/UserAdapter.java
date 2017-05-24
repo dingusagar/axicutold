@@ -72,7 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
     }
 
     private void removeUser(final String email) {
-        dbRef.addValueEventListener(new ValueEventListener() {
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null)
