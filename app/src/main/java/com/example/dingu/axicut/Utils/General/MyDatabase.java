@@ -21,7 +21,7 @@ public class MyDatabase {
         return mDatabase;
     }
     public static class TempAuthCreator{
-      private static FirebaseOptions firebaseOptions;
+        private static FirebaseOptions firebaseOptions;
         private static FirebaseApp myApp;
         private  TempAuthCreator() {}
         public static FirebaseApp getTempAuth(Context context){

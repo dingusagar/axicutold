@@ -55,4 +55,9 @@ public class MaterialAdapterHolder implements CustomAdapterHolder  {
     public Filter getFilter() {
         return ((Filterable)materialAdapter).getFilter();
     }
+
+    @Override
+    public String getActionBarText() {
+        return "Materials";
+    }
 }

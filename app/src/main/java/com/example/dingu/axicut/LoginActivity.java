@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        setTitle("Login...");
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressMessage = (TextView)findViewById(R.id.progressMessage);
 

@@ -48,7 +48,7 @@ public class ProductionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_main);
-
+        setTitle("Production");
         mAuth = FirebaseAuth.getInstance();
 
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
