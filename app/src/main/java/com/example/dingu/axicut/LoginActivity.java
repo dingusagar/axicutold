@@ -229,6 +229,11 @@ public class LoginActivity extends AppCompatActivity {
                    }
 
                }
+               else {
+                   progressMessage.setText("");
+                   progressBar.setVisibility(View.GONE);
+                   Toast.makeText(LoginActivity.this,"User was not there in the database",Toast.LENGTH_SHORT).show();
+               }
 
 
             }
