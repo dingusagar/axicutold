@@ -41,8 +41,7 @@
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Holo.Large"
             android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
     </android.support.design.widget.TextInputLayout>
 
     <Button

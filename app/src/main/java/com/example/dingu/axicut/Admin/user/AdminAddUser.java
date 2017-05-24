@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.UserMode;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -65,12 +66,7 @@ public class AdminAddUser extends AppCompatActivity {
         final String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
         final FirebaseAuth tempAuth;
-        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
-                .setDatabaseUrl("https://axicut-3fe9b.firebaseio.com/")
-                .setApiKey("AIzaSyDKjXmCJ377LALkI87aIX8fa9Km-_OcF68")
-                .setApplicationId("axicut-3fe9b").build();
-        FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(),firebaseOptions,"axicut");
-         tempAuth=FirebaseAuth.getInstance(myApp);
+         tempAuth=FirebaseAuth.getInstance(MyDatabase.TempAuthCreator.getTempAuth(getApplicationContext()));
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && radioButtonChecked) {
             progress.setMessage("Adding new user..");
             progress.show();
