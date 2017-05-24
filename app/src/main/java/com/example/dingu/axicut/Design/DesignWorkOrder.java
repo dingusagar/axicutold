@@ -50,6 +50,7 @@ public class DesignWorkOrder extends AppCompatActivity {
         super.onStart();
         workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
+        setTitle(saleOrder.getSaleOrderNumber());
     }
 
     public SaleOrder getSaleOrder(){

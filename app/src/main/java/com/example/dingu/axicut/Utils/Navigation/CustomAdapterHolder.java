@@ -15,4 +15,5 @@ public interface CustomAdapterHolder {
     View.OnClickListener onPlusClicked();
     RecyclerView.Adapter getAdapter();
     Filter getFilter();
+    String getActionBarText();
 }

@@ -51,4 +51,9 @@ public class CompanyAdapterHolder implements CustomAdapterHolder {
     public Filter getFilter() {
         return ((Filterable)companyAdapter).getFilter();
     }
+
+    @Override
+    public String getActionBarText() {
+        return "Companies";
+    }
 }

@@ -48,4 +48,9 @@ public class UserAdapterHolder implements CustomAdapterHolder{
     public Filter getFilter() {
         return ((Filterable)userAdapter).getFilter();
     }
+
+    @Override
+    public String getActionBarText() {
+        return "Users";
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.dingu.axicut.Admin.user;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,9 +63,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               removeUser(user.getEmail());
-
-
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Do you want to remove this user ??");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeUser(user.getEmail());
+                    }
+                });
+                builder.setNegativeButton("Cancel",null);
+                builder.show();
             }
         });
 
