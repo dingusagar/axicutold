@@ -249,7 +249,7 @@ public class InwardMainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder.class);
+                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder2.class);
                 intent.putExtra("InwardAction",InwardAction.CREATE_NEW_SALE_ORDER);
                 startActivity(intent);
             }
