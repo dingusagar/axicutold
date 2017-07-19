@@ -17,8 +17,6 @@ import com.example.dingu.axicut.SaleOrder;
 
 import java.util.ArrayList;
 
-import static com.example.dingu.axicut.R.id.saleOrder;
-
 /**
  * Created by dingu on 17/5/17.
  */

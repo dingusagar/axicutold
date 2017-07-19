@@ -87,7 +87,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         final SaleOrder saleOrder = filteredSaleOrderList.get(position);
         holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
         holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
-        holder.companyName.setText(saleOrder.getCustomerName());
+        holder.companyName.setText(saleOrder.getCustomerID());
         holder.numOfDesign.setText("" + saleOrder.getNumOfLayouts());
         holder.numProd.setText("" +saleOrder.getNumOfProduced());
         holder.numDespatched.setText("" +saleOrder.getNumOfDespatched());

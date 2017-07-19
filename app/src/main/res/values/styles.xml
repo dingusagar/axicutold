@@ -1,22 +1,22 @@
 <resources>
 <string name="ForgotPassword"><u>Forgot password ??</u></string>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Theme" parent="android:style/Theme" />
-    <style name="Theme.MyAppTheme" parent="Theme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowDisablePreview">true</item>
+    <!--<style name="Theme" parent="android:style/Theme" />-->
+    <!--<style name="Theme.MyAppTheme" parent="Theme">-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
 
-    </style>
+    <!--</style>-->
     <style name="myTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen" />
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -25,6 +25,11 @@
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
 
+    </style>
+
+    <style name="inward_add_edit" parent="Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="AppTheme.LoginTheme">

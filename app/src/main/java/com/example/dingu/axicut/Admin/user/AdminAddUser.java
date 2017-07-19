@@ -1,11 +1,15 @@
 package com.example.dingu.axicut.Admin.user;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,8 +22,6 @@ import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,9 @@ public class AdminAddUser extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mdatabaseRefUsers;
 
+    Vibrator vibrator;
+    int VIBRATE_DURATION = 100;
+
     private EditText nameField;
     private EditText emailField;
     private EditText passwordField;
@@ -43,6 +48,8 @@ public class AdminAddUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_user);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         mAuth = FirebaseAuth.getInstance();
         mdatabaseRefUsers = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -55,10 +62,36 @@ public class AdminAddUser extends AppCompatActivity {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerNewUser();
+                alertAndRegister(view);
+
             }
         });
     }
+
+    private void alertAndRegister(View view) {
+        vibrator.vibrate(VIBRATE_DURATION);
+        final Button button = (Button)view;
+        new AlertDialog.Builder(AdminAddUser.this)
+                .setTitle("Confirm User Entry")
+                .setMessage("Do you want to add this user?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//
+                        if (button.isEnabled()) {
+                            button.setEnabled(false);
+                            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_disabled_text_color));
+                        }
+                        registerNewUser();
+                    }})
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
+                    }
+                }).show();
+    }
+
 
     private void registerNewUser() {
 
@@ -75,7 +108,8 @@ public class AdminAddUser extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         User user = new User(email,name,userMode);
-                        mdatabaseRefUsers.push().setValue(user);
+                        String userId = tempAuth.getCurrentUser().getUid();
+                        mdatabaseRefUsers.child(userId).setValue(user);
                         progress.dismiss();
                         tempAuth.signOut();
                         onBackPressed();

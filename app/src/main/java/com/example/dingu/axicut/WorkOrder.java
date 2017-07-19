@@ -23,6 +23,7 @@ public class WorkOrder implements Serializable{
     private String prodTime;
 
 
+
     public String getProdTime() {
         return prodTime;
     }

@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
 
     private void autoSignIn(){
         final String userID = mAuth.getCurrentUser().getUid();
+        Log.e("app", "autoSign in : " + userID);
         mdatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,6 +92,7 @@ public class MainActivity extends Activity {
                 if(dataSnapshot.hasChild(userID)) { // only if the user is present in the db
                     // getting the string userMode in DB to enum userMode
                    UserMode userMode = UserMode.valueOf(dataSnapshot.child(userID).child("userMode").getValue().toString());
+                    Log.e("app", "user mode : "+ userMode);
                     Intent intent;
                     switch (userMode) {
                         case INWARD:
@@ -99,6 +101,7 @@ public class MainActivity extends Activity {
                             intent = new Intent(MainActivity.this, InwardMainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                             break;
 
                         case ADMIN:
@@ -109,23 +112,39 @@ public class MainActivity extends Activity {
                             intent.putExtra("id", getUserID());
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
                             break;
 
                         case DESIGN:
                             Log.e("app", "Design identified");
                             intent = new Intent(MainActivity.this, DesignMainActivity.class);
                             startActivity(intent);
+                            finish();
                             break;
 
                         case PRODUCTION:
                             Log.e("app", "Production identified");
                             intent = new Intent(MainActivity.this, ProductionActivity.class);
                             startActivity(intent);
+                            finish();
                             break;
+
+                        default:
+                            Log.e("app", "default user mode");
+                            mAuth.signOut();
+                            intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
 
 
 
                     }
+
+                }else {
+                    Log.e("app", "default user mode");
+                    mAuth.signOut();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
                     finish();
                 }
 

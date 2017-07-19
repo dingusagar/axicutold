@@ -12,14 +12,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,7 +44,9 @@ import java.util.Date;
 
 public class InwardAddEditSaleOrder extends AppCompatActivity {
 
-    ViewGroup mContainerView;
+    RecyclerView workorderRecyclerView;
+    InwardWorkOrderAdapter workOrderAdapter;
+
     ArrayList<WorkOrder> workOrders;
     Button confirmButton;
     SaleOrder saleOrder;
@@ -60,6 +60,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     TextView dateText;
     TextView timeText;
     TextView saleOrderNumberText;
+    TextView customerDCText;
     Spinner customerID_Spinner;
     SimpleDateFormat formatter;
     Calendar calendar;
@@ -74,7 +75,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inward_add_edit_saleorder);
+        setContentView(R.layout.activity_inward_add_edit_sale_order2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -84,11 +85,12 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
 
-        // acts as list view
-        mContainerView = (ViewGroup) findViewById(R.id.container);
+        workorderRecyclerView = (RecyclerView)findViewById(R.id.workorderRecyclerview);
+        workorderRecyclerView.setHasFixedSize(true);
+        workorderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         workOrderListEmptyMessage = (TextView) findViewById(R.id.list_empty_message);
 
-        workOrders = new ArrayList<>(); // temporary Arraylist of WorkOrders which will finally be written into saleOrder's Arraylist in FillWorkList() method
 
         // db references
         dbRefOrders = MyDatabase.getDatabase().getInstance().getReference().child("Orders");
@@ -102,9 +104,11 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         timeButton = (ImageButton)findViewById(R.id.timeButton) ;
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
         customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerIDs()));
+        customerDCText = (TextView)findViewById(R.id.customerDC);
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
 
-       // setting up date picker
+
+        // setting up date picker
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +124,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                             dateText.setText(formatter.format(date).toString());
 
                         } catch (Exception ex) {
-                           displayError(ex);
+                            displayError("date time error ",ex);
                         }
                     }
                 });
@@ -148,7 +152,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         });
 
 
-
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         confirmButton = (Button)findViewById(R.id.confirmButton);
         ButtonAnimator.setEffect(confirmButton, ButtonAnimator.Effects.REVERSE_BACKGROUND_FOREGROUND);
@@ -158,17 +161,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 confirmButtonAction(view);
             }
         });
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                workOrderListEmptyMessage.setVisibility(View.GONE);
-                addNewWorkOrderView();
-            }
-        });
-
 
 
         inwardAction = (InwardAction)getIntent().getSerializableExtra("InwardAction");
@@ -184,10 +176,18 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             saleOrder = setUpNewSaleOrder();  // this will take care of the valid saleOrder number
         }
 
-        InvalidateViews(inwardAction); // put existing stuffs accross different views based on InwardACtion
+        InvalidateViews(); // put existing stuffs accross different views including recycler view
 
-        if(mContainerView.getChildCount() == 0)
-            workOrderListEmptyMessage.setVisibility(View.VISIBLE);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                workOrderListEmptyMessage.setVisibility(View.GONE);
+                MassEntry workorderMassEntry = new MassEntryImpl(InwardAddEditSaleOrder.this,saleOrder.getWorkOrders());
+                workorderMassEntry.showDialog();
+            }
+        });
 
 
     }
@@ -204,13 +204,11 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-//
                         if (button.isEnabled()) {
                             button.setEnabled(false);
                             button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_disabled_text_color));
                         }
                         UpdateSaleOrderObject();
-                        UpdateWorkOrderObjectsFromListView();
                         writeBackOnDatabase();
                     }})
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -246,51 +244,16 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             }
         });
 
+        saleOrder = updateCurrentDateTime(saleOrder);
+
         return saleOrder;
 
     }
 
-    private void displayError(Exception e) {
-        Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+    private void displayError(String msg, Exception e) {
+        Toast.makeText(getApplicationContext(),msg+" : " + e.toString(),Toast.LENGTH_LONG).show();
     }
 
-
-    private void addNewWorkOrderView() {
-
-        final ViewGroup newWorkOrderView = (ViewGroup) LayoutInflater.from(this).inflate(
-                R.layout.workorder_list_item, mContainerView, false);
-
-        TextView tv = (TextView)newWorkOrderView.findViewById(R.id.workOrderNo);
-        tv.setText("W"+(mContainerView.getChildCount()+1));
-
-        Spinner sp = (Spinner)newWorkOrderView.findViewById(R.id.materialSpinner);
-        sp.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getMaterialTypes()));
-
-//        sp = (Spinner)newWorkOrderView.findViewById(R.id.lotNoSpinner);
-//        sp.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.lotNos));
-
-        // Set a click listener for the "X" button in the row that will remove the row.
-        newWorkOrderView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Remove the row from its parent (the container view).
-                // Because mContainerView has android:animateLayoutChanges set to true,
-                // this removal is automatically animated.
-
-                mContainerView.removeView(newWorkOrderView);
-                correctWorkOrderNumbers();
-
-                // If there are no rows remaining, show the empty textview message.
-                if (mContainerView.getChildCount() == 0) {
-                    workOrderListEmptyMessage.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        // Because mContainerView has android:animateLayoutChanges set to true,
-        // adding this view is automatically animated.
-        mContainerView.addView(newWorkOrderView);
-    }
 
 
 
@@ -298,45 +261,12 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     {
         saleOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
         saleOrder.setCustomerID(customerID_Spinner.getSelectedItem().toString());
-        saleOrder.setCustomerName("");
+        saleOrder.setCustomerDC(customerDCText.getText().toString());
         saleOrder.setDate(dateText.getText().toString());
         saleOrder.setTime(timeText.getText().toString());
     }
 
-    public void UpdateWorkOrderObjectsFromListView() // getting data from UI to a local arraylist called workorders
-    {
-        for(int i = 0; i<mContainerView.getChildCount();i++)
-        {
-            WorkOrder workOrder = new WorkOrder();
-            View view = mContainerView.getChildAt(i);
-            workOrder.setWorkOrderNumber(i+1);
 
-            Spinner sp = (Spinner)view.findViewById(R.id.materialSpinner);
-            workOrder.setMaterialType(sp.getSelectedItem().toString());
-
-            sp = (Spinner)view.findViewById(R.id.lotNoSpinner);
-            workOrder.setLotNumber(sp.getSelectedItem().toString());
-
-            EditText et = (EditText)view.findViewById(R.id.size1);
-            workOrder.setThickness(Float.parseFloat(et.getText().toString()));
-
-            et = (EditText)view.findViewById(R.id.size2);
-            workOrder.setLength(Float.parseFloat(et.getText().toString()));
-
-            et = (EditText)view.findViewById(R.id.size3);
-            workOrder.setBreadth(Float.parseFloat(et.getText().toString()));
-
-            et = (EditText)view.findViewById(R.id.remark);
-            workOrder.setInspectionRemark(et.getText().toString());
-
-            Log.e("App",workOrder.toString());
-            workOrders.add(workOrder);  // adding to local workOrders List
-        }
-
-        saleOrder.setWorkOrders(workOrders);  // coping the local list of workorders to original list in saleOrder
-
-
-    }
 
 
 
@@ -381,78 +311,48 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
                 }
             });
-        }else
-            Toast.makeText(getApplicationContext(),"Opps : Invalid SaleOrder Number ",Toast.LENGTH_LONG).show();
-             progress.dismiss();
-
-
-
-    }
-
-    public void correctWorkOrderNumbers()
-    {
-        int  totalChildren = mContainerView.getChildCount();
-        for(int i = 0; i<totalChildren;i++)
-        {
-            View view = mContainerView.getChildAt(i);
-            TextView tv = (TextView)view.findViewById(R.id.workOrderNo);
-            tv.setText("W"+(totalChildren - i));
+        }else {
+            Toast.makeText(getApplicationContext(), "Opps : Invalid SaleOrder Number ", Toast.LENGTH_LONG).show();
+            progress.dismiss();
         }
 
+
     }
 
-    private void InvalidateViews(InwardAction inwardAction) {
+    private void InvalidateViews() {
 
-
-        if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
-        {
             saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
             customerID_Spinner.setSelection( ( (ArrayAdapter) customerID_Spinner.getAdapter()).getPosition(saleOrder.getCustomerID()) );
             dateText.setText(saleOrder.getDate());
             timeText.setText(saleOrder.getTime());
+            customerDCText.setText(saleOrder.getCustomerDC());
 
-            //populating workorders
+            workOrderAdapter = new InwardWorkOrderAdapter(saleOrder.getWorkOrders(),this);
+            workorderRecyclerView.setAdapter(workOrderAdapter);
 
-           ArrayList<WorkOrder> WOrdersList = saleOrder.getWorkOrders();
-
-            for(int i = 0 ; i < WOrdersList.size() ; i++)
-            {
-                WorkOrder w = WOrdersList.get(i);
-                addNewWorkOrderView();
-                View view = mContainerView.getChildAt(mContainerView.getChildCount() - 1);
+            if(saleOrder.getWorkOrders().size() == 0)
+              workOrderListEmptyMessage.setVisibility(View.VISIBLE);
 
 
-                Spinner sp = (Spinner)view.findViewById(R.id.materialSpinner);
-                sp.setSelection( ( (ArrayAdapter) sp.getAdapter()).getPosition(w.getMaterialType()) );
+    }
 
-                sp = (Spinner)view.findViewById(R.id.lotNoSpinner);
-                sp.setSelection( ( (ArrayAdapter) sp.getAdapter()).getPosition(w.getLotNumber()) );
+    public void refreshRecyclerView()
+    {
+        workOrderAdapter.notifyDataSetChanged();
+    }
 
-                EditText et = (EditText)view.findViewById(R.id.size1);
-                et.setText(""+w.getThickness());
+    private SaleOrder updateCurrentDateTime(SaleOrder saleOrder)
+    {
+        // putting on the view
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        dateText.setText(formatter.format(new Date()));
+        formatter = new SimpleDateFormat("HH:mm");
+        timeText.setText(formatter.format(new Date()));
 
-                et = (EditText)view.findViewById(R.id.size2);
-                et.setText(""+w.getLength());
-
-                et = (EditText)view.findViewById(R.id.size3);
-                et.setText(""+w.getBreadth());
-
-                et = (EditText)view.findViewById(R.id.remark);
-                et.setText(w.getInspectionRemark());
-
-
-            }
-        }else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
-        {
-
-            formatter = new SimpleDateFormat("dd/MM/yyyy");
-            dateText.setText(formatter.format(new Date()));
-            formatter = new SimpleDateFormat("HH:mm");
-            timeText.setText(formatter.format(new Date()));
-        }
-
-
-
+        // putting on the object
+        saleOrder.setDate(dateText.getText().toString());
+        saleOrder.setTime(timeText.getText().toString());
+        return saleOrder;
     }
 
     // Thread to wait till the Toast Message to disappear

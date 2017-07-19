@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="3dp"
+    android:layout_marginTop="@dimen/card_view_margin"
+    android:elevation="@dimen/card_view_elevation">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/list_header">
+
+
+            <TextView
+                android:text="W0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/workOrderNo"
+                android:layout_weight="1"
+                android:textColor="@color/bpWhite"
+                android:textStyle="normal|bold"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                android:layout_margin="3dp"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:text="Material Type : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView13"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="@dimen/inward_df_marginleft"
+                    android:textStyle="normal|bold" />
+
+
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/materialSpinner"
+                    android:layout_weight="1"
+                    android:entries="@array/materials" />
+
+            </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:text="Lot No : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_marginLeft="@dimen/inward_df_marginleft"
+                android:textStyle="normal|bold" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lotNoSpinner"
+                android:layout_weight="1"
+                android:entries="@array/materials" />
+        </LinearLayout>
+        <TextView
+            android:text="Sheet Size :"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:layout_marginLeft="@dimen/inward_df_marginleft"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView125"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/inward_df_marginleft2"
+                android:text="Length        :    "
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:id="@+id/length"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:text="1"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView112"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/inward_df_marginleft2"
+                android:text="Breadth      :    "
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:ems="10"
+                android:id="@+id/breadth"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView145"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/inward_df_marginleft2"
+                android:text="Thickness  :    "
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:ems="10"
+                android:id="@+id/thickness"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+
+        <TextView
+            android:text="Inspection Remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView19"
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            android:layout_marginLeft="@dimen/inward_df_marginleft"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/remark"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.22"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:layout_marginLeft="@dimen/inward_df_marginleft2"
+            android:layout_marginRight="@dimen/inward_df_marginleft2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/list_header">
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/inward_df_marginleft"
+                android:layout_marginTop="5dp"
+                android:text="Num of work orders : "
+                android:textSize="18sp"
+                android:textColor="@color/bpWhite"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:id="@+id/num_of_wo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/inward_df_marginleft"
+                android:layout_marginRight="@dimen/inward_df_marginleft2"
+                android:ems="10"
+                android:inputType="number"
+                android:text="1"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/bpWhite" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

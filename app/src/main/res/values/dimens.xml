@@ -12,4 +12,6 @@
     <dimen name="card_view_margin">10dp</dimen>
     <dimen name="card_view_radius">10dp</dimen>
     <dimen name="card_view_elevation">20dp</dimen>
+    <dimen name="inward_df_marginleft">20dp</dimen>
+    <dimen name="inward_df_marginleft2">50dp</dimen>
 </resources>

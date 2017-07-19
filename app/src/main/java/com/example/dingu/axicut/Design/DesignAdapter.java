@@ -12,9 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardAction;
-import com.example.dingu.axicut.Inward.InwardAdapter;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
