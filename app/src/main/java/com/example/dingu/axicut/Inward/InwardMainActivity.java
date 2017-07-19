@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -249,7 +248,7 @@ public class InwardMainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder2.class);
+                Intent intent = new Intent(InwardMainActivity.this,InwardAddEditSaleOrder.class);
                 intent.putExtra("InwardAction",InwardAction.CREATE_NEW_SALE_ORDER);
                 startActivity(intent);
             }

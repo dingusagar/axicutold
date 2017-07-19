@@ -17,8 +17,6 @@ import com.example.dingu.axicut.SaleOrder;
 
 import java.util.ArrayList;
 
-import static com.example.dingu.axicut.R.id.saleOrder;
-
 /**
  * Created by dingu on 17/5/17.
  */
@@ -58,7 +56,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
 
                 if(((InwardMainActivity)context).MenuItemId == R.id.inward_entry)
                 {
-                    Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder2.class);
+                    Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
                     intent.putExtra("SaleOrder",saleOrder);
                     intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
                     v.getContext().startActivity(intent);

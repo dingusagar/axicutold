@@ -70,7 +70,7 @@
         <activity
             android:name=".Admin.AdminWorkOrder"
             android:screenOrientation="portrait" />
-        <activity android:name=".Inward.InwardAddEditSaleOrder2"
+        <activity android:name=".Inward.InwardAddEditSaleOrder"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" ></activity>
     </application>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,7 +139,7 @@ public class MassEntryImpl implements MassEntry {
             workOrders.add(workOrder);
         }
 
-        ((InwardAddEditSaleOrder2)context).refreshRecyclerView();
+        ((InwardAddEditSaleOrder)context).refreshRecyclerView();
 
     }
 

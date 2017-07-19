@@ -1,6 +1,5 @@
 package com.example.dingu.axicut.Inward;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -10,20 +9,15 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class InwardAddEditSaleOrder2 extends AppCompatActivity {
+public class InwardAddEditSaleOrder extends AppCompatActivity {
 
     RecyclerView workorderRecyclerView;
     InwardWorkOrderAdapter workOrderAdapter;
@@ -66,6 +60,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
     TextView dateText;
     TextView timeText;
     TextView saleOrderNumberText;
+    TextView customerDCText;
     Spinner customerID_Spinner;
     SimpleDateFormat formatter;
     Calendar calendar;
@@ -109,14 +104,16 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
         timeButton = (ImageButton)findViewById(R.id.timeButton) ;
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
         customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerIDs()));
+        customerDCText = (TextView)findViewById(R.id.customerDC);
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
+
 
         // setting up date picker
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment();
-                cdp.show(InwardAddEditSaleOrder2.this.getSupportFragmentManager(), "Material Calendar Example");
+                cdp.show(InwardAddEditSaleOrder.this.getSupportFragmentManager(), "Material Calendar Example");
                 cdp.setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
@@ -141,7 +138,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(InwardAddEditSaleOrder2.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(InwardAddEditSaleOrder.this, new TimePickerDialog.OnTimeSetListener() {
 
 
                     @Override
@@ -187,7 +184,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 workOrderListEmptyMessage.setVisibility(View.GONE);
-                MassEntry workorderMassEntry = new MassEntryImpl(InwardAddEditSaleOrder2.this,saleOrder.getWorkOrders());
+                MassEntry workorderMassEntry = new MassEntryImpl(InwardAddEditSaleOrder.this,saleOrder.getWorkOrders());
                 workorderMassEntry.showDialog();
             }
         });
@@ -200,7 +197,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
     private void confirmButtonAction(View view) {
         vibrator.vibrate(VIBRATE_DURATION);
         final Button button = (Button)view;
-        new AlertDialog.Builder(InwardAddEditSaleOrder2.this)
+        new AlertDialog.Builder(InwardAddEditSaleOrder.this)
                 .setTitle("Confirm Entry")
                 .setMessage("Do you want to save the changes ?")
                 .setIcon(R.mipmap.db_alert)
@@ -264,7 +261,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
     {
         saleOrder.setSaleOrderNumber(saleOrderNumberText.getText().toString());
         saleOrder.setCustomerID(customerID_Spinner.getSelectedItem().toString());
-        saleOrder.setCustomerName("");
+        saleOrder.setCustomerDC(customerDCText.getText().toString());
         saleOrder.setDate(dateText.getText().toString());
         saleOrder.setTime(timeText.getText().toString());
     }
@@ -328,6 +325,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
             customerID_Spinner.setSelection( ( (ArrayAdapter) customerID_Spinner.getAdapter()).getPosition(saleOrder.getCustomerID()) );
             dateText.setText(saleOrder.getDate());
             timeText.setText(saleOrder.getTime());
+            customerDCText.setText(saleOrder.getCustomerDC());
 
             workOrderAdapter = new InwardWorkOrderAdapter(saleOrder.getWorkOrders(),this);
             workorderRecyclerView.setAdapter(workOrderAdapter);
@@ -363,7 +361,7 @@ public class InwardAddEditSaleOrder2 extends AppCompatActivity {
         public void run() {
             try {
                 Thread.sleep(3000); // As I am using LENGTH_LONG in Toast
-                InwardAddEditSaleOrder2.this.finish();
+                InwardAddEditSaleOrder.this.finish();
             } catch (Exception e) {
                 e.printStackTrace();
             }
