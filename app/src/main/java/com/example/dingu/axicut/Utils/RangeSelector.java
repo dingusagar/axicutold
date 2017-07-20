@@ -21,11 +21,12 @@ import java.util.ArrayList;
  * Created by dingu on 11/7/17.
  */
 
-public class RangeSelector  {
+public class RangeSelector {
+    private RecyclerViewRefresher refresher;
     private Context context;
     private String title;
     private int layout = R.layout.range_selector;
-    private int from,to,highestWOnum;
+    private int from,to;
     private boolean selectedItems[];
     LayoutInflater inflater;
     AlertDialog.Builder builder;
@@ -35,10 +36,10 @@ public class RangeSelector  {
 
 
 
-    public RangeSelector(Context context,int highestWOnum,boolean[] selectedItems) {
+    public RangeSelector(Context context , RecyclerViewRefresher refresher, boolean selectedItems[]) {
         this.context = context;
-        this.highestWOnum=highestWOnum;
-        this.selectedItems=selectedItems;
+        this.refresher = refresher;
+        this.selectedItems = selectedItems;
         setupDialog();
     }
 
@@ -76,10 +77,10 @@ public class RangeSelector  {
     public void onPositiveButtonClicked() {
         from = Integer.parseInt(((EditText)contentView.findViewById(R.id.from)).getText().toString());
         to = Integer.parseInt(((EditText)contentView.findViewById(R.id.to)).getText().toString());
-        if(from<=to && to<=highestWOnum){
+        if(from<=to && to<= selectedItems.length){
             for(int counter=from;counter<=to;counter++)
                 selectedItems[counter]=true;
-            ((DesignWorkOrder)context).refreshRecyclerView();
+            refresher.refreshRecyclerView();
         }
     }
 
