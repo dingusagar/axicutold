@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/from"
+        android:textSize="30dp"
+        android:text="W"/>
+    <EditText
+        android:id="@+id/from"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/Baseline"/>
+<RelativeLayout
+    android:id="@+id/Baseline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="to"/>
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/WText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/Baseline"
+        android:textSize="30dp"
+        android:text="W"/>
+    <EditText
+        android:id="@+id/to"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/WText"/>
+</RelativeLayout>

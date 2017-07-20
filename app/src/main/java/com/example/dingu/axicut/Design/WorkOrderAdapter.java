@@ -12,17 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -39,11 +43,13 @@ import static com.example.dingu.axicut.R.id.saleOrder;
 public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder> {
     private Context context;
     private ArrayList<WorkOrder> workOrderList;
+    private boolean[] selectedItems;
     private SaleOrder saleOrder;
 
-    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList, Context context) {
+    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList,boolean[] selectedItems, Context context) {
         this.workOrderList = workOrderList;
         this.context = context;
+        this.selectedItems = selectedItems;
         this.saleOrder = ((DesignWorkOrder)context).getSaleOrder();
     }
 
@@ -66,6 +72,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setSize3(String.valueOf(workOrder.getBreadth()));
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
+        if(selectedItems!=null)
+        holder.setCheckBoxTicked(selectedItems[workOrder.getWorkOrderNumber()]);
         ImageButton designLayout = (ImageButton)holder.mview.findViewById(R.id.designLayoutEdit);
         designLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,19 +82,25 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                 EditDesignLayout editDesignFragment = new EditDesignLayout();
                 Bundle bundle = new Bundle();
                 DesignLayoutCommunicator communicator = new DesignLayoutCommunicator() {
-                    @Override
-                    public SaleOrder getSaleOrder() {
-                        return saleOrder;
-                    }
-
-                    @Override
                     public int getWorkOrderPos() {
                         return holder.getAdapterPosition();
                     }
+                    @Override
+                    public void adapterNotify(String layout) {
+                        WorkOrder wo = saleOrder.getWorkOrders().get(getWorkOrderPos());
+                        wo.setLayoutName(layout);
+                        wo.setLayoutDate(InwardUtilities.getServerDate());
+                        notifyDataSetChanged();
+                    }
 
                     @Override
-                    public void adapterNotify() {
-                        notifyDataSetChanged();
+                    public void updateWorkOrderLayoutToDatabase(String layout) {
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
+                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(getWorkOrderPos()));
+                        DatabaseReference layoutRef = workOrderRef.child("layoutName");
+                        DatabaseReference dateRef = workOrderRef.child("layoutDate");
+                        layoutRef.setValue(layout);
+                        dateRef.setValue(InwardUtilities.getServerDate());
                     }
                 };
                 bundle.putSerializable("Communicator",communicator);
@@ -105,6 +119,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
                 size1, size2, size3, dateText,layoutText;
+        CheckBox checkBox;
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
@@ -117,7 +132,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             size3 = (TextView) mview.findViewById(R.id.size3);
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
-
+            checkBox = (CheckBox)mview.findViewById(R.id.selected);
         }
 
         public void setMaterialText(String text) {
@@ -152,9 +167,13 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             layoutText.setText("Layout: " + text);
         }
 
-        public void setDateText(Date date) {
-            if (date != null) dateText.setText(date.getDate()+"/"+date.getMonth()+"/"+String.valueOf(date.getYear()+1900));
+        public void setDateText(String date) {
+            if (date != null) dateText.setText(date);
         }
+        public void setCheckBoxTicked(Boolean isTicked){
+            checkBox.setChecked(isTicked);
+        }
+
     }
 
 }

@@ -16,9 +16,9 @@ public class WorkOrder implements Serializable{
     private float Length;
     private float Breadth;
     private String InspectionRemark;
-    private Date layoutDate;
+    private String layoutDate;
     private String layoutName;
-    private Date prodDate;
+    private String prodDate;
     private String prodName;
     private String prodTime;
 
@@ -32,11 +32,11 @@ public class WorkOrder implements Serializable{
         this.prodTime = prodTime;
     }
 
-    public Date getProdDate() {
+    public String getProdDate() {
         return prodDate;
     }
 
-    public void setProdDate(Date prodDate) {
+    public void setProdDate(String prodDate) {
         this.prodDate = prodDate;
     }
 
@@ -48,11 +48,11 @@ public class WorkOrder implements Serializable{
         this.prodName = prodName;
     }
 
-    public Date getLayoutDate() {
+    public String getLayoutDate() {
         return layoutDate;
     }
 
-    public void setLayoutDate(Date layoutDate) {
+    public void setLayoutDate(String layoutDate) {
         this.layoutDate = layoutDate;
     }
 

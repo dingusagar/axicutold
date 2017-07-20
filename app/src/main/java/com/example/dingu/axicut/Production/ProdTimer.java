@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.dingu.axicut.Design.DesignLayoutCommunicator;
 import com.example.dingu.axicut.Design.EditDesignLayout;
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.WorkOrder;
@@ -147,7 +148,7 @@ public class ProdTimer extends DialogFragment implements View.OnClickListener {
     public void saveToDataBase(String time){
         String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String userName = email.substring(0,email.lastIndexOf("@"));
-        Date date = EditDesignLayout.getDateFromServer();
+        String date = InwardUtilities.getServerDate();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
         DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderPos));
         DatabaseReference operatorRef = workOrderRef.child("prodName");
@@ -160,7 +161,7 @@ public class ProdTimer extends DialogFragment implements View.OnClickListener {
         communicator.adapterNotify();
     }
 
-    public void modifyWorkOrder(String time,Date date,String userName){
+    public void modifyWorkOrder(String time,String date,String userName){
         WorkOrder wo = saleOrder.getWorkOrders().get(workOrderPos);
         wo.setProdDate(date);
         wo.setProdName(userName);
