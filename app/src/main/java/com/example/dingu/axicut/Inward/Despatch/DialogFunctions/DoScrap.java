@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Inward.Despatch.Dialogs;
+package com.example.dingu.axicut.Inward.Despatch.DialogFunctions;
 
 import android.content.Context;
 import android.content.DialogInterface;

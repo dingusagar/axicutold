@@ -1,35 +1,26 @@
 package com.example.dingu.axicut.Inward.Despatch;
 
-import android.content.DialogInterface;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.Despatch.Dialogs.DoDespatch;
-import com.example.dingu.axicut.Inward.Despatch.Dialogs.DoScrap;
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Inward.Despatch.DialogFunctions.DoDespatch;
+import com.example.dingu.axicut.Inward.Despatch.DialogFunctions.DoScrap;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;

@@ -1,19 +1,12 @@
-package com.example.dingu.axicut.Inward.Despatch.Dialogs;
+package com.example.dingu.axicut.Inward.Despatch.DialogFunctions;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.dingu.axicut.Design.DesignWorkOrder;
-import com.example.dingu.axicut.Inward.Despatch.DespatchScrapActivity;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
