@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -106,6 +107,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                 bundle.putSerializable("Communicator",communicator);
                 editDesignFragment.setArguments(bundle);
                 editDesignFragment.show(fm,"Design layout");
+            }
+        });
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedItems[workOrder.getWorkOrderNumber()]=((CheckBox)v).isChecked();
             }
         });
     }
