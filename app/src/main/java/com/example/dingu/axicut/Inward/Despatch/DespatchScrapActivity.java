@@ -2,13 +2,11 @@ package com.example.dingu.axicut.Inward.Despatch;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,7 +22,7 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
-import com.example.dingu.axicut.Utils.RangeSelector2;
+import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,8 +49,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
     TextView customerDCText;
 
     String currentDate = "";
-
-    RangeSelector2 rangeSelector2;
+    boolean selectedItems[];
+    RangeSelector rangeSelector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +87,13 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         dateText.setText(saleOrder.getDate());
         timeText.setText(saleOrder.getTime());
 
-        despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , null,this);
+        selectedItems = new boolean[getLastWorkOrderNo() + 1];
+        rangeSelector = new RangeSelector(this,this,selectedItems);
+        despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , rangeSelector.getSelectedItems(),this);
 
         if(InwardUtilities.getServerDate() != null)
             currentDate = InwardUtilities.getServerDate();
 
-       rangeSelector2 = new RangeSelector2(this,this,getLastWorkOrderNo());
 
 
     }
@@ -121,8 +120,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         switch (item.getItemId())
         {
             case R.id.RangeSelection:
-                rangeSelector2.setupDialog();
-                rangeSelector2.showDialog();
+                rangeSelector.setupDialog();
+                rangeSelector.showDialog();
                 break;
 
 

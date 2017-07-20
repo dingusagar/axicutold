@@ -14,6 +14,11 @@
             android:name=".Inward.InwardMainActivity"
             android:screenOrientation="portrait">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Admin.user.AdminAddUser"
@@ -45,11 +50,7 @@
         <activity
             android:name=".Design.DesignMainActivity"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Design.DesignWorkOrder"
@@ -64,7 +65,9 @@
         <activity
             android:name=".Inward.Despatch.DespatchScrapActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".Admin.AdminWorkOrder"
             android:screenOrientation="portrait" />

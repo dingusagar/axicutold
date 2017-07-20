@@ -18,6 +18,7 @@ import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +36,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DesignWorkOrder extends AppCompatActivity {
+public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRefresher{
     private RecyclerView workOrderRecyclerView;
     private WorkOrderAdapter workOrderAdapter;
     private Button assignLayoutButton;
@@ -121,7 +122,7 @@ public class DesignWorkOrder extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         this.selectedItems=new boolean[getLastWOnum()+1];
-        rangeSelector = new RangeSelector(this,getLastWOnum(),selectedItems);
+        rangeSelector = new RangeSelector(this,this,selectedItems);
         workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,rangeSelector.getSelectedItems(),this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
@@ -135,10 +136,9 @@ public class DesignWorkOrder extends AppCompatActivity {
         return workOrderArrayList.get(workOrderArrayList.size()-1).getWorkOrderNumber();
     }
 
-    public void refreshRecyclerView()
-    {
+
+    @Override
+    public void refreshRecyclerView() {
         workOrderAdapter.notifyDataSetChanged();
     }
-
-
 }

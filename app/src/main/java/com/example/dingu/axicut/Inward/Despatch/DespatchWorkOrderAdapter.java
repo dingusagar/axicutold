@@ -14,6 +14,8 @@ import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
 
+import javax.security.auth.callback.CallbackHandler;
+
 /**
  * Created by dingu on 22/5/17.
  */
@@ -50,8 +52,10 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
 
         holder.setWorkOrderNoText(workOrder.getWorkOrderNumber());
         holder.setOtherDetails(workOrder.getMaterialType(),workOrder.getLotNumber(),workOrder.getInspectionRemark());
-        holder.setCheckBox(selectedItems[workOrder.getWorkOrderNumber()]);
-        holder.addListnerForCheckBox(workOrder.getWorkOrderNumber());
+        if(selectedItems != null) {
+            holder.setCheckBox(selectedItems[workOrder.getWorkOrderNumber()]);
+            holder.addListnerForCheckBox(workOrder.getWorkOrderNumber());
+        }
     }
 
     @Override
@@ -129,12 +133,15 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
 
 
         public void addListnerForCheckBox(final int workOrderNumber) {
-            workOrdercheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    selectedItems[workOrderNumber] = isChecked;
-                }
-            });
+           workOrdercheckBox.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                  selectedItems[workOrderNumber] = ((CheckBox)v).isChecked();
+
+
+               }
+
+           });
         }
     }
 }
