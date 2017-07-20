@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Inward.InwardAdapter;
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -36,6 +38,7 @@ public class DesignMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_main);
+        InwardUtilities.fetchServerTimeStamp();
         setTitle("Design");
         mAuth = FirebaseAuth.getInstance();
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);

@@ -117,15 +117,13 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             layoutText.setText("Layout: " + text);
         }
 
-        public void setDateText(Date date) {
-            if (date != null)
-                dateText.setText(date.getDate() + "/" + date.getMonth() + "/" + String.valueOf(date.getYear() + 1900));
+        public void setDateText(String date) {
+            dateText.setText(date);
         }
 
-        public void setProductionDate(Date date) {
-            if (date != null)
-                productionDate.setText(date.getDate() + "/" + date.getMonth() + "/" + String.valueOf(date.getYear() + 1900));
-        }
+        public void setProductionDate(String date) {
+            productionDate.setText(date);
+            }
 
         public void setProdOperator(String text) {
             prodOperator.setText(text);

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.dingu.axicut.Admin.Company.Company;
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -34,9 +35,7 @@ import java.util.Date;
 public class EditDesignLayout extends DialogFragment {
     private ImageButton saveButton;
     private Button cancelButton;
-    private SaleOrder saleOrder;
-    private int workOrderPos;
-    private static Date date;
+
     private DesignLayoutCommunicator communicator;
     public EditDesignLayout() {
         // Required empty public constructor
@@ -48,8 +47,6 @@ public class EditDesignLayout extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         communicator = (DesignLayoutCommunicator)getArguments().get("Communicator");
-        this.saleOrder=communicator.getSaleOrder();
-        this.workOrderPos=communicator.getWorkOrderPos();
         return inflater.inflate(R.layout.edit_design_layout_fragment, container, false);
     }
 
@@ -61,13 +58,9 @@ public class EditDesignLayout extends DialogFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                date=getDateFromServer();
                 EditText designLayout = (EditText)getView().findViewById(R.id.designLayoutEditText);
-                updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
-                WorkOrder wo = saleOrder.getWorkOrders().get(workOrderPos);
-                wo.setLayoutName(designLayout.getText().toString());
-                wo.setLayoutDate(date);
-                communicator.adapterNotify();
+                communicator.updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
+                communicator.adapterNotify(designLayout.getText().toString());
                 dismiss();
             }
         });
@@ -78,33 +71,5 @@ public class EditDesignLayout extends DialogFragment {
            }
        });
     }
-    public static Date getDateFromServer(){
-        final Date[] currentDate = {new Date()};
-        DatabaseReference dbRefUtils;
-        dbRefUtils = MyDatabase.getDatabase().getInstance().getReference().child("Utils");
-        dbRefUtils.child("ServerTimeStamp").setValue(ServerValue.TIMESTAMP);
-        dbRefUtils.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Long timestamp = (Long) dataSnapshot.child("ServerTimeStamp").getValue();
-                currentDate[0] = new Date(timestamp);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return currentDate[0];
-    }
-
-    public void updateWorkOrderLayoutToDatabase(String layout){
-      DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
-      DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderPos));
-      DatabaseReference layoutRef = workOrderRef.child("layoutName");
-       DatabaseReference dateRef = workOrderRef.child("layoutDate");
-        layoutRef.setValue(layout);
-        dateRef.setValue(date);
-
-    }
 }

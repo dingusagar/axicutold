@@ -1,13 +1,20 @@
 package com.example.dingu.axicut.Design;
 import android.support.annotation.NonNull;
 import android.support.constraint.solver.ArrayLinkedVariables;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -31,6 +38,9 @@ import java.util.Date;
 public class DesignWorkOrder extends AppCompatActivity {
     private RecyclerView workOrderRecyclerView;
     private WorkOrderAdapter workOrderAdapter;
+    private Button assignLayoutButton;
+    private boolean selectedItems[];
+    private RangeSelector rangeSelector;
    private ArrayList<WorkOrder> workOrderArrayList;
     private SaleOrder saleOrder;
     @Override
@@ -43,12 +53,76 @@ public class DesignWorkOrder extends AppCompatActivity {
         workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
         workOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        assignLayoutButton=(Button)findViewById(R.id.assignButton);
+        assignLayoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignLayout();
+            }
+        });
+    }
+
+    private void assignLayout() {
+        DesignLayoutCommunicator communicator= new DesignLayoutCommunicator() {
+            @Override
+            public void adapterNotify(String layout) {
+                for(int i = 0 ; i<workOrderArrayList.size();i++){
+                    WorkOrder w = workOrderArrayList.get(i);
+                    if(selectedItems[w.getWorkOrderNumber()] == true){
+                        w.setLayoutName(layout);
+                        w.setLayoutDate(InwardUtilities.getServerDate());
+                    }
+                }
+                workOrderAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void updateWorkOrderLayoutToDatabase(String layout) {
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
+                for(int i = 0 ; i<workOrderArrayList.size();i++){
+                    WorkOrder w = workOrderArrayList.get(i);
+                    if( selectedItems[w.getWorkOrderNumber()] == true){
+                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(w.getWorkOrderNumber()-1));
+                        DatabaseReference layoutRef = workOrderRef.child("layoutName");
+                        DatabaseReference dateRef = workOrderRef.child("layoutDate");
+                        layoutRef.setValue(layout);
+                        dateRef.setValue(InwardUtilities.getServerDate());
+                    }
+                }
+            }
+        };
+        FragmentManager fm = getSupportFragmentManager();
+        EditDesignLayout editDesignFragment = new EditDesignLayout();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Communicator",communicator);
+        editDesignFragment.setArguments(bundle);
+        editDesignFragment.show(fm,"Design layout");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.work_order_options,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.RangeSelection:
+                rangeSelector.setupDialog();
+                rangeSelector.showDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,this);
+        this.selectedItems=new boolean[getLastWOnum()+1];
+        rangeSelector = new RangeSelector(this,getLastWOnum(),selectedItems);
+        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,rangeSelector.getSelectedItems(),this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
     }
@@ -56,5 +130,15 @@ public class DesignWorkOrder extends AppCompatActivity {
     public SaleOrder getSaleOrder(){
         return this.saleOrder;
     }
+
+    private int getLastWOnum(){
+        return workOrderArrayList.get(workOrderArrayList.size()-1).getWorkOrderNumber();
+    }
+
+    public void refreshRecyclerView()
+    {
+        workOrderAdapter.notifyDataSetChanged();
+    }
+
 
 }
