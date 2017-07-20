@@ -74,6 +74,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:id="@+id/despatchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:enabled="false"
+                android:text="Despatch"
+                android:layout_weight="1"
+                android:textColor="@color/primary_light" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.01" />
+
+            <Button
+                android:id="@+id/scrapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:enabled="false"
+                android:text="Scrap"
+                android:layout_weight="1"
+                android:textColor="@color/primary_light"
+                />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
 </FrameLayout>

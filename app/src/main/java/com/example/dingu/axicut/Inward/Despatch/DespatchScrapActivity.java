@@ -2,13 +2,18 @@ package com.example.dingu.axicut.Inward.Despatch;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +24,8 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.RangeSelector2;
+import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-public class DespatchScrapActivity extends AppCompatActivity {
+public class DespatchScrapActivity extends AppCompatActivity implements RecyclerViewRefresher {
 
     RecyclerView recyclerView;
     AlertDialog.Builder despatchDialog;
@@ -44,6 +51,8 @@ public class DespatchScrapActivity extends AppCompatActivity {
     TextView customerDCText;
 
     String currentDate = "";
+
+    RangeSelector2 rangeSelector2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +89,13 @@ public class DespatchScrapActivity extends AppCompatActivity {
         dateText.setText(saleOrder.getDate());
         timeText.setText(saleOrder.getTime());
 
-        despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , this);
+        despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , null,this);
 
         if(InwardUtilities.getServerDate() != null)
             currentDate = InwardUtilities.getServerDate();
+
+       rangeSelector2 = new RangeSelector2(this,this,getLastWorkOrderNo());
+
 
     }
 
@@ -91,6 +103,32 @@ public class DespatchScrapActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         recyclerView.setAdapter(despatchWorkOrderAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.work_order_options, menu);
+
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.RangeSelection:
+                rangeSelector2.setupDialog();
+                rangeSelector2.showDialog();
+                break;
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void openDialogAndWriteBackToDB(CheckBox v , final int workOrderPosition , final DespatchAction action){
@@ -215,6 +253,21 @@ public class DespatchScrapActivity extends AppCompatActivity {
 
 
 
+
+
+    public int getLastWorkOrderNo()
+    {
+        if(workOrderList.size() == 0)
+            return 0;
+        else
+            return workOrderList.get(workOrderList.size() - 1).getWorkOrderNumber();
+    }
+
+
+    @Override
+    public void refreshRecyclerView() {
+        despatchWorkOrderAdapter.notifyDataSetChanged();
+    }
 }
 
 
