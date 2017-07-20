@@ -215,7 +215,6 @@ public class InwardMainActivity extends AppCompatActivity{
         {
             fab.setVisibility(View.VISIBLE);
             getSupportActionBar().setTitle("Inward Mode");
-
         }
         else if(MenuItemId == R.id.despatch_entry)
         {
