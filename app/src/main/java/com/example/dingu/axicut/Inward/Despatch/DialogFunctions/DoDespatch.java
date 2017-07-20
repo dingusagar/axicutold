@@ -11,6 +11,7 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.ErrorMessage;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
@@ -36,6 +37,7 @@ public class DoDespatch implements MyCustomDialog {
     EditText dateText ,dcText;
     RecyclerViewRefresher refresher;
     String currentDate = "";
+    ErrorMessage errorMessage;
 
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getReference().child("Orders");
@@ -48,6 +50,7 @@ public class DoDespatch implements MyCustomDialog {
         this.selectedItems = selectedItems;
         this.saleOrder = saleOrder;
         workOrders = saleOrder.getWorkOrders();
+        errorMessage = new ErrorMessage(context);
 
         if(InwardUtilities.getServerDate() != null)
             currentDate = InwardUtilities.getServerDate();
@@ -77,6 +80,7 @@ public class DoDespatch implements MyCustomDialog {
         builder.setPositiveButton("Despatch", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+           if(validateSelection())
                 onPositiveButtonClicked();
             }
         });
@@ -89,6 +93,7 @@ public class DoDespatch implements MyCustomDialog {
         });
 
     }
+
 
     @Override
     public void onPositiveButtonClicked() {
@@ -118,15 +123,35 @@ public class DoDespatch implements MyCustomDialog {
 
 
 
-
-
-
     }
 
     @Override
     public void onNegativeButtonClicked() {
 
     }
+
+    private boolean validateSelection() {
+
+        ArrayList<Integer> invalidSelections = new ArrayList<>();
+        for(int i =0;i<workOrders.size() ;i++)
+        {
+            WorkOrder wo = workOrders.get(i);
+            if(selectedItems[wo.getWorkOrderNumber()])
+            {
+                if(!(wo.getScrapDC().equals(""))) // if scrap is assigned
+                    invalidSelections.add(wo.getWorkOrderNumber());
+
+            }
+
+        }
+        if(invalidSelections.size() == 0)
+            return true;
+
+        errorMessage.displayToast("Invalid Selection :\n Already scraped out for work orders : \n" + invalidSelections.toString());
+        return false;
+    }
+
+
 
 }
 

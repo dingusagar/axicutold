@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +55,7 @@ public class InwardMainActivity extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
 
-
+        getSupportActionBar().setTitle("Inward Mode");
 
         setupFabButton();
 
@@ -213,10 +214,13 @@ public class InwardMainActivity extends AppCompatActivity{
         if(MenuItemId == R.id.inward_entry)
         {
             fab.setVisibility(View.VISIBLE);
+            getSupportActionBar().setTitle("Inward Mode");
+
         }
         else if(MenuItemId == R.id.despatch_entry)
         {
             fab.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Despatch Mode");
         }
 
 
