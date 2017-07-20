@@ -111,7 +111,7 @@ public class DoScrap implements MyCustomDialog {
 
             if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
             {
-                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+(wo.getWorkOrderNumber() -1)).setValue(wo);
+                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrders.indexOf(wo)).setValue(wo);
             }
 
         }
