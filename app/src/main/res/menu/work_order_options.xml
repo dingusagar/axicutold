@@ -4,7 +4,7 @@
     <item
         android:id="@+id/RangeSelection"
         android:icon="@mipmap/check"
-        android:title="Search"
+        android:title=""
         app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

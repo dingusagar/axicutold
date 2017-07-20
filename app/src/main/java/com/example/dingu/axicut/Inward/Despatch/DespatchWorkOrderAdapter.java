@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.dingu.axicut.R;
@@ -21,11 +22,13 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
 
     private ArrayList<WorkOrder> workOrdersList;
     Context context;
+    boolean selectedItems[];
 
 
-    public DespatchWorkOrderAdapter(ArrayList<WorkOrder> workOrdersList, Context context) {
+    public DespatchWorkOrderAdapter(ArrayList<WorkOrder> workOrdersList, boolean[] selectedItems,Context context) {
         this.workOrdersList = workOrdersList;
         this.context = context;
+        this.selectedItems = selectedItems;
 
 
     }
@@ -42,14 +45,13 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         WorkOrder workOrder = workOrdersList.get(position);
-        holder.despatchCheckBox.setOnClickListener(holder);
-        holder.scrapCheckBox.setOnClickListener(holder);
         holder.setDespatch(workOrder.getDespatchDate(),workOrder.getDespatchDC());
         holder.setScrap(workOrder.getScrapDate(),workOrder.getScrapDC());
 
         holder.setWorkOrderNoText(workOrder.getWorkOrderNumber());
         holder.setOtherDetails(workOrder.getMaterialType(),workOrder.getLotNumber(),workOrder.getInspectionRemark());
-
+        holder.setCheckBox(selectedItems[workOrder.getWorkOrderNumber()]);
+        holder.addListnerForCheckBox(workOrder.getWorkOrderNumber());
     }
 
     @Override
@@ -58,14 +60,12 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         View mview;
-
-        CheckBox despatchCheckBox;
+        CheckBox workOrdercheckBox;
         TextView despatchDate;
         TextView despatchDC;
-        CheckBox scrapCheckBox;
         TextView scrapDate;
         TextView scrapDC;
 
@@ -79,9 +79,8 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
             super(itemView);
             mview = itemView;
 
-            despatchCheckBox = (CheckBox) mview.findViewById(R.id.despatchedCheckbox);
-            scrapCheckBox = (CheckBox) mview.findViewById(R.id.scrapCheckBox);
 
+            workOrdercheckBox = (CheckBox)mview.findViewById(R.id.checkBox);
             despatchDate = (TextView)mview.findViewById(R.id.despatchDate);
             scrapDate = (TextView)mview.findViewById(R.id.scrapDate);
 
@@ -94,34 +93,18 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
             inspectionRemark = (TextView)mview.findViewById(R.id.remark);
 
 
-
-
-
-
-
-
-
         }
 
         public void setDespatch(String date , String dc) {
             despatchDate.setText(date);
             despatchDC.setText(dc);
 
-            if(date.equals("") && dc.equals(""))
-                despatchCheckBox.setChecked(false);
-            else
-                despatchCheckBox.setChecked(true);
         }
 
         public void setScrap(String date , String dc )
         {
                 scrapDate.setText(date);
                 scrapDC.setText(dc);
-
-            if(date.equals("")  && dc.equals(""))
-                scrapCheckBox.setChecked(false);
-            else
-                scrapCheckBox.setChecked(true);
 
         }
 
@@ -139,20 +122,19 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
 
         }
 
+        public void setCheckBox(boolean value)
+        {
+            workOrdercheckBox.setChecked(value);
+        }
 
-        @Override
-        public void onClick(View v) {
-            if(v == despatchCheckBox)
-            {
 
-                ((DespatchScrapActivity)context).openDialogAndWriteBackToDB(despatchCheckBox,getAdapterPosition(),DespatchAction.DESPATCH_WORKORDER);
-
-            }
-            else if(v == scrapCheckBox)
-            {
-
-                    ((DespatchScrapActivity)context).openDialogAndWriteBackToDB(scrapCheckBox,getAdapterPosition(),DespatchAction.SEND_SCRAP);
-            }
+        public void addListnerForCheckBox(final int workOrderNumber) {
+            workOrdercheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    selectedItems[workOrderNumber] = isChecked;
+                }
+            });
         }
     }
 }

@@ -17,6 +17,8 @@
         android:weightSum="1">
 
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +51,12 @@
                 android:textColor="@color/bpWhite"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05" />
+
 
         </LinearLayout>
 
@@ -134,13 +142,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
-            <CheckBox
-                android:id="@+id/despatchedCheckbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Despatched" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,7 +156,7 @@
                     android:id="@+id/textView91"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date :   "
+                    android:text="Despatch Date :   "
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
@@ -178,7 +182,7 @@
                     android:id="@+id/textView92"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DC :      "
+                    android:text="Despatch DC :      "
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
@@ -195,11 +199,6 @@
             <View style="@style/Divider"/>
 
 
-            <CheckBox
-                android:id="@+id/scrapCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Scrap" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,7 +210,7 @@
                     android:id="@+id/textView93"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date :   "
+                    android:text="Scrap Date :   "
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
@@ -236,7 +235,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DC :      "
+                    android:text="Scrap DC :      "
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
