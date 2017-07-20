@@ -31,11 +31,6 @@ public class RangeSelector {
     LayoutInflater inflater;
     AlertDialog.Builder builder;
     View contentView;
-
-
-
-
-
     public RangeSelector(Context context , RecyclerViewRefresher refresher, boolean selectedItems[]) {
         this.context = context;
         this.refresher = refresher;

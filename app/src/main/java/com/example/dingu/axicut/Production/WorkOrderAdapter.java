@@ -4,6 +4,7 @@ package com.example.dingu.axicut.Production;
  * Created by root on 22/5/17.
  */
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Image;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,11 +23,13 @@ import android.widget.TextView;
 import com.example.dingu.axicut.Design.DesignLayoutCommunicator;
 import com.example.dingu.axicut.Design.DesignWorkOrder;
 import com.example.dingu.axicut.Design.EditDesignLayout;
+import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
@@ -46,6 +50,8 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
@@ -68,9 +74,10 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     private Context context;
     private ArrayList<WorkOrder> workOrderList;
     private SaleOrder saleOrder;
-
-    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList, Context context) {
+    private boolean[] selectedItems;
+    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList,boolean[] selectedItems, Context context) {
         this.workOrderList = workOrderList;
+        this.selectedItems=selectedItems;
         this.context = context;
         this.saleOrder = ((ProductionWorkOrder)context).getSaleOrder();
     }
@@ -97,6 +104,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setProdOperator(workOrder.getProdName());
         holder.setProductionDate(workOrder.getProdDate());
         holder.setTimeTaken(workOrder.getProdTime());
+        if(selectedItems!=null)
+            holder.setCheckBoxTicked(selectedItems[workOrder.getWorkOrderNumber()]);
         holder.timerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +149,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
                 builder.show();
             }
         });
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedItems[workOrder.getWorkOrderNumber()]=((CheckBox)v).isChecked();
+            }
+        });
     }
 
     @Override
@@ -152,6 +167,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
                 size1, size2, size3, dateText,layoutText,productionDate,prodOperator,timeTaken;
         private ImageButton timerButton;
+        CheckBox checkBox;
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
@@ -168,7 +184,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             productionDate=(TextView)mview.findViewById(R.id.prod_date);
             prodOperator=(TextView)mview.findViewById(R.id.operatorName);
             timeTaken=(TextView)mview.findViewById(R.id.timeText);
-
+            checkBox = (CheckBox)mview.findViewById(R.id.selected);
         }
 
         public void setMaterialText(String text) {
@@ -214,6 +230,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         }
         public void setTimeTaken(String time){
             timeTaken.setText(time);
+        }
+        public void setCheckBoxTicked(Boolean isTicked){
+            checkBox.setChecked(isTicked);
         }
     }
 
