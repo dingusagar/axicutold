@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="100dp">
+    android:paddingLeft="80dp">
 
     <LinearLayout
 
@@ -21,9 +21,10 @@
 
         <EditText
             android:id="@+id/Date"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="0/00/000"
+            android:hint="eg: 12/05/2017"
+            android:inputType="datetime"
             android:textSize="18sp"
             android:textStyle="normal|bold" />
 
@@ -46,10 +47,9 @@
 
         <EditText
             android:id="@+id/DCNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0000"
             android:textSize="18sp"
             android:textStyle="normal|bold" />
 

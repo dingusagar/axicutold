@@ -184,7 +184,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 workOrderListEmptyMessage.setVisibility(View.GONE);
-                MyCustomDialog workorderMassEntry = new MyCustomDialogImpl(InwardAddEditSaleOrder.this,saleOrder.getWorkOrders());
+                MyCustomDialog workorderMassEntry = new MassEntryDialog(InwardAddEditSaleOrder.this,saleOrder.getWorkOrders());
                 workorderMassEntry.showDialog();
             }
         });
