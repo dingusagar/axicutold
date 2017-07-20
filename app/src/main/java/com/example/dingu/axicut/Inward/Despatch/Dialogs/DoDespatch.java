@@ -11,11 +11,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.dingu.axicut.Design.DesignWorkOrder;
 import com.example.dingu.axicut.Inward.Despatch.DespatchScrapActivity;
 import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -23,7 +29,7 @@ import java.util.ArrayList;
  * Created by dingu on 20/7/17.
  */
 
-public class DespatchDialog implements MyCustomDialog {
+public class DoDespatch implements MyCustomDialog {
     private Context context;
     private String title = "Confirm Despatch";
     private int layout = R.layout.despatch_alert_dialog_fragment;
@@ -32,14 +38,27 @@ public class DespatchDialog implements MyCustomDialog {
     AlertDialog.Builder builder;
     View contentView;
     boolean selectedItems[];
+    SaleOrder saleOrder;
+    ArrayList<WorkOrder> workOrders;
+    EditText dateText ,dcText;
+    RecyclerViewRefresher refresher;
+    String currentDate = "";
+
+
+    DatabaseReference dbRef = MyDatabase.getDatabase().getReference().child("Orders");
 
 
 
-    public DespatchDialog(Context context,boolean selectedItems[]) {
+    public DoDespatch(Context context, RecyclerViewRefresher refresher,boolean[] selectedItems, SaleOrder saleOrder) {
         this.context = context;
+        this.refresher = refresher;
         this.selectedItems = selectedItems;
+        this.saleOrder = saleOrder;
+        workOrders = saleOrder.getWorkOrders();
 
-        setupDialog();
+        if(InwardUtilities.getServerDate() != null)
+            currentDate = InwardUtilities.getServerDate();
+
     }
 
     @Override
@@ -52,6 +71,12 @@ public class DespatchDialog implements MyCustomDialog {
     public void setupDialog() {
         inflater = LayoutInflater.from(context);
         contentView = inflater.inflate(layout,null);
+
+         dateText = (EditText) contentView.findViewById(R.id.Date);
+         dcText = (EditText) contentView.findViewById(R.id.DCNumber);
+        InwardUtilities.fetchServerTimeStamp();
+        dateText.setText(InwardUtilities.getServerDate());
+
         builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setView(contentView);
@@ -75,6 +100,30 @@ public class DespatchDialog implements MyCustomDialog {
     @Override
     public void onPositiveButtonClicked() {
 
+        for(int i =0;i<workOrders.size() ;i++)
+        {
+            WorkOrder wo = workOrders.get(i);
+            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            {
+                wo.setDespatchDate(dateText.getText().toString());
+                wo.setDespatchDC(dcText.getText().toString());
+            }
+
+        }
+        refresher.refreshRecyclerView();
+
+        for(int i =0;i<workOrders.size() ;i++)
+        {
+            WorkOrder wo = workOrders.get(i);
+
+            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            {
+                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+(wo.getWorkOrderNumber() -1)).setValue(wo);
+            }
+
+        }
+
+
 
 
 
@@ -82,7 +131,9 @@ public class DespatchDialog implements MyCustomDialog {
     }
 
     @Override
-    public void onNegativeButtonClicked() {}
+    public void onNegativeButtonClicked() {
 
     }
+
+}
 

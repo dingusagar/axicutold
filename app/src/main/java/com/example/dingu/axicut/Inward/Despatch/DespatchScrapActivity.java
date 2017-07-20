@@ -13,11 +13,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Inward.Despatch.Dialogs.DoDespatch;
+import com.example.dingu.axicut.Inward.Despatch.Dialogs.DoScrap;
 import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -48,7 +51,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
     TextView customerIDText;
     TextView customerDCText;
 
-    String currentDate = "";
+    Button despatchButton, scrapButton;
+
     boolean selectedItems[];
     RangeSelector rangeSelector;
     @Override
@@ -65,6 +69,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         customerIDText = (TextView) findViewById(R.id.customerIDText);
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
         customerDCText = (TextView) findViewById(R.id.customerDC);
+        despatchButton = (Button)findViewById(R.id.despatchButton);
+        scrapButton = (Button)findViewById(R.id.scrapButton);
 
 
 
@@ -91,9 +97,24 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         rangeSelector = new RangeSelector(this,this,selectedItems);
         despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , rangeSelector.getSelectedItems(),this);
 
-        if(InwardUtilities.getServerDate() != null)
-            currentDate = InwardUtilities.getServerDate();
+        final DoDespatch doDespatch = new DoDespatch(this,this,rangeSelector.getSelectedItems(),saleOrder);
+        final DoScrap doScrap = new DoScrap(this,this,rangeSelector.getSelectedItems(),saleOrder);
+        despatchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doDespatch.setupDialog();
+                doDespatch.showDialog();
 
+            }
+        });
+
+        scrapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doScrap.setupDialog();
+                doScrap.showDialog();
+            }
+        });
 
 
     }
@@ -130,124 +151,6 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         return super.onOptionsItemSelected(item);
     }
 
-    public void openDialogAndWriteBackToDB(CheckBox v , final int workOrderPosition , final DespatchAction action){
-
-        if(v.isChecked())
-        {
-            alertDialogForCheckedBox_True( v ,  workOrderPosition ,  action);
-        }else
-        {
-            alertDialogForCheckedBox_false( v ,  workOrderPosition ,  action);
-        }
-
-
-    }
-
-    private void alertDialogForCheckedBox_false(final CheckBox checkBox, final int workOrderPosition, final DespatchAction action) {
-        final boolean checkBoxStatus = checkBox.isChecked();
-
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Clear Entry");
-        builder.setMessage("All you sure you want to clear this");
-        builder.setCancelable(false);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(DespatchScrapActivity.this, "confirmed", Toast.LENGTH_LONG).show();
-
-
-                writeToDatabase(action,"","",workOrderPosition);
-
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                checkBox.setChecked(!checkBoxStatus);
-            }
-        });
-
-        builder.show();
-    }
-
-    private void alertDialogForCheckedBox_True(final CheckBox checkBox, final int workOrderPosition, final DespatchAction action) {
-
-        final boolean checkBoxStatus = checkBox.isChecked();
-
-        LayoutInflater inflater = LayoutInflater.from(DespatchScrapActivity.this);
-        View subView = inflater.inflate(R.layout.despatch_alert_dialog_fragment,null);
-        final EditText dateText = (EditText)subView.findViewById(R.id.Date);
-        final EditText dcText = (EditText)subView.findViewById(R.id.DCNumber);
-        dateText.setText(currentDate);
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Entry");
-        builder.setView(subView);
-        builder.setCancelable(false);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(DespatchScrapActivity.this, "confirmed", Toast.LENGTH_LONG).show();
-
-                String date = dateText.getText().toString().trim();
-                String dc = dcText.getText().toString().trim();
-
-                writeToDatabase(action,date,dc,workOrderPosition);
-
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                checkBox.setChecked(!checkBoxStatus);
-            }
-        });
-
-        builder.show();
-
-    }
-
-    public void writeToDatabase(DespatchAction action, String date, String dc, int workOrderPosition) {
-
-        if(action.equals(DespatchAction.DESPATCH_WORKORDER))
-            despatchToDatabase(date,dc,workOrderPosition);
-        else
-            scrapToDatabase(date,dc,workOrderPosition);
-    }
-
-    public void scrapToDatabase(final String date, final String dc, final int workOrderPosition) {
-        dbRefOrders.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrderPosition).child("scrapDC").setValue(""+dc);
-        dbRefOrders.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrderPosition).child("scrapDate").setValue(""+date).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                workOrderList.get(workOrderPosition).setScrapDate(date);
-                workOrderList.get(workOrderPosition).setScrapDC(dc);
-                despatchWorkOrderAdapter.notifyDataSetChanged();
-
-            }
-        });
-    }
-
-    public void despatchToDatabase(final String date, final String dc, final int workOrderPosition) {
-
-        dbRefOrders.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrderPosition).child("despatchDC").setValue(""+dc);
-        dbRefOrders.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrderPosition).child("despatchDate").setValue(""+date).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                workOrderList.get(workOrderPosition).setDespatchDate(date);
-                workOrderList.get(workOrderPosition).setDespatchDC(dc);
-                despatchWorkOrderAdapter.notifyDataSetChanged();
-            }
-        });
-
-    }
 
 
 
