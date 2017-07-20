@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by dingu on 11/7/17.
  */
 
-public class MyCustomDialogImpl implements MyCustomDialog {
+public class MassEntryDialog implements MyCustomDialog {
     private Context context;
     private String title = "Add Work-Orders";
     private int layout = R.layout.inward_mass_entry__work_order__dialog_fragment;
@@ -38,7 +38,7 @@ public class MyCustomDialogImpl implements MyCustomDialog {
     ArrayList<WorkOrder> workOrders;
     int lastWorkOrderNo;
 
-    public MyCustomDialogImpl(Context context, ArrayList<WorkOrder> workOrders) {
+    public MassEntryDialog(Context context, ArrayList<WorkOrder> workOrders) {
         this.context = context;
         this.workOrders = workOrders;
         setupDialog();
