@@ -20,27 +20,20 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
 
 import java.security.Timestamp;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRefresher{
     private RecyclerView workOrderRecyclerView;
     private WorkOrderAdapter workOrderAdapter;
     private Button assignLayoutButton;
-    private boolean selectedItems[];
+    private HashMap<String,Boolean> selectedItems;
     private RangeSelector rangeSelector;
    private ArrayList<WorkOrder> workOrderArrayList;
     private SaleOrder saleOrder;
@@ -69,7 +62,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
             public void adapterNotify(String layout) {
                 for(int i = 0 ; i<workOrderArrayList.size();i++){
                     WorkOrder w = workOrderArrayList.get(i);
-                    if(selectedItems[w.getWorkOrderNumber()] == true){
+                    if(selectedItems.get(w.getWorkOrderNumber()) == true){
                         w.setLayoutName(layout);
                         w.setLayoutDate(InwardUtilities.getServerDate());
                     }
@@ -82,8 +75,8 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
                 for(int i = 0 ; i<workOrderArrayList.size();i++){
                     WorkOrder w = workOrderArrayList.get(i);
-                    if( selectedItems[w.getWorkOrderNumber()] == true){
-                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(w.getWorkOrderNumber()-1));
+                    if( selectedItems.get(w.getWorkOrderNumber()) == true){
+                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderArrayList.indexOf(w)));
                         DatabaseReference layoutRef = workOrderRef.child("layoutName");
                         DatabaseReference dateRef = workOrderRef.child("layoutDate");
                         layoutRef.setValue(layout);
@@ -121,8 +114,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     @Override
     protected void onStart() {
         super.onStart();
-        this.selectedItems=new boolean[getLastWOnum()+1];
-        rangeSelector = new RangeSelector(this,this,selectedItems);
+        rangeSelector = new RangeSelector(this,this,workOrderArrayList);
         workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,rangeSelector.getSelectedItems(),this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
@@ -132,9 +124,6 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
         return this.saleOrder;
     }
 
-    private int getLastWOnum(){
-        return workOrderArrayList.get(workOrderArrayList.size()-1).getWorkOrderNumber();
-    }
 
 
     @Override

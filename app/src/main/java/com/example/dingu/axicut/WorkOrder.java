@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
  */
 
 public class WorkOrder implements Serializable{
-    private int WorkOrderNumber;
+    private String WorkOrderNumber;
     private String MaterialType;
     private String LotNumber;
     private float Thickness;
@@ -103,7 +103,7 @@ public class WorkOrder implements Serializable{
     private String scrapDC = "";
     private String scrapDate = "";
 
-    public WorkOrder(int workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
+    public WorkOrder(String workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
         WorkOrderNumber = workOrderNumber;
         MaterialType = materialType;
         LotNumber = lotNumber;
@@ -114,11 +114,11 @@ public class WorkOrder implements Serializable{
 
     }
 
-    public int getWorkOrderNumber() {
+    public String getWorkOrderNumber() {
         return WorkOrderNumber;
     }
 
-    public void setWorkOrderNumber(int workOrderNumber) {
+    public void setWorkOrderNumber(String workOrderNumber) {
         WorkOrderNumber = workOrderNumber;
     }
 

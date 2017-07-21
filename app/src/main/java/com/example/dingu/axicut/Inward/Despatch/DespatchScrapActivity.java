@@ -24,6 +24,7 @@ import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DespatchScrapActivity extends AppCompatActivity implements RecyclerViewRefresher {
 
@@ -44,7 +45,7 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
 
     Button despatchButton, scrapButton;
 
-    boolean selectedItems[];
+    HashMap<String,Boolean> selectedItems;
     RangeSelector rangeSelector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +84,7 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         customerIDText.setText(saleOrder.getCustomerID());
         dateText.setText(saleOrder.getDate());
         timeText.setText(saleOrder.getTime());
-
-        selectedItems = new boolean[getLastWorkOrderNo() + 1];
-        rangeSelector = new RangeSelector(this,this,selectedItems);
+        rangeSelector = new RangeSelector(this,this,workOrderList);
         despatchWorkOrderAdapter = new DespatchWorkOrderAdapter(workOrderList , rangeSelector.getSelectedItems(),this);
 
         final DoDespatch doDespatch = new DoDespatch(this,this,rangeSelector.getSelectedItems(),saleOrder);
@@ -144,17 +143,6 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
 
 
 
-
-
-
-
-    public int getLastWorkOrderNo()
-    {
-        if(workOrderList.size() == 0)
-            return 0;
-        else
-            return workOrderList.get(workOrderList.size() - 1).getWorkOrderNumber();
-    }
 
 
     @Override

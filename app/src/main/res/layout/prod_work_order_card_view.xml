@@ -48,8 +48,11 @@
                 android:textColor="@color/bpWhite"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
+            <CheckBox
+                android:id="@+id/selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -248,6 +251,7 @@
                 android:textSize="20sp" />
         </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/RecordedTimeDis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/operatorNameDisplay">
@@ -267,6 +271,13 @@
                     android:layout_alignParentRight="true"
                     android:text=" - "
                     android:textSize="20sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/FromTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RecordedTimeDis">
             </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -276,8 +287,9 @@
             android:id="@+id/TimerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:src="@drawable/stopwatch"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
             android:background="#FFFFFF"/>
         </RelativeLayout>
     </LinearLayout>

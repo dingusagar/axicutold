@@ -3,6 +3,7 @@ package com.example.dingu.axicut.Utils;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.text.BoringLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by dingu on 11/7/17.
@@ -27,19 +29,15 @@ public class RangeSelector {
     private String title;
     private int layout = R.layout.range_selector;
     private int from,to;
-    private boolean selectedItems[];
+    private ArrayList<WorkOrder>workOrders;
+    private HashMap<String,Boolean> selectedItems=new HashMap<>();
     LayoutInflater inflater;
     AlertDialog.Builder builder;
     View contentView;
-
-
-
-
-
-    public RangeSelector(Context context , RecyclerViewRefresher refresher, boolean selectedItems[]) {
+    public RangeSelector(Context context , RecyclerViewRefresher refresher, ArrayList<WorkOrder> workOrders) {
         this.context = context;
         this.refresher = refresher;
-        this.selectedItems = selectedItems;
+        this.workOrders = workOrders;
         setupDialog();
     }
 
@@ -77,9 +75,10 @@ public class RangeSelector {
     public void onPositiveButtonClicked() {
         from = Integer.parseInt(((EditText)contentView.findViewById(R.id.from)).getText().toString());
         to = Integer.parseInt(((EditText)contentView.findViewById(R.id.to)).getText().toString());
-        if(from<=to && to<= selectedItems.length){
-            for(int counter=from;counter<=to;counter++)
-                selectedItems[counter]=true;
+        if(from<=to){
+            for(WorkOrder workOrder:workOrders)
+               if(isbetweenRange(workOrder))
+                   selectedItems.put(workOrder.getWorkOrderNumber(),true);
             refresher.refreshRecyclerView();
         }
     }
@@ -89,8 +88,14 @@ public class RangeSelector {
 
     }
 
-    public boolean[] getSelectedItems(){
+    public HashMap<String,Boolean> getSelectedItems(){
         return selectedItems;
     }
 
+    private boolean isbetweenRange(WorkOrder workOrder){
+        int num = (int)Math.floor(Float.parseFloat(workOrder.getWorkOrderNumber()));
+       if(num>=from && num<=to)
+           return true;
+        return false;
+    }
 }

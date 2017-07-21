@@ -5,5 +5,5 @@ package com.example.dingu.axicut.Utils;
  */
 
 public interface RecyclerViewRefresher {
-    public void refreshRecyclerView();
+     void refreshRecyclerView();
 }

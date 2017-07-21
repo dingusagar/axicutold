@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -35,16 +36,13 @@ public class ProductionActivity extends AppCompatActivity {
 
     ArrayList<SaleOrder> saleOrderArrayList;
     ProductionAdapter designAdapter;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_main);
         setTitle("Production");
         mAuth = FirebaseAuth.getInstance();
-
+        InwardUtilities.fetchServerTimeStamp();
         myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
         myDBRef.keepSynced(true);
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);
