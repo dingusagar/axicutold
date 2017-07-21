@@ -54,7 +54,7 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
         holder.setWorkOrderNoText(workOrder.getWorkOrderNumber());
         holder.setOtherDetails(workOrder.getMaterialType(),workOrder.getLotNumber(),workOrder.getInspectionRemark());
         if(selectedItems != null) {
-            holder.setCheckBox(selectedItems.get(workOrder.getWorkOrderNumber()));
+            holder.setCheckBox(selectedItems.containsKey(workOrder.getWorkOrderNumber()));
             holder.addListnerForCheckBox(workOrder.getWorkOrderNumber());
         }
     }
