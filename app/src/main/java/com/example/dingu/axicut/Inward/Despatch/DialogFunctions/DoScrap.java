@@ -17,6 +17,7 @@ import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by dingu on 20/7/17.
@@ -30,7 +31,7 @@ public class DoScrap implements MyCustomDialog {
     LayoutInflater inflater;
     AlertDialog.Builder builder;
     View contentView;
-    boolean selectedItems[];
+    HashMap<String,Boolean> selectedItems;
     SaleOrder saleOrder;
     ArrayList<WorkOrder> workOrders;
     EditText dateText ,dcText;
@@ -42,7 +43,7 @@ public class DoScrap implements MyCustomDialog {
 
 
 
-    public DoScrap(Context context, RecyclerViewRefresher refresher,boolean[] selectedItems, SaleOrder saleOrder) {
+    public DoScrap(Context context, RecyclerViewRefresher refresher, HashMap<String,Boolean> selectedItems, SaleOrder saleOrder) {
         this.context = context;
         this.refresher = refresher;
         this.selectedItems = selectedItems;
@@ -96,7 +97,7 @@ public class DoScrap implements MyCustomDialog {
         for(int i =0;i<workOrders.size() ;i++)
         {
             WorkOrder wo = workOrders.get(i);
-            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            if(selectedItems.get(wo.getWorkOrderNumber())) // work order needs to be edited
             {
                 wo.setScrapDate(dateText.getText().toString());
                 wo.setScrapDC(dcText.getText().toString());
@@ -109,18 +110,12 @@ public class DoScrap implements MyCustomDialog {
         {
             WorkOrder wo = workOrders.get(i);
 
-            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            if(selectedItems.get(wo.getWorkOrderNumber())) // work order needs to be edited
             {
-                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+(wo.getWorkOrderNumber() -1)).setValue(wo);
+                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrders.indexOf(wo)).setValue(wo);
             }
 
         }
-
-
-
-
-
-
     }
 
     @Override

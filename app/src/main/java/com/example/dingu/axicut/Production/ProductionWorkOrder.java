@@ -33,13 +33,13 @@ import java.security.Timestamp;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProductionWorkOrder extends AppCompatActivity implements RecyclerViewRefresher {
     private RecyclerView workOrderRecyclerView;
     private WorkOrderAdapter workOrderAdapter;
     private ArrayList<WorkOrder> workOrderArrayList;
     private SaleOrder saleOrder;
-    private boolean selectedItems[];
     private Button timeTakenButton;
     private RangeSelector rangeSelector;
     @Override
@@ -47,7 +47,8 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_production_work_order);
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
-        workOrderArrayList=saleOrder.getWorkOrders();
+        ProductionValidator validator = new ProductionValidator();
+        workOrderArrayList=validator.isValid(saleOrder.getWorkOrders());
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
         workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
@@ -56,7 +57,7 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
         timeTakenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog = new TimePickerDialog(ProductionWorkOrder.this,selectedItems,saleOrder,ProductionWorkOrder.this);
+                TimePickerDialog dialog = new TimePickerDialog(ProductionWorkOrder.this,rangeSelector.getSelectedItems(),saleOrder,ProductionWorkOrder.this);
                 dialog.showDialog();
             }
         });
@@ -65,9 +66,8 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     @Override
     protected void onStart() {
         super.onStart();
-        this.selectedItems=new boolean[getLastWOnum()+1];
-        rangeSelector = new RangeSelector(this,this,selectedItems);
-        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,selectedItems,this);
+        rangeSelector = new RangeSelector(this,this,workOrderArrayList);
+        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,this,rangeSelector.getSelectedItems());
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
     }
@@ -93,13 +93,6 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     public SaleOrder getSaleOrder(){
         return this.saleOrder;
     }
-
-
-    private int getLastWOnum(){
-        return workOrderArrayList.get(workOrderArrayList.size()-1).getWorkOrderNumber();
-    }
-
-
     @Override
     public void refreshRecyclerView() {
         workOrderAdapter.notifyDataSetChanged();

@@ -135,7 +135,7 @@ public class MassEntryDialog implements MyCustomDialog {
             workOrder.setBreadth(Float.parseFloat(length.getText().toString()));
             workOrder.setLength(Float.parseFloat(length.getText().toString()));
 
-            workOrder.setWorkOrderNumber(lastNum + i);
+            workOrder.setWorkOrderNumber(""+(lastNum + i));
             workOrders.add(workOrder);
         }
 
@@ -153,6 +153,9 @@ public class MassEntryDialog implements MyCustomDialog {
         if(workOrders.size() == 0)
             return 0;
         else
-            return workOrders.get(workOrders.size() - 1).getWorkOrderNumber();
+        {
+           String woNum =  workOrders.get(workOrders.size() - 1).getWorkOrderNumber();
+            return (int) Math.floor(Float.parseFloat(woNum));
+        }
     }
 }

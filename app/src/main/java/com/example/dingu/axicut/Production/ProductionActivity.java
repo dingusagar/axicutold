@@ -36,9 +36,6 @@ public class ProductionActivity extends AppCompatActivity {
 
     ArrayList<SaleOrder> saleOrderArrayList;
     ProductionAdapter designAdapter;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

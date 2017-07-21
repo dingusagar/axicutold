@@ -21,6 +21,7 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
+import com.google.android.gms.common.api.BooleanResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +32,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by root on 20/7/17.
@@ -47,9 +49,9 @@ public class TimePickerDialog implements MyCustomDialog {
     AlertDialog.Builder builder;
     View contentView;
     RecyclerViewRefresher recyclerViewRefresher;
-    boolean selectedItems[];
+    HashMap<String,Boolean> selectedItems;
 
-    public TimePickerDialog(Context context, boolean selectedItems[], SaleOrder saleOrder, RecyclerViewRefresher recyclerViewRefresher) {
+    public TimePickerDialog(Context context, HashMap<String,Boolean> selectedItems, SaleOrder saleOrder, RecyclerViewRefresher recyclerViewRefresher) {
         this.context = context;
         this.saleOrder=saleOrder;
         this.recyclerViewRefresher=recyclerViewRefresher;
@@ -114,7 +116,7 @@ public class TimePickerDialog implements MyCustomDialog {
     float durationPerWO =(float) duration/selectedWorkOrders();
         for(int counter=0;counter<saleOrder.getWorkOrders().size();counter++){
             WorkOrder wo = saleOrder.getWorkOrders().get(counter);
-            if(selectedItems[wo.getWorkOrderNumber()]){
+            if(selectedItems.containsKey(wo.getWorkOrderNumber())){
                 upDateDB(wo,durationPerWO);
             }
         }
@@ -163,11 +165,7 @@ public class TimePickerDialog implements MyCustomDialog {
     }
 
     private int selectedWorkOrders(){
-        int total=0;
-        for(int counter=0;counter<selectedItems.length;counter++)
-            if(selectedItems[counter])
-                total++;
-        return total;
+        return selectedItems.size();
     }
 
     private void upDateDB(WorkOrder workOrder,float time){

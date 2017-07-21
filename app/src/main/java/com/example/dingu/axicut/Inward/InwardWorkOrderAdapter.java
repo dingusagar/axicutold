@@ -94,7 +94,7 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
 
 
 
-        public void setWorkOrderNoText(int num)
+        public void setWorkOrderNoText(String num)
         {
             workOrderNoText.setText("W"+num);
         }

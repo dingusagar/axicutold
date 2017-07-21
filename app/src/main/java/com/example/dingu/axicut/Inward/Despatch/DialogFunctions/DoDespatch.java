@@ -18,6 +18,7 @@ import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by dingu on 20/7/17.
@@ -31,7 +32,7 @@ public class DoDespatch implements MyCustomDialog {
     LayoutInflater inflater;
     AlertDialog.Builder builder;
     View contentView;
-    boolean selectedItems[];
+    HashMap<String,Boolean> selectedItems;
     SaleOrder saleOrder;
     ArrayList<WorkOrder> workOrders;
     EditText dateText ,dcText;
@@ -44,7 +45,7 @@ public class DoDespatch implements MyCustomDialog {
 
 
 
-    public DoDespatch(Context context, RecyclerViewRefresher refresher,boolean[] selectedItems, SaleOrder saleOrder) {
+    public DoDespatch(Context context, RecyclerViewRefresher refresher, HashMap<String,Boolean> selectedItems, SaleOrder saleOrder) {
         this.context = context;
         this.refresher = refresher;
         this.selectedItems = selectedItems;
@@ -80,7 +81,7 @@ public class DoDespatch implements MyCustomDialog {
         builder.setPositiveButton("Despatch", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-           if(validateSelection())
+//           if(validateSelection())
                 onPositiveButtonClicked();
             }
         });
@@ -101,7 +102,7 @@ public class DoDespatch implements MyCustomDialog {
         for(int i =0;i<workOrders.size() ;i++)
         {
             WorkOrder wo = workOrders.get(i);
-            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            if(selectedItems.containsKey(wo.getWorkOrderNumber())) // work order needs to be edited
             {
                 wo.setDespatchDate(dateText.getText().toString());
                 wo.setDespatchDC(dcText.getText().toString());
@@ -114,9 +115,9 @@ public class DoDespatch implements MyCustomDialog {
         {
             WorkOrder wo = workOrders.get(i);
 
-            if(selectedItems[wo.getWorkOrderNumber()]) // work order needs to be edited
+            if(selectedItems.containsKey(wo.getWorkOrderNumber())) // work order needs to be edited
             {
-                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+(wo.getWorkOrderNumber() -1)).setValue(wo);
+                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrders.indexOf(wo)).setValue(wo);
             }
 
         }
@@ -130,26 +131,26 @@ public class DoDespatch implements MyCustomDialog {
 
     }
 
-    private boolean validateSelection() {
-
-        ArrayList<Integer> invalidSelections = new ArrayList<>();
-        for(int i =0;i<workOrders.size() ;i++)
-        {
-            WorkOrder wo = workOrders.get(i);
-            if(selectedItems[wo.getWorkOrderNumber()])
-            {
-                if(!(wo.getScrapDC().equals(""))) // if scrap is assigned
-                    invalidSelections.add(wo.getWorkOrderNumber());
-
-            }
-
-        }
-        if(invalidSelections.size() == 0)
-            return true;
-
-        errorMessage.displayToast("Invalid Selection :\n Already scraped out for work orders : \n" + invalidSelections.toString());
-        return false;
-    }
+//    private boolean validateSelection() {
+//
+//        ArrayList<Integer> invalidSelections = new ArrayList<>();
+//        for(int i =0;i<workOrders.size() ;i++)
+//        {
+//            WorkOrder wo = workOrders.get(i);
+//            if(selectedItems.containsKey(wo.getWorkOrderNumber()))
+//            {
+//                if(!(wo.getScrapDC().equals(""))) // if scrap is assigned
+//                    invalidSelections.add(wo.getWorkOrderNumber());
+//
+//            }
+//
+//        }
+//        if(invalidSelections.size() == 0)
+//            return true;
+//
+//        errorMessage.displayToast("Invalid Selection :\n Already scraped out for work orders : \n" + invalidSelections.toString());
+//        return false;
+//    }
 
 
 

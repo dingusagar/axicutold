@@ -34,6 +34,7 @@ import org.w3c.dom.Text;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static com.example.dingu.axicut.R.id.saleOrder;
 
@@ -44,10 +45,10 @@ import static com.example.dingu.axicut.R.id.saleOrder;
 public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder> {
     private Context context;
     private ArrayList<WorkOrder> workOrderList;
-    private boolean[] selectedItems;
+    private HashMap<String,Boolean> selectedItems;
     private SaleOrder saleOrder;
 
-    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList,boolean[] selectedItems, Context context) {
+    public WorkOrderAdapter(ArrayList<WorkOrder> workOrderList, HashMap<String,Boolean> selectedItems, Context context) {
         this.workOrderList = workOrderList;
         this.context = context;
         this.selectedItems = selectedItems;
@@ -74,7 +75,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
         if(selectedItems!=null)
-        holder.setCheckBoxTicked(selectedItems[workOrder.getWorkOrderNumber()]);
+        holder.setCheckBoxTicked(selectedItems.get(workOrder.getWorkOrderNumber()));
         ImageButton designLayout = (ImageButton)holder.mview.findViewById(R.id.designLayoutEdit);
         designLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +113,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedItems[workOrder.getWorkOrderNumber()]=((CheckBox)v).isChecked();
+                selectedItems.put(workOrder.getWorkOrderNumber(),((CheckBox)v).isChecked());
             }
         });
     }

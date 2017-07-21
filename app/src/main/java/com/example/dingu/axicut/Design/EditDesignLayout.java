@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.dingu.axicut.Admin.Company.Company;
 import com.example.dingu.axicut.Inward.InwardUtilities;
@@ -35,7 +37,8 @@ import java.util.Date;
 public class EditDesignLayout extends DialogFragment {
     private ImageButton saveButton;
     private Button cancelButton;
-
+    private SeekBar seekBar;
+    private TextView seekBarIndicator;
     private DesignLayoutCommunicator communicator;
     public EditDesignLayout() {
         // Required empty public constructor
@@ -55,6 +58,24 @@ public class EditDesignLayout extends DialogFragment {
         super.onStart();
         saveButton = (ImageButton)getView().findViewById(R.id.workOrderSaveButton);
         cancelButton = (Button)getView().findViewById(R.id.CancelButton);
+        seekBar=(SeekBar)getView().findViewById(R.id.sb);
+        seekBarIndicator=(TextView)getView().findViewById(R.id.seekBarIndicator);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarIndicator.setText(String.valueOf(progress*25)+"%");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
