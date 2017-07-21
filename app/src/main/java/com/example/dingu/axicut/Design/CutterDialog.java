@@ -140,9 +140,11 @@ public class CutterDialog implements MyCustomDialog {
     private void addWorkOrderToList(WorkOrder newWorkOrder){
         WorkOrder workOrder = workOrderToCut;
         int index=0;
-        while ((int)Math.floor(Float.parseFloat(workOrder.getWorkOrderNumber()))==(int)Math.floor(Float.parseFloat(workOrderToCut.getWorkOrderNumber()))){
+        while (workOrder!=null && (int)Math.floor(Float.parseFloat(workOrder.getWorkOrderNumber()))==(int)Math.floor(Float.parseFloat(workOrderToCut.getWorkOrderNumber()))){
              index=workOrders.indexOf(workOrder);
-            workOrder=workOrders.get(index+1);
+            try {
+                workOrder = workOrders.get(index + 1);
+            }catch (IndexOutOfBoundsException e){break;}
         }
         float wo = Float.parseFloat(workOrders.get(index).getWorkOrderNumber());
         DecimalFormat df = new DecimalFormat("#.##");
