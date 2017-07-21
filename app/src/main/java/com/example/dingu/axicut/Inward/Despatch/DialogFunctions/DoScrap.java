@@ -97,7 +97,7 @@ public class DoScrap implements MyCustomDialog {
         for(int i =0;i<workOrders.size() ;i++)
         {
             WorkOrder wo = workOrders.get(i);
-            if(selectedItems.get(wo.getWorkOrderNumber())) // work order needs to be edited
+            if(selectedItems.containsKey(wo.getWorkOrderNumber())) // work order needs to be edited
             {
                 wo.setScrapDate(dateText.getText().toString());
                 wo.setScrapDC(dcText.getText().toString());
@@ -110,7 +110,7 @@ public class DoScrap implements MyCustomDialog {
         {
             WorkOrder wo = workOrders.get(i);
 
-            if(selectedItems.get(wo.getWorkOrderNumber())) // work order needs to be edited
+            if(selectedItems.containsKey(wo.getWorkOrderNumber())) // work order needs to be edited
             {
                 dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrders.indexOf(wo)).setValue(wo);
             }

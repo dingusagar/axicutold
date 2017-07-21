@@ -62,7 +62,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
             public void adapterNotify(String layout) {
                 for(int i = 0 ; i<workOrderArrayList.size();i++){
                     WorkOrder w = workOrderArrayList.get(i);
-                    if(selectedItems.get(w.getWorkOrderNumber()) == true){
+                    if(selectedItems.containsKey(w.getWorkOrderNumber()) == true){
                         w.setLayoutName(layout);
                         w.setLayoutDate(InwardUtilities.getServerDate());
                     }
@@ -75,7 +75,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
                 for(int i = 0 ; i<workOrderArrayList.size();i++){
                     WorkOrder w = workOrderArrayList.get(i);
-                    if( selectedItems.get(w.getWorkOrderNumber()) == true){
+                    if( selectedItems.containsKey(w.getWorkOrderNumber()) == true){
                         DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderArrayList.indexOf(w)));
                         DatabaseReference layoutRef = workOrderRef.child("layoutName");
                         DatabaseReference dateRef = workOrderRef.child("layoutDate");
@@ -115,6 +115,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     protected void onStart() {
         super.onStart();
         rangeSelector = new RangeSelector(this,this,workOrderArrayList);
+        this.selectedItems=rangeSelector.getSelectedItems();
         workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,rangeSelector.getSelectedItems(),this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());

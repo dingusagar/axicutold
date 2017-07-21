@@ -75,7 +75,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
         if(selectedItems!=null)
-        holder.setCheckBoxTicked(selectedItems.get(workOrder.getWorkOrderNumber()));
+        holder.setCheckBoxTicked(selectedItems.containsKey(workOrder.getWorkOrderNumber()));
         ImageButton designLayout = (ImageButton)holder.mview.findViewById(R.id.designLayoutEdit);
         designLayout.setOnClickListener(new View.OnClickListener() {
             @Override
