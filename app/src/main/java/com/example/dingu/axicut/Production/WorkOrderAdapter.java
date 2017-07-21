@@ -153,7 +153,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedItems.put(workOrder.getWorkOrderNumber(),((CheckBox)v).isChecked());
+                if(((CheckBox)v).isChecked())
+                    selectedItems.put(workOrder.getWorkOrderNumber(),true);
+                else selectedItems.remove(workOrder.getWorkOrderNumber());
             }
         });
     }
@@ -233,6 +235,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             timeTaken.setText(time);
         }
         public void setCheckBoxTicked(Boolean isTicked){
+
+            if(isTicked==null)
+                checkBox.setChecked(false);
             checkBox.setChecked(isTicked);
         }
     }

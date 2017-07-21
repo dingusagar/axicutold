@@ -202,7 +202,27 @@
                 android:background="#FFFFFF"
                 android:src="@drawable/edit_icon" />
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
+            <TextView
+                android:id="@+id/percentCut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Percentage "
+                android:textSize="18sp"
+                android:textStyle="normal|bold"/>
+
+            <TextView
+                android:id="@+id/percentCutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=" - "
+                android:textSize="20sp" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

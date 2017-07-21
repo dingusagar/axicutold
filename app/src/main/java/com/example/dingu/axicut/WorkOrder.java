@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
  * Created by dingu on 6/5/17.
  */
 
-public class WorkOrder implements Serializable{
+public class WorkOrder implements Serializable,Cloneable{
     private String WorkOrderNumber;
     private String MaterialType;
     private String LotNumber;
@@ -21,7 +21,21 @@ public class WorkOrder implements Serializable{
     private String prodDate;
     private String prodName;
     private String prodTime;
+    private String despatchDC = "";
+    private String despatchDate = "";
+    private String scrapDC = "";
+    private String scrapDate = "";
 
+
+    public int getPercentCut() {
+        return percentCut;
+    }
+
+    public void setPercentCut(int percentCut) {
+        this.percentCut = percentCut;
+    }
+
+    private int percentCut=100;
 
 
     public String getProdTime() {
@@ -97,11 +111,6 @@ public class WorkOrder implements Serializable{
         this.scrapDate = scrapDate;
     }
 
-    private String despatchDC = "";
-    private String despatchDate = "";
-
-    private String scrapDC = "";
-    private String scrapDate = "";
 
     public WorkOrder(String workOrderNumber, String materialType, String lotNumber, float thickness, float length, float breadth, String inspectionRemark) {
         WorkOrderNumber = workOrderNumber;
@@ -174,5 +183,10 @@ public class WorkOrder implements Serializable{
     public String toString() // for debugging
     {
         return ("\n[" + getWorkOrderNumber() + "   " + getLotNumber() + "  ]" );
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

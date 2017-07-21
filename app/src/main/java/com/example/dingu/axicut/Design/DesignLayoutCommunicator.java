@@ -12,5 +12,5 @@ import java.io.Serializable;
 public interface DesignLayoutCommunicator extends Serializable {
      void adapterNotify(String layout);
      void updateWorkOrderLayoutToDatabase(String layout);
-
+     WorkOrder getWorkOrder();
 }

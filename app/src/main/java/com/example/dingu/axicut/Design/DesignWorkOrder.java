@@ -72,18 +72,22 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
 
             @Override
             public void updateWorkOrderLayoutToDatabase(String layout) {
-                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
-                for(int i = 0 ; i<workOrderArrayList.size();i++){
-                    WorkOrder w = workOrderArrayList.get(i);
-                    if( selectedItems.containsKey(w.getWorkOrderNumber()) == true){
-                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderArrayList.indexOf(w)));
-                        DatabaseReference layoutRef = workOrderRef.child("layoutName");
-                        DatabaseReference dateRef = workOrderRef.child("layoutDate");
-                        layoutRef.setValue(layout);
-                        dateRef.setValue(InwardUtilities.getServerDate());
-                    }
-                }
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber());
+                dbRef.setValue(saleOrder);
+
             }
+
+            @Override
+            public WorkOrder getWorkOrder() {
+                if(selectedItems.size()==1) {
+                    for(WorkOrder workOrder : saleOrder.getWorkOrders())
+                        if(selectedItems.containsKey(workOrder.getWorkOrderNumber()))
+                            return workOrder;
+                    return null;
+                }
+                else return null;
+            }
+
         };
         FragmentManager fm = getSupportFragmentManager();
         EditDesignLayout editDesignFragment = new EditDesignLayout();
