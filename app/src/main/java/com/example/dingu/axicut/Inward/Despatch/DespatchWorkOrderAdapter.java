@@ -127,8 +127,10 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
 
         }
 
-        public void setCheckBox(boolean value)
+        public void setCheckBox(Boolean value)
         {
+            if(value==null)
+                workOrdercheckBox.setChecked(false);
             workOrdercheckBox.setChecked(value);
         }
 
@@ -137,7 +139,9 @@ public class DespatchWorkOrderAdapter extends RecyclerView.Adapter<DespatchWorkO
            workOrdercheckBox.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                 selectedItems.put (workOrderNumber,((CheckBox)v).isChecked());
+                   if(((CheckBox)v).isChecked())
+                       selectedItems.put(workOrderNumber,true);
+                   else selectedItems.remove(workOrderNumber);
 
 
                }

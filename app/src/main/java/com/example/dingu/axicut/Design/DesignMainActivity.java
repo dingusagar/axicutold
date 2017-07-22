@@ -24,16 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class DesignMainActivity extends AppCompatActivity {
-
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
-
-
     ArrayList<SaleOrder> saleOrderArrayList;
     DesignAdapter designAdapter;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +38,6 @@ public class DesignMainActivity extends AppCompatActivity {
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);
         saleOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -91,10 +84,8 @@ public class DesignMainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 designAdapter.getFilter().filter(newText);
                 return true;
             }

@@ -25,6 +25,7 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import static com.example.dingu.axicut.R.id.percentCutText;
 import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
@@ -74,46 +76,23 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setSize3(String.valueOf(workOrder.getBreadth()));
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
+        holder.setPercentageText(""+workOrder.getPercentCut());
         if(selectedItems!=null)
         holder.setCheckBoxTicked(selectedItems.containsKey(workOrder.getWorkOrderNumber()));
         ImageButton designLayout = (ImageButton)holder.mview.findViewById(R.id.designLayoutEdit);
         designLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = ((DesignWorkOrder)context).getSupportFragmentManager();
-                EditDesignLayout editDesignFragment = new EditDesignLayout();
-                Bundle bundle = new Bundle();
-                DesignLayoutCommunicator communicator = new DesignLayoutCommunicator() {
-                    public int getWorkOrderPos() {
-                        return holder.getAdapterPosition();
-                    }
-                    @Override
-                    public void adapterNotify(String layout) {
-                        WorkOrder wo = saleOrder.getWorkOrders().get(getWorkOrderPos());
-                        wo.setLayoutName(layout);
-                        wo.setLayoutDate(InwardUtilities.getServerDate());
-                        notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void updateWorkOrderLayoutToDatabase(String layout) {
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
-                        DatabaseReference workOrderRef= dbRef.child(String.valueOf(getWorkOrderPos()));
-                        DatabaseReference layoutRef = workOrderRef.child("layoutName");
-                        DatabaseReference dateRef = workOrderRef.child("layoutDate");
-                        layoutRef.setValue(layout);
-                        dateRef.setValue(InwardUtilities.getServerDate());
-                    }
-                };
-                bundle.putSerializable("Communicator",communicator);
-                editDesignFragment.setArguments(bundle);
-                editDesignFragment.show(fm,"Design layout");
+                CutterDialog cutterDialog = new CutterDialog(context,(RecyclerViewRefresher) context,workOrderList,workOrder);
+                cutterDialog.showDialog();
             }
         });
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedItems.put(workOrder.getWorkOrderNumber(),((CheckBox)v).isChecked());
+                if(((CheckBox)v).isChecked())
+                selectedItems.put(workOrder.getWorkOrderNumber(),true);
+                else selectedItems.remove(workOrder.getWorkOrderNumber());
             }
         });
     }
@@ -126,7 +105,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText,layoutText;
+                size1, size2, size3, dateText,layoutText,percentageText;
         CheckBox checkBox;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +120,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
             checkBox = (CheckBox)mview.findViewById(R.id.selected);
+            percentageText=(TextView)mview.findViewById(R.id.percentCutText);
         }
 
         public void setMaterialText(String text) {
@@ -179,7 +159,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             if (date != null) dateText.setText(date);
         }
         public void setCheckBoxTicked(Boolean isTicked){
+            if(isTicked==null)
+                checkBox.setChecked(false);
             checkBox.setChecked(isTicked);
+        }
+        public void setPercentageText(String text){
+            percentageText.setText(text);
         }
 
     }
