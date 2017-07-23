@@ -117,7 +117,7 @@ public class DoDespatch implements MyCustomDialog {
 
             if(selectedItems.containsKey(wo.getWorkOrderNumber())) // work order needs to be edited
             {
-                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+workOrders.indexOf(wo)).setValue(wo);
+                dbRef.child(saleOrder.getSaleOrderNumber()).child("workOrders").child(""+saleOrder.getWorkOrders().indexOf(wo)).setValue(wo);
             }
 
         }

@@ -15,6 +15,16 @@ public class SaleOrder implements Serializable{
 
     private String saleOrderNumber;
     private String date;
+    private Long timestamp;
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     private String time;
     private String customerDC;
     private String customerID;
