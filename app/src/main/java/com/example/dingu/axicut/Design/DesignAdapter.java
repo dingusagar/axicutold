@@ -64,7 +64,6 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                 filterResults.values = filteredSaleOrderList;
                 return filterResults;
             }
-
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filteredSaleOrderList = (ArrayList<SaleOrder>) results.values;

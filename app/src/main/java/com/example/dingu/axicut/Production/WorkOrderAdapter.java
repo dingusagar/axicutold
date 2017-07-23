@@ -26,6 +26,8 @@ import com.example.dingu.axicut.Design.EditDesignLayout;
 import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.ViewHider;
+import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import static com.example.dingu.axicut.R.id.headerEmailId;
 import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
@@ -235,7 +238,6 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             timeTaken.setText(time);
         }
         public void setCheckBoxTicked(Boolean isTicked){
-
             if(isTicked==null)
                 checkBox.setChecked(false);
             checkBox.setChecked(isTicked);

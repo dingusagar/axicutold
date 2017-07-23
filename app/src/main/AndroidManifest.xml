@@ -24,12 +24,16 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LoginTheme" />
+            android:theme="@style/AppTheme.LoginTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+      </activity>
         <activity
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
@@ -50,6 +54,7 @@
         <activity
             android:name=".Design.DesignMainActivity"
             android:screenOrientation="portrait" >
+
         </activity>
         <activity
             android:name=".Design.DesignWorkOrder"

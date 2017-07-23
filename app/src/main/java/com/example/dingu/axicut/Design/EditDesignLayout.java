@@ -71,8 +71,8 @@ public class EditDesignLayout extends DialogFragment {
             @Override
             public void onClick(View v) {
                 EditText designLayout = (EditText) getView().findViewById(R.id.designLayoutEditText);
-                communicator.updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
                 communicator.adapterNotify(designLayout.getText().toString());
+                communicator.updateWorkOrderLayoutToDatabase(designLayout.getText().toString());
                 dismiss();
             }
         });
