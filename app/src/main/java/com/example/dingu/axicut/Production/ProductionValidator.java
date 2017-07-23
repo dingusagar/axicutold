@@ -16,7 +16,7 @@ public class ProductionValidator implements Validator {
         for(WorkOrder wo : workOrders)
             if(isValid(wo))
                 validSelections.add(wo);
-        return workOrders;
+        return validSelections;
     }
 
     @Override

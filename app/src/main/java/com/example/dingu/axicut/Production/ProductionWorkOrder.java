@@ -17,6 +17,7 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
+import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +40,7 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     private RecyclerView workOrderRecyclerView;
     private WorkOrderAdapter workOrderAdapter;
     private ArrayList<WorkOrder> workOrderArrayList;
+    private ArrayList<WorkOrder> validSelections;
     private SaleOrder saleOrder;
     private Button timeTakenButton;
     private RangeSelector rangeSelector;
@@ -48,6 +50,8 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
         setContentView(R.layout.activity_production_work_order);
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
+        Validator validator = new ProductionValidator();
+        validSelections = validator.isValid(workOrderArrayList);
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
         workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
@@ -65,8 +69,8 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     @Override
     protected void onStart() {
         super.onStart();
-        rangeSelector = new RangeSelector(this,this,workOrderArrayList);
-        workOrderAdapter = new WorkOrderAdapter(workOrderArrayList,this,rangeSelector.getSelectedItems());
+        rangeSelector = new RangeSelector(this,this,validSelections);
+        workOrderAdapter = new WorkOrderAdapter(validSelections,this,rangeSelector.getSelectedItems());
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
     }
