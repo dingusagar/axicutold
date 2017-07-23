@@ -28,6 +28,7 @@ import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,11 +72,13 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
     TextView workOrderListEmptyMessage;
     InwardAction inwardAction;
+    NetworkLostDetector networkLostDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inward_add_edit_sale_order2);
+        networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
