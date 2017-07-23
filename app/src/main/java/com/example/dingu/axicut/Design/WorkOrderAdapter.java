@@ -25,7 +25,9 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.General.ViewHider;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
+import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,7 +46,7 @@ import static com.example.dingu.axicut.R.id.saleOrder;
  * Created by root on 20/5/17.
  */
 
-public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder> {
+public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder>  {
     private Context context;
     private ArrayList<WorkOrder> workOrderList;
     private HashMap<String,Boolean> selectedItems;
@@ -101,6 +103,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public int getItemCount() {
         return workOrderList.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;

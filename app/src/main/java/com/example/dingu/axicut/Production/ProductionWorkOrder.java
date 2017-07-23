@@ -47,8 +47,7 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_production_work_order);
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
-        ProductionValidator validator = new ProductionValidator();
-        workOrderArrayList=validator.isValid(saleOrder.getWorkOrders());
+        workOrderArrayList=saleOrder.getWorkOrders();
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
         workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
@@ -67,7 +66,7 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     protected void onStart() {
         super.onStart();
         rangeSelector = new RangeSelector(this,this,workOrderArrayList);
-        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,this,rangeSelector.getSelectedItems());
+        workOrderAdapter = new WorkOrderAdapter(workOrderArrayList,this,rangeSelector.getSelectedItems());
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
     }

@@ -15,16 +15,11 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.ErrorMessage;
-import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
-import com.google.firebase.database.DatabaseReference;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+
 
 /**
  * Created by root on 21/7/17.
@@ -111,7 +106,6 @@ public class CutterDialog implements MyCustomDialog {
             workOrderToCut.setPercentCut(percentToCut);
             newWorkOrder.setPercentCut(total - percentToCut);
             addWorkOrderToList(newWorkOrder);
-
             refresher.refreshRecyclerView();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
@@ -150,9 +144,5 @@ public class CutterDialog implements MyCustomDialog {
         DecimalFormat df = new DecimalFormat("#.##");
         newWorkOrder.setWorkOrderNumber(df.format(wo+0.1));
         workOrders.add(index+1, newWorkOrder);
-    }
-    private static double round (double value, int precision) {
-        int scale = (int) Math.pow(10, precision);
-        return (double) Math.round(value * scale) / scale;
     }
 }

@@ -19,6 +19,7 @@ import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
+import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,6 +29,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRefresher{
     private RecyclerView workOrderRecyclerView;
@@ -35,7 +37,9 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     private Button assignLayoutButton;
     private HashMap<String,Boolean> selectedItems;
     private RangeSelector rangeSelector;
-   private ArrayList<WorkOrder> workOrderArrayList;
+    private ArrayList<WorkOrder> validSelections;
+    private ArrayList<WorkOrder> workOrderArrayList;
+
     private SaleOrder saleOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
         setContentView(R.layout.activity_design_work_order);
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
+        Validator validator = new DesignValidator();
+        validSelections=validator.isValid(workOrderArrayList);
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
         workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
@@ -55,13 +61,12 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
             }
         });
     }
-
     private void assignLayout() {
         DesignLayoutCommunicator communicator= new DesignLayoutCommunicator() {
             @Override
             public void adapterNotify(String layout) {
-                for(int i = 0 ; i<workOrderArrayList.size();i++){
-                    WorkOrder w = workOrderArrayList.get(i);
+                for(int i = 0 ; i<validSelections.size();i++){
+                    WorkOrder w = validSelections.get(i);
                     if(selectedItems.containsKey(w.getWorkOrderNumber()) == true){
                         w.setLayoutName(layout);
                         w.setLayoutDate(InwardUtilities.getServerDate());
@@ -73,6 +78,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
             @Override
             public void updateWorkOrderLayoutToDatabase(String layout) {
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber());
+                syncValidWorkOrdersToArrayList();
                 dbRef.setValue(saleOrder);
 
             }
@@ -118,9 +124,9 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     @Override
     protected void onStart() {
         super.onStart();
-        rangeSelector = new RangeSelector(this,this,workOrderArrayList);
+        rangeSelector = new RangeSelector(this,this,validSelections);
         this.selectedItems=rangeSelector.getSelectedItems();
-        workOrderAdapter = new WorkOrderAdapter(this.workOrderArrayList,rangeSelector.getSelectedItems(),this);
+        workOrderAdapter = new WorkOrderAdapter(validSelections,rangeSelector.getSelectedItems(),this);
         workOrderRecyclerView.setAdapter(workOrderAdapter);
         setTitle(saleOrder.getSaleOrderNumber());
     }
@@ -134,5 +140,15 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     @Override
     public void refreshRecyclerView() {
         workOrderAdapter.notifyDataSetChanged();
+    }
+
+    private void syncValidWorkOrdersToArrayList(){
+        for(int validWorkOrderCounter=0;validWorkOrderCounter<validSelections.size();validWorkOrderCounter++){
+            WorkOrder validWorkOrder = validSelections.get(validWorkOrderCounter);
+         if(!workOrderArrayList.contains(validWorkOrder)){
+             int indexOfPrevOrigWorkOrder = workOrderArrayList.indexOf(validSelections.get(validWorkOrderCounter-1));
+             workOrderArrayList.add(indexOfPrevOrigWorkOrder+1,validWorkOrder);
+         }
+        }
     }
 }

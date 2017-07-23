@@ -19,7 +19,7 @@ public class WorkOrder implements Serializable,Cloneable{
     private String layoutDate;
     private String layoutName;
     private String prodDate;
-    private String prodName;
+    private String prodName="";
     private String prodTime;
     private String despatchDC = "";
     private String despatchDate = "";
@@ -188,5 +188,10 @@ public class WorkOrder implements Serializable,Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
