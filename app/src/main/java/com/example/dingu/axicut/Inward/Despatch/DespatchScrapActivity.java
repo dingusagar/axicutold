@@ -18,6 +18,7 @@ import com.example.dingu.axicut.Inward.Despatch.DialogFunctions.DoScrap;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
@@ -35,7 +36,7 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
     DespatchWorkOrderAdapter despatchWorkOrderAdapter;
 
     DatabaseReference dbRefOrders, dbRefUtils;
-
+    NetworkLostDetector networkLostDetector;
 
     TextView dateText;
     TextView timeText;
@@ -45,12 +46,12 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
 
     Button despatchButton, scrapButton;
 
-    HashMap<String,Boolean> selectedItems;
     RangeSelector rangeSelector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_despatch_scrap);
+        networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

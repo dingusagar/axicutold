@@ -13,6 +13,10 @@
         <activity
             android:name=".Inward.InwardMainActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Admin.user.AdminAddUser"
@@ -24,7 +28,12 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LoginTheme" />
+            android:theme="@style/AppTheme.LoginTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+      </activity>
         <activity
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
@@ -54,10 +63,6 @@
             android:name=".Production.ProductionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Production.ProductionWorkOrder"

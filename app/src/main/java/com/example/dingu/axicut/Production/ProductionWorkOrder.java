@@ -15,6 +15,7 @@ import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.Utils.Validator;
@@ -44,10 +45,12 @@ public class ProductionWorkOrder extends AppCompatActivity implements RecyclerVi
     private SaleOrder saleOrder;
     private Button timeTakenButton;
     private RangeSelector rangeSelector;
+    NetworkLostDetector networkLostDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_production_work_order);
+        networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
         Validator validator = new ProductionValidator();
