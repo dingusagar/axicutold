@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TimePickerLayout">
+        <TextView
         android:id="@+id/FromText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +22,7 @@
         android:layout_below="@+id/FromText"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:src="@drawable/time_pick_icon"
+        android:src="@drawable/date_picker"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/Baseline"/>
     <RelativeLayout
@@ -50,8 +54,21 @@
         android:inputType="number"
         android:layout_below="@+id/ToText"
         android:gravity="center"
+        android:src="@drawable/date_picker"
         android:layout_margin="20dp"
-        android:src="@drawable/time_pick_icon"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/Baseline"/>
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TimePickerLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+    </RelativeLayout>
 </RelativeLayout>
