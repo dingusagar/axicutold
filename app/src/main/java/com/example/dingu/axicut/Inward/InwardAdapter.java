@@ -10,12 +10,19 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dingu.axicut.Inward.Despatch.DespatchScrapActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by dingu on 17/5/17.
@@ -23,14 +30,17 @@ import java.util.ArrayList;
 
 public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder> implements Filterable {
 
-    private ArrayList<SaleOrder> filteredSaleOrderList;
-    private ArrayList<SaleOrder> saleOrderList;
+    private ArrayList<String> filteredSaleOrderList;
+    private ArrayList<String> saleOrderList;
     private Context context;
+    private DatabaseReference mydbRefOrders;
+    SaleOrder saleOrder;
 
-    public InwardAdapter(ArrayList<SaleOrder> saleOrderList, Context context) {
+    public InwardAdapter(ArrayList<String> saleOrderList, Context context) {
         this.filteredSaleOrderList = saleOrderList;
         this.saleOrderList = saleOrderList;
         this.context = context;
+        mydbRefOrders = MyDatabase.getDatabase().getReference().child("Orders");
 
     }
 
@@ -44,28 +54,55 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SaleOrder saleOrder = filteredSaleOrderList.get(position);
-        holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
-        holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
+        final String saleOrderNo = filteredSaleOrderList.get(position);
+        holder.saleOrderText.setText(saleOrderNo);
 
 
 
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
-                if(((InwardMainActivity)context).MenuItemId == R.id.inward_entry)
-                {
-                    Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
-                    intent.putExtra("SaleOrder",saleOrder);
-                    intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
-                    v.getContext().startActivity(intent);
-                }else if(((InwardMainActivity)context).MenuItemId == R.id.despatch_entry)
-                {
-                    Intent intent = new Intent(v.getContext(),DespatchScrapActivity.class);
-                    intent.putExtra("SaleOrder",saleOrder);
-                    v.getContext().startActivity(intent);
-                }
+
+
+                mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        saleOrder = dataSnapshot.getValue(SaleOrder.class);
+                        Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
+                        if(((InwardMainActivity)context).MenuItemId == R.id.inward_entry)
+                        {
+                            Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
+                            intent.putExtra("SaleOrder",saleOrder);
+                            intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
+                            v.getContext().startActivity(intent);
+
+                        }
+                        else if(((InwardMainActivity)context).MenuItemId == R.id.despatch_entry)
+                        {
+                            Intent intent = new Intent(v.getContext(),DespatchScrapActivity.class);
+                            intent.putExtra("SaleOrder",saleOrder);
+                            v.getContext().startActivity(intent);
+                        }
+
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
 
             }
         });
@@ -89,10 +126,10 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
                     filteredSaleOrderList = saleOrderList;
                 else
                 {
-                    ArrayList<SaleOrder> filterlist = new ArrayList<>();
-                    for(SaleOrder so : saleOrderList)
+                    ArrayList<String> filterlist = new ArrayList<>();
+                    for(String so : saleOrderList)
                     {
-                        if(so.getSaleOrderNumber().contains(searchKey.toUpperCase()))
+                        if(so.contains(searchKey.toUpperCase()))
                             filterlist.add(so);
                     }
                     filteredSaleOrderList = filterlist;
@@ -106,7 +143,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                filteredSaleOrderList = (ArrayList<SaleOrder>) results.values;
+                filteredSaleOrderList = (ArrayList<String>) results.values;
                 notifyDataSetChanged();
             }
         };
