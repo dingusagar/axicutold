@@ -41,8 +41,7 @@ public class DesignMainActivity extends AppCompatActivity {
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null)
-                {
+                if(firebaseAuth.getCurrentUser() == null) {
                     Intent intent = new Intent(DesignMainActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
