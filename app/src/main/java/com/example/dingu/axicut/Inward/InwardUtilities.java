@@ -36,6 +36,12 @@ public  class InwardUtilities {
     static String[] materialTypes = {""};
     static String[] lotNos = {""};
 
+    public static Long getServerTimeStamp() {
+        return serverTimeStamp;
+    }
+
+    static Long serverTimeStamp;
+
     public static String getServerDate() {
         return serverDate;
     }
@@ -83,6 +89,7 @@ public  class InwardUtilities {
                Long timeStamp = dataSnapshot.child("ServerTimeStamp").getValue(Long.class);
                if(timeStamp != null)
                {
+                   serverTimeStamp = timeStamp;
                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     serverDate =  formatter.format(new Date(timeStamp));
 

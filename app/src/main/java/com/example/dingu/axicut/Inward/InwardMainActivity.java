@@ -21,6 +21,7 @@ import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,12 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InwardMainActivity extends AppCompatActivity{
+public class InwardMainActivity extends AppCompatActivity implements SaleOrderNumsFetcher{
 
     private DatabaseReference myDBRefSaleOrderNums;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
     ArrayList<String> saleOrderNums;
+    SaleOrderDisplayLimitter saleOrderDisplayLimiter;
 
 
     FloatingActionButton fab;
@@ -85,6 +87,8 @@ public class InwardMainActivity extends AppCompatActivity{
             }
         });
 
+        saleOrderDisplayLimiter = new SaleOrderDisplayLimitter(this,getSupportFragmentManager(),this);
+
     }
 
 
@@ -96,9 +100,17 @@ public class InwardMainActivity extends AppCompatActivity{
         inwardAdapter = new InwardAdapter(saleOrderNums, this);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
-        Query query = myDBRefSaleOrderNums.orderByChild("TS").limitToFirst(5);
 
+        fetchSaleOrderNumbersFromDatabase(0L,null,5);
+    }
 
+    public void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,int limit) {
+        saleOrderNums.clear();
+        Query query;
+        if(endTS !=null)
+             query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).endAt(1500914014885L).limitToFirst(limit);
+        else
+            query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).limitToFirst(limit);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,8 +131,6 @@ public class InwardMainActivity extends AppCompatActivity{
             }
         });
     }
-
-
 
 
     @Override
@@ -170,6 +180,9 @@ public class InwardMainActivity extends AppCompatActivity{
                 item.setChecked(true);
                 changeMode(item.getItemId());
                 break;
+            case R.id.limitSaleOrders:
+                saleOrderDisplayLimiter.setupDialog();
+                saleOrderDisplayLimiter.showDialog();
 
 
         }
