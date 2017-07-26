@@ -21,6 +21,7 @@ import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
+import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 
@@ -43,8 +44,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
     TextView saleOrderNumberText;
     TextView customerIDText;
     TextView customerDCText;
-
     Button despatchButton, scrapButton;
+    Validator despatchValidator;
 
     RangeSelector rangeSelector;
     @Override
@@ -78,7 +79,8 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
 
         despatchDialog = new AlertDialog.Builder(DespatchScrapActivity.this);
         saleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
-        workOrderList = saleOrder.getWorkOrders();
+        despatchValidator = new DespatchValidator();
+        workOrderList = despatchValidator.isValid(saleOrder.getWorkOrders());
 
         saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
         customerIDText.setText(saleOrder.getCustomerID());
