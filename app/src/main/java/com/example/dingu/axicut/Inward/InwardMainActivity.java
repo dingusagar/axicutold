@@ -1,5 +1,6 @@
 package com.example.dingu.axicut.Inward;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,19 +21,25 @@ import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class InwardMainActivity extends AppCompatActivity{
+public class InwardMainActivity extends AppCompatActivity implements SaleOrderNumsFetcher{
 
-    private DatabaseReference myDBRefOrders;
+    private DatabaseReference myDBRefSaleOrderNums;
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
+    ArrayList<String> saleOrderNums;
+    SaleOrderDisplayLimitter saleOrderDisplayLimiter;
 
 
     FloatingActionButton fab;
@@ -43,7 +49,6 @@ public class InwardMainActivity extends AppCompatActivity{
 
 
 
-    ArrayList <SaleOrder> saleOrderArrayList;
     InwardAdapter inwardAdapter;
 
 
@@ -60,8 +65,8 @@ public class InwardMainActivity extends AppCompatActivity{
         setupFabButton();
 
 
-        myDBRefOrders = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRefOrders.keepSynced(true);
+        myDBRefSaleOrderNums = MyDatabase.getDatabase().getInstance().getReference("SaleOrderNums");
+        myDBRefSaleOrderNums.keepSynced(true);
 
         InwardUtilities.fetchDataFromDatabase();
         InwardUtilities.fetchServerTimeStamp();
@@ -82,6 +87,8 @@ public class InwardMainActivity extends AppCompatActivity{
             }
         });
 
+        saleOrderDisplayLimiter = new SaleOrderDisplayLimitter(this,getSupportFragmentManager(),this);
+
     }
 
 
@@ -89,47 +96,33 @@ public class InwardMainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
 
-        saleOrderArrayList = new ArrayList<>();
-        inwardAdapter = new InwardAdapter(saleOrderArrayList,this);
+        saleOrderNums = new ArrayList<>();
+        inwardAdapter = new InwardAdapter(saleOrderNums, this);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
-        myDBRefOrders.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if(dataSnapshot != null && dataSnapshot.getValue() != null)
-                {
-                    try{
-                        SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
-                        saleOrderArrayList.add(0,saleOrder);
-                        inwardAdapter.notifyDataSetChanged();
-                    }catch (Exception e)
+        fetchSaleOrderNumbersFromDatabase(0L,null,5);
+    }
+
+    public void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,int limit) {
+        saleOrderNums.clear();
+        Query query;
+        if(endTS !=null)
+             query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).endAt(1500914014885L).limitToFirst(limit);
+        else
+            query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).limitToFirst(limit);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChildren()) {
+
+                    for(DataSnapshot childSnapshot : dataSnapshot.getChildren())
                     {
-                        Toast.makeText(getApplicationContext(), "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
+                        saleOrderNums.add(0,childSnapshot.getKey());
                     }
+                    inwardAdapter.notifyDataSetChanged();
                 }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                SaleOrder updatedSaleorder = dataSnapshot.getValue(SaleOrder.class);
-
-                if(updatedSaleorder!=null)
-                replaceAndNotify(updatedSaleorder);
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -137,21 +130,6 @@ public class InwardMainActivity extends AppCompatActivity{
 
             }
         });
-    }
-
-    private void replaceAndNotify(SaleOrder updatedSaleorder) {
-
-        String saleorderNo = updatedSaleorder.getSaleOrderNumber();
-
-        for(int i=0; i<saleOrderArrayList.size();i++)
-        {
-            if(saleOrderArrayList.get(i).getSaleOrderNumber().equals(saleorderNo))
-            {
-                saleOrderArrayList.set(i,updatedSaleorder);
-                inwardAdapter.notifyDataSetChanged();
-                break;
-            }
-        }
     }
 
 
@@ -202,6 +180,9 @@ public class InwardMainActivity extends AppCompatActivity{
                 item.setChecked(true);
                 changeMode(item.getItemId());
                 break;
+            case R.id.limitSaleOrders:
+                saleOrderDisplayLimiter.setupDialog();
+                saleOrderDisplayLimiter.showDialog();
 
 
         }

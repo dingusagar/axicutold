@@ -30,8 +30,10 @@ import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.WorkOrder;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +44,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InwardAddEditSaleOrder extends AppCompatActivity {
 
@@ -52,9 +56,10 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     Button confirmButton;
     SaleOrder saleOrder;
     ProgressDialog progress;
+    DatabaseReference dbRootRef;
     DatabaseReference dbRefOrders; // database reference to all orders
     DatabaseReference dbRefUtils ;//  reference to utilities in database like lastsaleOrderNumber , Server.TimeStamp
-
+    DatabaseReference dbRefSaleOrderNums;
     View parentLayout;
 
 
@@ -96,8 +101,10 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
 
         // db references
+        dbRootRef = MyDatabase.getDatabase().getInstance().getReference();
         dbRefOrders = MyDatabase.getDatabase().getInstance().getReference().child("Orders");
         dbRefUtils = MyDatabase.getDatabase().getInstance().getReference().child("Utils");
+        dbRefSaleOrderNums = MyDatabase.getDatabase().getReference().child("SaleOrderNums");
 
 
         // sale order header view
@@ -235,6 +242,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 if(serverTimeStamp != null && lastSaleOrderNumber != null)
                 {
                     saleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
+                    saleOrder.setTimestamp(serverTimeStamp);
                     saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
                     confirmButton.setEnabled(true);
                     confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
@@ -281,42 +289,85 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         progress.show();
         if(saleOrder.isValidSaleOrderNumber())
         {
-            dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            Map<String, Object> update = new HashMap<>();
+            if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER)){
+
+                update.put("Orders/"+saleOrder.getSaleOrderNumber(), saleOrder);
+                update.put("Utils/LastSaleOrderNumber",saleOrder.getSaleOrderNumber());
+                update.put("SaleOrderNums/"+saleOrder.getSaleOrderNumber()+"/TS",saleOrder.getTimestamp());
+
+            }else if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER)){
+                update.put("Orders/"+saleOrder.getSaleOrderNumber(), saleOrder);
+            }
+
+            dbRootRef.updateChildren(update).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
-                        dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-                                progress.dismiss();
-
-                            }
-                        });
-                    progress.dismiss();
-                    Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
-                            .setAction("Action", null).show();
-                    goBackToPreviousActivity.start();
-
-
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    {
+                        progress.dismiss();
+                        Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                        goBackToPreviousActivity.start();
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
                     progress.dismiss();
-
+                    Snackbar.make(parentLayout,"ERROR : " + e.toString(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             });
-        }else {
-            Toast.makeText(getApplicationContext(), "Opps : Invalid SaleOrder Number ", Toast.LENGTH_LONG).show();
-            progress.dismiss();
+
+
+//
+//
+//
+//            dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER)){
+//
+//                        dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+//                                progress.dismiss();
+//
+//                            }
+//                        });
+//
+//                        dbRefSaleOrderNums.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder.getTimestamp());
+//                    }
+//
+//                    progress.dismiss();
+//                    Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
+//                            .setAction("Action", null).show();
+//                    goBackToPreviousActivity.start();
+//
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
+//                    progress.dismiss();
+//
+//                }
+//            });
+//        }else {
+//            Toast.makeText(getApplicationContext(), "Opps : Invalid SaleOrder Number ", Toast.LENGTH_LONG).show();
+//            progress.dismiss();
+
+
         }
 
 

@@ -48,21 +48,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/medium_font_padding"
-                    android:text="Num of Work orders :"
-                    style="@style/MyTextViewStyleSecondary"/>
-
-                <TextView
-                    android:id="@+id/numOfWO"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/medium_font_padding"
-                    android:text="w000"
-                    style="@style/MyTextViewStyleSecondary" />
             </LinearLayout>
 
 
