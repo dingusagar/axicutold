@@ -48,12 +48,19 @@ public class SaleOrderDisplayLimitter implements MyCustomDialog {
     SimpleDateFormat formatter;
 
     Long fromTS,toTS;
+
+    public int getLimitNumber() {
+        return limitNumber;
+    }
+
     int limitNumber;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     final String AXICUT_PREFERENCE = "AXICUT_LOCAL_STORAGE";
     final String LIMIT = "SaleOrderLoadingLimit";
+    final String FROM_DATE = "FromDate";
+    final String TO_DATE = "ToDate";
     SaleOrderNumsFetcher dbFetcher;
 
 
@@ -66,6 +73,7 @@ public class SaleOrderDisplayLimitter implements MyCustomDialog {
         this.fragmentManager = fragmentManager;
         sharedPreferences = context.getSharedPreferences(AXICUT_PREFERENCE,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        limitNumber = sharedPreferences.getInt(LIMIT,100);
     }
 
     @Override
@@ -85,8 +93,9 @@ public class SaleOrderDisplayLimitter implements MyCustomDialog {
         toDateText = (TextView) contentView.findViewById(R.id.toDate);
         limitNumberText = (EditText)contentView.findViewById(R.id.limitNumber);
 
-        limitNumber = sharedPreferences.getInt(LIMIT,100);
         limitNumberText.setText(""+limitNumber);
+        fromDateText.setText(sharedPreferences.getString(FROM_DATE,"14/02/2017"));
+        toDateText.setText(sharedPreferences.getString(TO_DATE,"14/07/2017"));
 
         builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
@@ -125,23 +134,28 @@ public class SaleOrderDisplayLimitter implements MyCustomDialog {
     @Override
     public void onPositiveButtonClicked() {
         limitNumber = Integer.parseInt(limitNumberText.getText().toString());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date parsedDate;
         Timestamp timestamp;
         try {
             parsedDate = dateFormat.parse(fromDateText.getText().toString());
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
             fromTS = timestamp.getTime();
+            editor.putString(FROM_DATE,fromDateText.getText().toString());
+
             parsedDate = dateFormat.parse(toDateText.getText().toString());
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
             toTS = timestamp.getTime();
+            editor.putString(TO_DATE,toDateText.getText().toString());
+            editor.putInt(LIMIT,limitNumber);
+
+            editor.commit();
+            dbFetcher.fetchSaleOrderNumbersFromDatabase(fromTS,toTS,limitNumber);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Toast.makeText(context,"Date parsing error",Toast.LENGTH_LONG);
         }
 
-        editor.putInt(LIMIT,limitNumber);
-        editor.commit();
-        dbFetcher.fetchSaleOrderNumbersFromDatabase(fromTS,toTS,limitNumber);
+
     }
 
     @Override

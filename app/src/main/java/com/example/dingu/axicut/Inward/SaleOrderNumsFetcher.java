@@ -5,5 +5,5 @@ package com.example.dingu.axicut.Inward;
  */
 
 public interface SaleOrderNumsFetcher {
-    void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,int limit);
+    void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,Integer limit);
 }
