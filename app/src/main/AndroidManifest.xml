@@ -12,28 +12,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Inward.InwardMainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".Admin.user.AdminAddUser"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LoginTheme" />
+            android:theme="@style/AppTheme.LoginTheme"></activity>
         <activity
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Utils.Navigation.Projector"
             android:label="@string/title_activity_projector"
@@ -47,21 +42,27 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Design.DesignMainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Design.DesignWorkOrder"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Production.ProductionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".Production.ProductionWorkOrder"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Inward.Despatch.DespatchScrapActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Admin.AdminWorkOrder"
             android:screenOrientation="portrait" />
@@ -69,11 +70,7 @@
             android:name=".Inward.InwardAddEditSaleOrder"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Utils.General.Search.SearchResults" />
-        <activity
-            android:name=".Admin.LotNumber.AddLotNum"
-            android:label="@string/title_activity_add_lot_num"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Utils.General.Search.SearchResults"></activity>
     </application>
 
 </manifest>
