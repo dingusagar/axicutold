@@ -40,15 +40,8 @@ public class InwardMainActivity extends AppCompatActivity implements SaleOrderNu
     FirebaseAuth mAuth;
     ArrayList<String> saleOrderNums;
     SaleOrderDisplayLimitter saleOrderDisplayLimiter;
-
-
     FloatingActionButton fab;
-
-
     int MenuItemId = R.id.inward_entry;
-
-
-
     InwardAdapter inwardAdapter;
 
 

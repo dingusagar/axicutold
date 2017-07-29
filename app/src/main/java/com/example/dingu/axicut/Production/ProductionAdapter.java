@@ -1,5 +1,5 @@
 package com.example.dingu.axicut.Production;
-
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,30 +9,96 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.dingu.axicut.Design.DesignAdapter;
 import com.example.dingu.axicut.Design.DesignWorkOrder;
-import com.example.dingu.axicut.Production.ProductionWorkOrder;
+import com.example.dingu.axicut.Inward.Despatch.DespatchScrapActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import static com.example.dingu.axicut.R.id.saleOrder;
+import java.util.HashMap;
 
 /**
- * Created by root on 22/5/17.
+ * Created by dingu on 17/5/17.
  */
+
 public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.ViewHolder> implements Filterable {
 
-    private ArrayList<SaleOrder> filteredSaleOrderList;
-    private ArrayList<SaleOrder> saleOrderList;
+    private ArrayList<String> filteredSaleOrderList;
+    private ArrayList<String> saleOrderList;
+    private Context context;
+    private DatabaseReference mydbRefOrders;
+    SaleOrder saleOrder;
 
-    public ProductionAdapter(ArrayList<SaleOrder> saleOrderList) {
+    public ProductionAdapter(ArrayList<String> saleOrderList, Context context) {
         this.filteredSaleOrderList = saleOrderList;
         this.saleOrderList = saleOrderList;
+        this.context = context;
+        mydbRefOrders = MyDatabase.getDatabase().getReference().child("Orders");
 
     }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inward_main_page_list_item,parent,false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        final String saleOrderNo = filteredSaleOrderList.get(position);
+        holder.saleOrderText.setText(saleOrderNo);
+
+
+
+        holder.mview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+
+
+                mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        saleOrder = dataSnapshot.getValue(SaleOrder.class);
+                        Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(v.getContext(),ProductionWorkOrder.class);
+                        intent.putExtra("SaleOrder",saleOrder);
+                        v.getContext().startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return filteredSaleOrderList.size();
+    }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -44,10 +110,10 @@ public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.Vi
                     filteredSaleOrderList = saleOrderList;
                 else
                 {
-                    ArrayList<SaleOrder> filterlist = new ArrayList<>();
-                    for(SaleOrder so : saleOrderList)
+                    ArrayList<String> filterlist = new ArrayList<>();
+                    for(String so : saleOrderList)
                     {
-                        if(so.getSaleOrderNumber().contains(searchKey.toUpperCase()))
+                        if(so.contains(searchKey.toUpperCase()))
                             filterlist.add(so);
                     }
                     filteredSaleOrderList = filterlist;
@@ -55,55 +121,33 @@ public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.Vi
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredSaleOrderList;
                 return filterResults;
+
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredSaleOrderList = (ArrayList<SaleOrder>) results.values;
+
+                filteredSaleOrderList = (ArrayList<String>) results.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inward_main_page_list_item,parent,false);
-        return new ProductionAdapter.ViewHolder(view);
-
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final SaleOrder saleOrder = filteredSaleOrderList.get(position);
-        holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
-        holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
-        holder.mview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),ProductionWorkOrder.class);
-                intent.putExtra("SaleOrder",saleOrder);
-                v.getContext().startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return filteredSaleOrderList.size();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
+
         View mview;
         TextView saleOrderText;
-        TextView numOfWorkOrders;
         LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
-            saleOrderText = (TextView)mview.findViewById(saleOrder);
-            numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
+
+            saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
+
+
         }
+
     }
 }
