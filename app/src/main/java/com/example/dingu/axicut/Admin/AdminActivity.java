@@ -147,6 +147,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 intent.putExtra("Adapter", NavigationOptions.MATERIALS);
                 startActivity(intent);
                 break;
+            case R.id.nav_LotNumbers:
+                intent.putExtra("Adapter", NavigationOptions.LOTNUM);
+                startActivity(intent);
+                break;
             case R.id.nav_logout:
                 auth.signOut();
                 intent = new Intent(this, LoginActivity.class);

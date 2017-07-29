@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dingu.axicut.Admin.Materials.AdminAddMaterials">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lotNumberText"
+        android:inputType="text"
+        android:layout_above="@+id/CenterRef"
+        android:hint="Lot number"
+        android:textAlignment="center"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CenterRef"
+        android:layout_centerInParent="true">
+    </RelativeLayout>
+    <Button
+        android:text="Add Lot number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddLotNumber"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
