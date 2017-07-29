@@ -13,7 +13,7 @@
         <activity
             android:name=".Inward.InwardMainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,6 +47,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Design.DesignMainActivity"
+
+            android:screenOrientation="portrait">
+           
+        </activity>
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Design.DesignWorkOrder"
@@ -69,7 +73,11 @@
             android:name=".Inward.InwardAddEditSaleOrder"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Utils.General.Search.SearchResults"></activity>
+
         <activity android:name=".Utils.General.Search.Filter"></activity>
+
     </application>
 
 </manifest>
