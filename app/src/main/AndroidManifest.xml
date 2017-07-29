@@ -28,7 +28,12 @@
             android:name=".Admin.AdminActivity"
             android:label="@string/title_activity_admin"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Utils.Navigation.Projector"
             android:label="@string/title_activity_projector"
@@ -43,11 +48,6 @@
         <activity
             android:name=".Design.DesignMainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Design.DesignWorkOrder"
@@ -65,7 +65,9 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Admin.AdminWorkOrder"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".Inward.InwardAddEditSaleOrder"
             android:screenOrientation="portrait"

@@ -12,37 +12,91 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Design.DesignAdapter;
-import com.example.dingu.axicut.Design.DesignWorkOrder;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.dingu.axicut.R.id.saleOrder;
-
 /**
- * Created by root on 23/5/17.
+ * Created by dingu on 17/5/17.
  */
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
 
-    private ArrayList<SaleOrder> filteredSaleOrderList;
-    private ArrayList<SaleOrder> saleOrderList=new ArrayList<>();
-    private DatabaseReference myDBRef;
+    private ArrayList<String> filteredSaleOrderList;
+    private ArrayList<String> saleOrderList;
     private Context context;
-    public AdminAdapter(Context context) {
+    private DatabaseReference mydbRefOrders;
+    SaleOrder saleOrder;
+
+    public AdminAdapter(ArrayList<String> saleOrderList, Context context) {
         this.filteredSaleOrderList = saleOrderList;
-        myDBRef = MyDatabase.getDatabase().getInstance().getReference("Orders");
-        myDBRef.keepSynced(true);
-        this.context=context;
-        addDatabaseListeners();
+        this.saleOrderList = saleOrderList;
+        this.context = context;
+        mydbRefOrders = MyDatabase.getDatabase().getReference().child("Orders");
+
     }
+
+    @Override
+    public AdminAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inward_main_page_list_item,parent,false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        final String saleOrderNo = filteredSaleOrderList.get(position);
+        holder.saleOrderText.setText(saleOrderNo);
+
+
+
+        holder.mview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+
+
+                mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        saleOrder = dataSnapshot.getValue(SaleOrder.class);
+                        Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(v.getContext(),AdminWorkOrder.class);
+                        intent.putExtra("SaleOrder",saleOrder);
+                        v.getContext().startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return filteredSaleOrderList.size();
+    }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -54,10 +108,10 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
                     filteredSaleOrderList = saleOrderList;
                 else
                 {
-                    ArrayList<SaleOrder> filterlist = new ArrayList<>();
-                    for(SaleOrder so : saleOrderList)
+                    ArrayList<String> filterlist = new ArrayList<>();
+                    for(String so : saleOrderList)
                     {
-                        if(so.getSaleOrderNumber().contains(searchKey.toUpperCase()))
+                        if(so.contains(searchKey.toUpperCase()))
                             filterlist.add(so);
                     }
                     filteredSaleOrderList = filterlist;
@@ -65,125 +119,35 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredSaleOrderList;
                 return filterResults;
+
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredSaleOrderList = (ArrayList<SaleOrder>) results.values;
+
+                filteredSaleOrderList = (ArrayList<String>) results.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_main_card_view,parent,false);
-        return new ViewHolder(view);
-
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final SaleOrder saleOrder = filteredSaleOrderList.get(position);
-        holder.saleOrderText.setText(saleOrder.getSaleOrderNumber());
-        holder.numOfWorkOrders.setText("" + saleOrder.getWorkOrders().size());
-        holder.companyName.setText(saleOrder.getCustomerID());
-        holder.numOfDesign.setText("" + saleOrder.getNumOfLayouts());
-        holder.numProd.setText("" +saleOrder.getNumOfProduced());
-        holder.numDespatched.setText("" +saleOrder.getNumOfDespatched());
-        holder.numScraped.setText("" +saleOrder.getNumScrapped());
-        holder.mview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),AdminWorkOrder.class);
-                intent.putExtra("SaleOrder",saleOrder);
-               v.getContext().startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return filteredSaleOrderList.size();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
+
         View mview;
-        TextView saleOrderText,numOfWorkOrders,companyName,numOfDesign,numProd,numDespatched,numScraped;
+        TextView saleOrderText;
+        TextView numOfWorkOrders;
+        LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
-            saleOrderText = (TextView)mview.findViewById(R.id.adminSaleOrder);
+
+            saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
-            companyName=(TextView)mview.findViewById(R.id.companyName);
-            numOfDesign=(TextView)mview.findViewById(R.id.numOfDesigns);
-            numProd=(TextView)mview.findViewById(R.id.numOfProd);
-            numDespatched=(TextView)mview.findViewById(R.id.numOfDespatched);
-            numScraped=(TextView)mview.findViewById(R.id.numOfScraps);
-        }
-    }
-    public void addDatabaseListeners() {
-        myDBRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
 
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    try {
-                        SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
-                        saleOrderList.add(0,saleOrder);
-                        notifyDataSetChanged();
-                    } catch (Exception e) {
-                        Toast.makeText(context, "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }
 
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                SaleOrder saleOrder = dataSnapshot.getValue(SaleOrder.class);
-                if(saleOrder != null)
-                updateSaleOrderAndNotify(saleOrder);
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void updateSaleOrderAndNotify(SaleOrder saleOrder) {
-        for(int i =0 ;i<saleOrderList.size() ; i++)
-        {
-            SaleOrder so = saleOrderList.get(i);
-            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
-            {
-                saleOrderList.set(i,saleOrder);
-            }
         }
 
-        for(int i =0 ;i<filteredSaleOrderList.size() ; i++)
-        {
-            SaleOrder so = filteredSaleOrderList.get(i);
-            if(so.getSaleOrderNumber().equals(saleOrder.getSaleOrderNumber()))
-            {
-                saleOrderList.set(i,saleOrder);
-            }
-        }
-
-        notifyDataSetChanged();
     }
 }
