@@ -100,17 +100,17 @@ public class InwardMainActivity extends AppCompatActivity implements SaleOrderNu
         inwardAdapter = new InwardAdapter(saleOrderNums, this);
         saleOrderRecyclerView.setAdapter(inwardAdapter);
 
-
-        fetchSaleOrderNumbersFromDatabase(0L,null,5);
+        int limit = saleOrderDisplayLimiter.getLimitNumber();
+        fetchSaleOrderNumbersFromDatabase(0L,null,limit);
     }
 
-    public void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,int limit) {
+    public void fetchSaleOrderNumbersFromDatabase(Long startTS,Long endTS,Integer limit) {
         saleOrderNums.clear();
         Query query;
         if(endTS !=null)
-             query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).endAt(1500914014885L).limitToFirst(limit);
+             query= myDBRefSaleOrderNums.orderByChild("TS").startAt(startTS).endAt(endTS).limitToFirst(limit);
         else
-            query= myDBRefSaleOrderNums.orderByChild("TS").startAt(1500913900020L).limitToFirst(limit);
+            query= myDBRefSaleOrderNums.orderByChild("TS").startAt(startTS).limitToLast(limit);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
