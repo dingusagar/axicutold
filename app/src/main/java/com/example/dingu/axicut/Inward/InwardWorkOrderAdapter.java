@@ -25,16 +25,11 @@ import java.util.ArrayList;
  */
 
 public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrderAdapter.ViewHolder>  {
-
     private ArrayList<WorkOrder> workOrdersList;
     Context context;
-
-
     public InwardWorkOrderAdapter(ArrayList<WorkOrder> workOrdersList, Context context) {
         this.workOrdersList = workOrdersList;
         this.context = context;
-
-
     }
 
 
@@ -62,11 +57,7 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         View view;
-
-
-
         TextView workOrderNoText;
         Spinner materialSpinner;
         Spinner lotNoSpinner;

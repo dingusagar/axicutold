@@ -38,8 +38,4 @@ public class ErrorMessage {
     {
         Snackbar.make(parentView, errorMessage,duration).show();
     }
-
-
-
-
 }
