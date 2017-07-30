@@ -51,7 +51,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     RecyclerView workorderRecyclerView;
     InwardWorkOrderAdapter workOrderAdapter;
 
-    ArrayList<WorkOrder> workOrders;
     Button confirmButton;
     SaleOrder saleOrder;
     ProgressDialog progress;

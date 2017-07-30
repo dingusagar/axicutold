@@ -142,7 +142,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             super(itemView);
             mview = itemView;
 
-            saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
+            saleOrderText = (TextView)mview.findViewById(R.id.saleOrderNum);
             numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
 

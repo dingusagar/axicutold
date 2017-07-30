@@ -28,7 +28,6 @@ public class AdminWorkOrder extends AppCompatActivity {
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
-        workOrderRecyclerView.setNestedScrollingEnabled(false);
         workOrderRecyclerView.setHasFixedSize(true);
         workOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

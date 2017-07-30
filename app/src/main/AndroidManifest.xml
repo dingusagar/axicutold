@@ -18,6 +18,9 @@
             android:name=".Admin.user.AdminAddUser"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Admin.LotNumber.AddLotNum"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -72,7 +75,7 @@
             android:name=".Inward.InwardAddEditSaleOrder"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Utils.General.Search.SearchResults"></activity>
+        <activity android:name=".Utils.General.Search.SearchResultsActivity"></activity>
     </application>
 
 </manifest>
