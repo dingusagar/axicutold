@@ -32,7 +32,6 @@ import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,7 +81,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inward_add_edit_sale_order2);
+        setContentView(R.layout.activity_inward_add_edit_sale_order);
         networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -35,7 +35,6 @@ import java.util.logging.Filter;
 public class DesignMainActivity extends AppCompatActivity implements SaleOrderNumsFetcher{
     RecyclerView saleOrderRecyclerView;
     FirebaseAuth mAuth;
-    ArrayList<SaleOrder> saleOrderArrayList;
     DesignAdapter designAdapter;
     ArrayList<String> saleOrderNums;
     SaleOrderDisplayLimitter saleOrderDisplayLimiter;
