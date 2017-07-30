@@ -8,12 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Design.DesignAdapter;
-import com.example.dingu.axicut.Design.DesignWorkOrder;
+
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -24,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-import static com.example.dingu.axicut.R.id.saleOrder;
+
 
 /**
  * Created by root on 23/5/17.

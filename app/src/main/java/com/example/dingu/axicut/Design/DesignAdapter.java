@@ -137,15 +137,13 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
 
         View mview;
         TextView saleOrderText;
-        TextView numOfWorkOrders;
         LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
 
-            saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
-            numOfWorkOrders = (TextView)mview.findViewById(R.id.numOfWO);
+            saleOrderText = (TextView)mview.findViewById(R.id.saleOrderNum);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
 
 

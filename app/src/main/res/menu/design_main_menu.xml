@@ -14,4 +14,8 @@
     <item android:id="@+id/limitSaleOrders"
         android:title="Display Limit"
         app:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/filter"
+        android:title="Filter SaleOrders"
+        app:showAsAction="collapseActionView"/>
 </menu>

@@ -9,75 +9,79 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".Inward.InwardMainActivity"
-            android:screenOrientation="portrait">
-           <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/AppTheme" >
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Admin.user.AdminAddUser"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LoginTheme"></activity>
-        <activity
-            android:name=".Admin.AdminActivity"
-            android:label="@string/title_activity_admin"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Utils.Navigation.Projector"
-            android:label="@string/title_activity_projector"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Admin.Company.AdminAddCompany"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Admin.Materials.AdminAddMaterials"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Design.DesignMainActivity"
 
-            android:screenOrientation="portrait">
-           
-        </activity>
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".Design.DesignWorkOrder"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Production.ProductionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
-        <activity
-            android:name=".Production.ProductionWorkOrder"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Inward.Despatch.DespatchScrapActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Admin.AdminWorkOrder"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Inward.InwardAddEditSaleOrder"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Utils.General.Search.SearchResults"></activity>
+            <activity
+                android:name=".Inward.InwardMainActivity"
+                android:screenOrientation="portrait">
 
-        <activity android:name=".Utils.General.Search.Filter"></activity>
+            </activity>
+            <activity
+                android:name=".Admin.user.AdminAddUser"
+                android:screenOrientation="portrait" />
+            <activity
+                android:name=".MainActivity"
+                android:screenOrientation="portrait"></activity>
+            <activity
+                android:name=".LoginActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.LoginTheme"></activity>
+            <activity
+                android:name=".Admin.AdminActivity"
+                android:label="@string/title_activity_admin"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar" />
+            <activity
+                android:name=".Utils.Navigation.Projector"
+                android:label="@string/title_activity_projector"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar" />
+            <activity
+                android:name=".Admin.Company.AdminAddCompany"
+                android:screenOrientation="portrait" />
+            <activity
+                android:name=".Admin.Materials.AdminAddMaterials"
+                android:screenOrientation="portrait" />
+            <activity
+                android:name=".Design.DesignMainActivity"
 
-    </application>
+                android:screenOrientation="portrait">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+
+        <activity
+        android:name=".Design.DesignWorkOrder"
+        android:screenOrientation="portrait" />
+        <activity
+        android:name=".Production.ProductionActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"></activity>
+        <activity
+        android:name=".Production.ProductionWorkOrder"
+        android:screenOrientation="portrait" />
+        <activity
+        android:name=".Inward.Despatch.DespatchScrapActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+        android:name=".Admin.AdminWorkOrder"
+        android:screenOrientation="portrait" />
+        <activity
+        android:name=".Inward.InwardAddEditSaleOrder"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Utils.General.Search.SearchResultsActivity"></activity>
+
+        <activity android:name=".Utils.General.Search.FilterActivity"></activity>
+
+</application>
+
 
 </manifest>

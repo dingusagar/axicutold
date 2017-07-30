@@ -115,7 +115,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
         customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerIDs()));
         customerDCText = (TextView)findViewById(R.id.customerDC);
-        saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
+        saleOrderNumberText = (TextView)findViewById(R.id.saleOrderNum);
 
 
         // setting up date picker
@@ -322,50 +322,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
             });
 
 
-//
-//
-//
-//            dbRefOrders.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void aVoid) {
-//                    if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER)){
-//
-//                        dbRefUtils.child("LastSaleOrderNumber").setValue(saleOrder.getSaleOrderNumber()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//
-//
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-//                                progress.dismiss();
-//
-//                            }
-//                        });
-//
-//                        dbRefSaleOrderNums.child(saleOrder.getSaleOrderNumber()).setValue(saleOrder.getTimestamp());
-//                    }
-//
-//                    progress.dismiss();
-//                    Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
-//                            .setAction("Action", null).show();
-//                    goBackToPreviousActivity.start();
-//
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(getApplicationContext(),"Opps : Error - " + e.toString(),Toast.LENGTH_LONG).show();
-//                    progress.dismiss();
-//
-//                }
-//            });
-//        }else {
-//            Toast.makeText(getApplicationContext(), "Opps : Invalid SaleOrder Number ", Toast.LENGTH_LONG).show();
-//            progress.dismiss();
+
 
 
         }
