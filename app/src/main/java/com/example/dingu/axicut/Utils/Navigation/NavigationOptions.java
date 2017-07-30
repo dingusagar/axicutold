@@ -5,5 +5,5 @@ package com.example.dingu.axicut.Utils.Navigation;
  */
 
 public enum NavigationOptions {
-    USER,COMPANY,MATERIALS;
+    USER,COMPANY,MATERIALS,LOTNUM;
 }

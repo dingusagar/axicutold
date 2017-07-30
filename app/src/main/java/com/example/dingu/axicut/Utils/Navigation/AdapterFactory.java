@@ -1,6 +1,7 @@
 package com.example.dingu.axicut.Utils.Navigation;
 
 import com.example.dingu.axicut.Admin.Company.CompanyAdapterHolder;
+import com.example.dingu.axicut.Admin.LotNumber.LotNumberAdapterHolder;
 import com.example.dingu.axicut.Admin.Materials.MaterialAdapterHolder;
 import com.example.dingu.axicut.Admin.user.UserAdapterHolder;
 
@@ -17,6 +18,8 @@ public abstract class AdapterFactory {
             return new CompanyAdapterHolder();
         case MATERIALS:
             return new MaterialAdapterHolder();
+        case LOTNUM:
+            return new LotNumberAdapterHolder();
     }
         return null;
     }

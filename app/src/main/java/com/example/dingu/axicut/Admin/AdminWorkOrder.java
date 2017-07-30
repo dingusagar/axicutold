@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.WorkOrder;
@@ -18,7 +20,11 @@ public class AdminWorkOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_work_order);
+        setContentView(R.layout.activity_admin_work_order2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
         workOrderRecyclerView = (RecyclerView)findViewById(R.id.workOrderRecyclist);
