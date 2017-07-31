@@ -1,46 +1,27 @@
 package com.example.dingu.axicut.Design;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
+
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
-import com.example.dingu.axicut.Utils.General.ViewHider;
+
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
-import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
 
-import static com.example.dingu.axicut.R.id.percentCutText;
-import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
  * Created by root on 20/5/17.

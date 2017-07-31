@@ -131,26 +131,6 @@ public class DoDespatch implements MyCustomDialog {
 
     }
 
-//    private boolean validateSelection() {
-//
-//        ArrayList<Integer> invalidSelections = new ArrayList<>();
-//        for(int i =0;i<workOrders.size() ;i++)
-//        {
-//            WorkOrder wo = workOrders.get(i);
-//            if(selectedItems.containsKey(wo.getWorkOrderNumber()))
-//            {
-//                if(!(wo.getScrapDC().equals(""))) // if scrap is assigned
-//                    invalidSelections.add(wo.getWorkOrderNumber());
-//
-//            }
-//
-//        }
-//        if(invalidSelections.size() == 0)
-//            return true;
-//
-//        errorMessage.displayToast("Invalid Selection :\n Already scraped out for work orders : \n" + invalidSelections.toString());
-//        return false;
-//    }
 
 
 

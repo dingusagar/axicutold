@@ -4,10 +4,8 @@ package com.example.dingu.axicut.Production;
  * Created by root on 22/5/17.
  */
 
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -17,58 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import com.example.dingu.axicut.Design.DesignLayoutCommunicator;
-import com.example.dingu.axicut.Design.DesignWorkOrder;
-import com.example.dingu.axicut.Design.EditDesignLayout;
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
-import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.ViewHider;
-import com.example.dingu.axicut.Utils.Validator;
-import com.example.dingu.axicut.WorkOrder;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+
 import com.example.dingu.axicut.WorkOrder;
-import com.google.firebase.database.DatabaseReference;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
-
-import static com.example.dingu.axicut.R.id.headerEmailId;
-import static com.example.dingu.axicut.R.id.saleOrder;
 
 /**
  * Created by root on 20/5/17.

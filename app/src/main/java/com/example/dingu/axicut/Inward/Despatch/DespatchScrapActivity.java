@@ -61,7 +61,7 @@ public class DespatchScrapActivity extends AppCompatActivity implements Recycler
         dateText = (TextView) findViewById(R.id.dateText);
         timeText = (TextView) findViewById(R.id.timeText);
         customerIDText = (TextView) findViewById(R.id.customerIDText);
-        saleOrderNumberText = (TextView)findViewById(R.id.saleOrder);
+        saleOrderNumberText = (TextView)findViewById(R.id.saleOrderNum);
         customerDCText = (TextView) findViewById(R.id.customerDC);
         despatchButton = (Button)findViewById(R.id.despatchButton);
         scrapButton = (Button)findViewById(R.id.scrapButton);

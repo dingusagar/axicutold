@@ -143,7 +143,7 @@ public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.Vi
             super(itemView);
             mview = itemView;
 
-            saleOrderText = (TextView)mview.findViewById(R.id.saleOrder);
+            saleOrderText = (TextView)mview.findViewById(R.id.saleOrderNum);
             linearLayout = (LinearLayout) mview.findViewById(R.id.linear_layout);
 
 

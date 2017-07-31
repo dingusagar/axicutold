@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -23,17 +22,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Filter extends AppCompatActivity {
+public class FilterActivity extends AppCompatActivity {
 
     TextView fromDateText;
     TextView toDateText;
+    EditText limitText;
     EditText thickness;
     Spinner customerID_Spinner,materialSpinner;
     SimpleDateFormat formatter;
-    Calendar calendar;
     ImageButton fromDateButton, toDateButton;
     SearchFields searchFields;
     Button okButton,cancelButton;
+    final int DEFAULT_LIMIT = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,8 @@ public class Filter extends AppCompatActivity {
         fromDateButton = (ImageButton)findViewById(R.id.fromDateButton) ;
         toDateButton = (ImageButton)findViewById(R.id.toDateButton) ;
         thickness = (EditText)findViewById(R.id.thickness);
+        limitText = (EditText)findViewById(R.id.limitNumber);
+        limitText.setText(""+DEFAULT_LIMIT);
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
         customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getCustomerIDs()));
 
@@ -53,14 +55,14 @@ public class Filter extends AppCompatActivity {
         materialSpinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
 
         okButton = (Button)findViewById(R.id.okButton);
-        cancelButton = (Button)findViewById(R.id.cancel_button);
+        cancelButton = (Button)findViewById(R.id.cancelButton);
 
         // setting up date picker
         fromDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment();
-                cdp.show(Filter.this.getSupportFragmentManager(), "Pick a date");
+                cdp.show(FilterActivity.this.getSupportFragmentManager(), "Pick a date");
                 cdp.setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
@@ -82,7 +84,7 @@ public class Filter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment();
-                cdp.show(Filter.this.getSupportFragmentManager(), "Pick a date");
+                cdp.show(FilterActivity.this.getSupportFragmentManager(), "Pick a date");
                 cdp.setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
@@ -99,6 +101,14 @@ public class Filter extends AppCompatActivity {
                 });
             }
         });
+
+        Date today = new Date();
+        Date oneWeekBack = new Date(today.getTime() - (1000 * 60 * 60 * 24)*7);
+
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        toDateText.setText(formatter.format(today));
+        fromDateText.setText(formatter.format(oneWeekBack));
+
 
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +133,19 @@ public class Filter extends AppCompatActivity {
         searchFields.setMaterialType(materialSpinner.getSelectedItem().toString());
         searchFields.setThickness(Float.parseFloat(thickness.getText().toString()));
 
+        if(fromDateText.getText().toString().equals("") || fromDateText.getText().toString() == "")
+        {
+            Toast.makeText(getApplicationContext(),"From date and To date required",Toast.LENGTH_LONG);
+            return;
+        }
+        if(limitText.getText().toString().equals("") || limitText.getText().toString() == "")
+        {
+            Toast.makeText(getApplicationContext(),"Showing "+DEFAULT_LIMIT+" SaleOrders",Toast.LENGTH_LONG);
+            searchFields.setLimitNumber(DEFAULT_LIMIT);
+        }else
+        {
+            searchFields.setLimitNumber(Integer.parseInt(limitText.getText().toString()));
+        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date parsedDate;
@@ -137,6 +160,10 @@ public class Filter extends AppCompatActivity {
         } catch (ParseException e){
             Toast.makeText(getApplicationContext(),"Date parsing error",Toast.LENGTH_LONG);
         }
+
+        Intent intent = new Intent(this,SearchResultsActivity.class);
+        intent.putExtra("SearchFields",searchFields);
+        startActivity(intent);
 
 
 

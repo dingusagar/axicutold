@@ -1,10 +1,12 @@
 package com.example.dingu.axicut.Utils.General.Search;
 
+import java.io.Serializable;
+
 /**
  * Created by dingu on 29/7/17.
  */
 
-public class SearchFields {
+public class SearchFields implements Serializable{
     float thickness;
     String materialType;
     String custID;

@@ -176,6 +176,7 @@ public class InwardMainActivity extends AppCompatActivity implements SaleOrderNu
             case R.id.limitSaleOrders:
                 saleOrderDisplayLimiter.setupDialog();
                 saleOrderDisplayLimiter.showDialog();
+                break;
 
 
         }

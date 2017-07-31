@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class MassEntryDialog implements MyCustomDialog {
         workOrderNoText = (TextView) contentView.findViewById(R.id.workOrderNo);
         materialSpinner = (Spinner)contentView.findViewById(R.id.materialSpinner);
         lotNoSpinner = (Spinner)contentView.findViewById(R.id.lotNoSpinner);
+        materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
+//        lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
         length = (EditText)contentView.findViewById(R.id.length);
         breadth = (EditText)contentView.findViewById(R.id.breadth);
         thickness = (EditText)contentView.findViewById(R.id.thickness);

@@ -81,17 +81,19 @@
             android:textColor="#ffffff"
             android:textSize="24sp" />
     </android.support.design.widget.TextInputLayout>
+
     <TextView
         android:id="@+id/ForgotPasswordText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_below="@+id/PasswordLayout"
         android:gravity="right"
+        android:padding="5dp"
+        android:layout_alignParentRight="true"
+        android:text="@string/ForgotPassword"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
         android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:layout_below="@+id/PasswordLayout"
-        android:text="@string/ForgotPassword"/>
+        android:textSize="18sp" />
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar"

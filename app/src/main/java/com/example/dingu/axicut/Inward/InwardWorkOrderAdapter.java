@@ -74,7 +74,10 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
 
             workOrderNoText = (TextView)view.findViewById(R.id.workOrderNo);
             materialSpinner= (Spinner)view.findViewById(R.id.materialSpinner);
+            materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
             lotNoSpinner = (Spinner)view.findViewById(R.id.lotNoSpinner);
+
+
             length = (EditText)view.findViewById(R.id.size1);
             breadth= (EditText)view.findViewById(R.id.size2);
             thickness = (EditText)view.findViewById(R.id.size3);

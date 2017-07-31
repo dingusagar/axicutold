@@ -65,7 +65,7 @@
 
     <style name="MyTextViewStyleAdminStats" parent="android:Widget.TextView">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="adminFont" parent="android:Widget.TextView">

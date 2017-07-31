@@ -34,7 +34,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/saleOrder"
+                    android:id="@+id/saleOrderNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/MyTextViewStylePrimary"

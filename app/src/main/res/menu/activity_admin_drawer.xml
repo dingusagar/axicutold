@@ -16,7 +16,7 @@
             android:title="Materials" />
         <item
             android:id="@+id/nav_LotNumbers"
-            android:icon="@drawable/lot_number"
+            android:icon="@drawable/sheets"
             android:title="Lot Numbers" />
     </group>
 

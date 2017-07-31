@@ -1,7 +1,5 @@
 package com.example.dingu.axicut.Utils.General.Search;
 
-import android.widget.ArrayAdapter;
-
 import java.util.ArrayList;
 
 /**
@@ -9,15 +7,15 @@ import java.util.ArrayList;
  */
 
 public class SearchItem {
-    private String saleOrder;
+    private String saleOrderNum;
     private ArrayList<String> workOrderNumbers;
 
-    public String getSaleOrder() {
-        return saleOrder;
+    public String getSaleOrderNum() {
+        return saleOrderNum;
     }
 
-    public void setSaleOrder(String saleOrder) {
-        this.saleOrder = saleOrder;
+    public void setSaleOrderNum(String saleOrderNum) {
+        this.saleOrderNum = saleOrderNum;
     }
 
     public ArrayList<String> getWorkOrderNumbers() {
