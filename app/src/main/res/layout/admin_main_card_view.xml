@@ -85,13 +85,36 @@
                     android:layout_toRightOf="@+id/WorkOrderText"
                     style="@style/MyTextViewStyleAdminStats"/>
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/SheetsProdDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/NumWorkOrderDisplay"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/SheetsText"
+                    style="@style/MyTextViewStyleAdminStats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sheets given      :      " />
+
+                <TextView
+                    android:id="@+id/numOfSheets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="w000"
+                    android:layout_toRightOf="@+id/SheetsText"
+                    style="@style/MyTextViewStyleAdminStats"/>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/DesignDisplay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/NumWorkOrderDisplay">
+                android:layout_below="@+id/SheetsProdDisplay">
 
                 <TextView
                     android:id="@+id/DesignText"
