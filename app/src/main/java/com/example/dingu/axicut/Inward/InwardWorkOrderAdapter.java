@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.WorkOrder;
@@ -110,9 +111,17 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    workOrdersList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(),workOrdersList.size());
+                    WorkOrder workOrder = workOrdersList.get(getAdapterPosition());
+                    if(workOrder.getLayoutName().equals("") || workOrder.getLayoutName() == null)
+                    {
+                        workOrdersList.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyItemRangeChanged(getAdapterPosition(),workOrdersList.size());
+                    }else
+                    {
+                        Toast.makeText(context,"Cannot Delete this \n Layout already assigned ",Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
         }
