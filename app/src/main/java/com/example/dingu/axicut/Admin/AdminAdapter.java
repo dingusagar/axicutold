@@ -63,13 +63,16 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
 
 
-                mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                mydbRefOrders.child(saleOrderNo).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists())
+                            return;
                         saleOrder = dataSnapshot.getValue(SaleOrder.class);
                         Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(v.getContext(),AdminWorkOrder.class);
                         intent.putExtra("SaleOrder",saleOrder);
+                        mydbRefOrders.child(saleOrderNo).removeEventListener(this);
                         v.getContext().startActivity(intent);
                     }
 
