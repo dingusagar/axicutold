@@ -68,10 +68,13 @@ public class ProductionAdapter extends RecyclerView.Adapter<ProductionAdapter.Vi
                 mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists())
+                            return;
                         saleOrder = dataSnapshot.getValue(SaleOrder.class);
                         Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(v.getContext(),ProductionWorkOrder.class);
                         intent.putExtra("SaleOrder",saleOrder);
+                        mydbRefOrders.child(saleOrderNo).removeEventListener(this);
                         v.getContext().startActivity(intent);
                     }
 

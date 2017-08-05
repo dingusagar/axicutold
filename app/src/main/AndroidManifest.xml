@@ -24,10 +24,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -54,6 +51,10 @@
             android:name=".Design.DesignMainActivity"
             android:screenOrientation="portrait"
             android:label="Design">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Design.DesignWorkOrder"
@@ -81,6 +82,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Utils.General.Search.SearchResultsActivity"></activity>
+        <activity android:name=".Utils.General.Search.FilterActivity"></activity>
     </application>
 
 </manifest>

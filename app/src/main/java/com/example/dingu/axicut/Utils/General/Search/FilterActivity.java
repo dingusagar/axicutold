@@ -131,7 +131,12 @@ public class FilterActivity extends AppCompatActivity {
     private void goToSerachActivity() {
         searchFields.setCustID(customerID_Spinner.getSelectedItem().toString());
         searchFields.setMaterialType(materialSpinner.getSelectedItem().toString());
-        searchFields.setThickness(Float.parseFloat(thickness.getText().toString()));
+        if(thickness.getText() == null || thickness.getText().toString().equals(""))
+            searchFields.setThickness(null);
+        else
+            searchFields.setThickness(Float.parseFloat(thickness.getText().toString()));
+
+
 
         if(fromDateText.getText().toString().equals("") || fromDateText.getText().toString() == "")
         {

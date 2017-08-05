@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SearchResultsActivity extends AppCompatActivity {
@@ -109,6 +110,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                         {
                             if(searchFields.getMaterialType().equals(wo.getMaterialType())  ||  searchFields.getMaterialType().equals(""))
                             {
+                                if(searchFields.getThickness()==null || (getStringToDoublePrecision(searchFields.getThickness()).equals(getStringToDoublePrecision(wo.getThickness()))))
                                 workOrderNums.add(wo.getWorkOrderNumber());
                             }
                         }
@@ -131,5 +133,9 @@ public class SearchResultsActivity extends AppCompatActivity {
             });
         }
 
+    }
+    String getStringToDoublePrecision(Float number){
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 }

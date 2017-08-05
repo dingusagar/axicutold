@@ -7,18 +7,20 @@ import java.io.Serializable;
  */
 
 public class SearchFields implements Serializable{
-    float thickness;
+    Float thickness;
     String materialType;
     String custID;
     Long fromTimeStamp;
     Long toTimeStamp;
     int limitNumber;
 
-    public float getThickness() {
+    public Float getThickness() {
         return thickness;
     }
 
-    public void setThickness(float thickness) {
+    public void setThickness(Float thickness) {
+        if(thickness == null)
+            this.thickness = null;
         this.thickness = thickness;
     }
 

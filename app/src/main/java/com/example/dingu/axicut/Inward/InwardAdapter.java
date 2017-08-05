@@ -65,9 +65,11 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
 
 
 
-                mydbRefOrders.child(saleOrderNo).addListenerForSingleValueEvent(new ValueEventListener() {
+                mydbRefOrders.child(saleOrderNo).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists())
+                            return;
                         saleOrder = dataSnapshot.getValue(SaleOrder.class);
                         Toast.makeText(v.getContext(),"Fetching data....",Toast.LENGTH_SHORT).show();
                         if(((InwardMainActivity)context).MenuItemId == R.id.inward_entry)
@@ -75,6 +77,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
                             Intent intent = new Intent(v.getContext(),InwardAddEditSaleOrder.class);
                             intent.putExtra("SaleOrder",saleOrder);
                             intent.putExtra("InwardAction",InwardAction.EDIT_SALE_ORDER);
+                            mydbRefOrders.child(saleOrderNo).removeEventListener(this);
                             v.getContext().startActivity(intent);
 
                         }
@@ -82,6 +85,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.ViewHolder
                         {
                             Intent intent = new Intent(v.getContext(),DespatchScrapActivity.class);
                             intent.putExtra("SaleOrder",saleOrder);
+                            mydbRefOrders.child(saleOrderNo).removeEventListener(this);
                             v.getContext().startActivity(intent);
                         }
 
