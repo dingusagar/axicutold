@@ -132,7 +132,7 @@
 
 
                 <TextView
-                    android:id="@+id/size1"
+                    android:id="@+id/length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -141,7 +141,7 @@
                     android:text="1" />
 
                 <TextView
-                    android:id="@+id/size2"
+                    android:id="@+id/breadth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -150,7 +150,7 @@
                     android:text="1240" />
 
                 <TextView
-                    android:id="@+id/size3"
+                    android:id="@+id/thickness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"

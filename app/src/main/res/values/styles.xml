@@ -69,7 +69,6 @@
     </style>
 
     <style name="adminFont" parent="android:Widget.TextView">
-        <item name="android:fontFamily">casual</item>
 
     </style>
 

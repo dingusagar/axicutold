@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="adminFont" parent="android:Widget.TextView">
+        <item name="android:fontFamily">casual</item>
+
+    </style>
+</resources>
