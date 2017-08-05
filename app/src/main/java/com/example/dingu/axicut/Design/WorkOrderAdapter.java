@@ -54,9 +54,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setLotNoText(workOrder.getLotNumber());
         holder.setWorkOrderText("W" + String.valueOf(workOrder.getWorkOrderNumber()));
         holder.setInspectionRemarkText(workOrder.getInspectionRemark());
-        holder.setSize1(String.valueOf(workOrder.getThickness()));
-        holder.setSize2(String.valueOf(workOrder.getLength()));
-        holder.setSize3(String.valueOf(workOrder.getBreadth()));
+        holder.setThickness(String.valueOf(workOrder.getThickness()));
+        holder.setLength(String.valueOf(workOrder.getLength()));
+        holder.setBreadth(String.valueOf(workOrder.getBreadth()));
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
         holder.setPercentageText(""+workOrder.getPercentCut());
@@ -90,7 +90,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText,layoutText,percentageText;
+                length,breadth,thickness, dateText,layoutText,percentageText;
         CheckBox checkBox;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -99,9 +99,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             lotNoText = (TextView) mview.findViewById(R.id.lotNoText);
             workOrderText = (TextView) mview.findViewById(R.id.workOrderNo);
             inspectionRemarkText = (TextView) mview.findViewById(R.id.remark);
-            size1 = (TextView) mview.findViewById(R.id.size1);
-            size2 = (TextView) mview.findViewById(R.id.size2);
-            size3 = (TextView) mview.findViewById(R.id.size3);
+            length = (TextView) mview.findViewById(R.id.size1);
+            breadth = (TextView) mview.findViewById(R.id.size2);
+            thickness = (TextView) mview.findViewById(R.id.size3);
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
             checkBox = (CheckBox)mview.findViewById(R.id.selected);
@@ -124,16 +124,16 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             inspectionRemarkText.setText(text);
         }
 
-        public void setSize1(String text) {
-            size1.setText(text);
+        public void setLength(String text) {
+            length.setText(text);
         }
 
-        public void setSize2(String text) {
-            size1.setText(text);
+        public void setBreadth(String text) {
+            breadth.setText(text);
         }
 
-        public void setSize3(String text) {
-            size1.setText(text);
+        public void setThickness(String text) {
+            thickness.setText(text);
         }
 
         public void setLayoutText(String text) {

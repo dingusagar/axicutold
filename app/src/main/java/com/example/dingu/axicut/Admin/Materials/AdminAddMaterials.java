@@ -1,6 +1,9 @@
 package com.example.dingu.axicut.Admin.Materials;
 
+import android.app.ProgressDialog;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +12,15 @@ import android.widget.EditText;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdminAddMaterials extends AppCompatActivity {
     private EditText desc;
@@ -18,7 +28,7 @@ public class AdminAddMaterials extends AppCompatActivity {
     private Button addMaterial;
     private DatabaseReference materialRef= FirebaseDatabase.getInstance().getReference().child("Material");
     private DatabaseReference materialRefQuickAccess= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("materialTypes");;
-
+    private ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +36,7 @@ public class AdminAddMaterials extends AppCompatActivity {
         desc=(EditText)findViewById(R.id.MaterialName);
         id=(EditText)findViewById(R.id.MaterialId);
         addMaterial=(Button)findViewById(R.id.AddMaterial);
+        progress = new ProgressDialog(this);
         addMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,12 +46,34 @@ public class AdminAddMaterials extends AppCompatActivity {
     }
 
     public void addMaterial(){
+        progress.setMessage("Adding new Material......");
+        progress.show();
+        DatabaseReference dbRootRef= MyDatabase.getDatabase().getInstance().getReference();
+        Map<String, Object> update = new HashMap<>();
         String materialDesc = desc.getText().toString().trim();
         String materialId = id.getText().toString().trim();
         if(materialDesc!=null && materialId!=null) {
             Material material = new Material(materialDesc, materialId);
-            materialRef.child(material.getId()).setValue(material);
-            materialRefQuickAccess.child(material.getId()).setValue(true);
+            update.put("Material/"+material.getId(),material);
+            update.put("InwardUtilities/materialTypes/" + material.getId(),true);
+            dbRootRef.updateChildren(update).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    {
+                        progress.dismiss();
+                        Snackbar.make(findViewById(android.R.id.content),"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progress.dismiss();
+                    Snackbar.make(findViewById(android.R.id.content),"ERROR : " + e.toString(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
             onBackPressed();
         }
     }

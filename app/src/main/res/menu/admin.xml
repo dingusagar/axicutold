@@ -7,4 +7,7 @@
         android:title="Search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item android:id="@+id/filter"
+        android:title="Filter SaleOrders"
+        app:showAsAction="collapseActionView"/>
 </menu>

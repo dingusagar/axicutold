@@ -132,7 +132,7 @@
 
 
                 <TextView
-                    android:id="@+id/size1"
+                    android:id="@+id/length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -141,7 +141,7 @@
                     android:text="1" />
 
                 <TextView
-                    android:id="@+id/size2"
+                    android:id="@+id/breadth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -150,7 +150,7 @@
                     android:text="1240" />
 
                 <TextView
-                    android:id="@+id/size3"
+                    android:id="@+id/thickness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -268,6 +268,92 @@
 
                     <TextView
                         android:id="@+id/timeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=" - "
+                        android:textSize="20sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/despatchDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="Despatch Date"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"/>
+                <TextView
+                    android:id="@+id/despatchDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textSize="20sp"
+                    android:layout_alignParentRight="true"/>
+
+                <RelativeLayout
+                    android:id="@+id/despatchDC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/despatchDateText">
+
+                    <TextView
+                        android:id="@+id/despatchDCText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Despatch DC Number"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"/>
+
+                    <TextView
+                        android:id="@+id/DespatchDC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=" - "
+                        android:textSize="20sp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/Scrap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/despatchDC">
+
+                    <TextView
+                        android:id="@+id/ScrapDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scrap Date"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"/>
+
+                    <TextView
+                        android:id="@+id/scrapDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=" - "
+                        android:textSize="20sp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Scrap">
+
+                    <TextView
+                        android:id="@+id/ScarpDC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scrap DC Number"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"/>
+
+                    <TextView
+                        android:id="@+id/scrapDCNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

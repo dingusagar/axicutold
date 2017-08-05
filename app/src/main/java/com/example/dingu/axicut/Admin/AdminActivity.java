@@ -27,6 +27,7 @@ import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
+import com.example.dingu.axicut.Utils.General.Search.FilterActivity;
 import com.example.dingu.axicut.Utils.Navigation.NavigationOptions;
 import com.example.dingu.axicut.Utils.Navigation.Projector;
 import com.google.firebase.auth.FirebaseAuth;
@@ -141,7 +142,11 @@ public class AdminActivity extends AppCompatActivity implements SaleOrderNumsFet
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        switch (id){
+            case R.id.filter:
+                startActivity(new Intent(this, FilterActivity.class));
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -94,7 +94,6 @@ public class AdminAddUser extends AppCompatActivity {
 
 
     private void registerNewUser() {
-
         final String name = nameField.getText().toString().trim();
         final String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();

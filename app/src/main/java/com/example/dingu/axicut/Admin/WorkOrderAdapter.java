@@ -45,14 +45,18 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setLotNoText(workOrder.getLotNumber());
         holder.setWorkOrderText("W" + String.valueOf(workOrder.getWorkOrderNumber()));
         holder.setInspectionRemarkText(workOrder.getInspectionRemark());
-        holder.setSize1(String.valueOf(workOrder.getThickness()));
-        holder.setSize2(String.valueOf(workOrder.getLength()));
-        holder.setSize3(String.valueOf(workOrder.getBreadth()));
+        holder.setThickness(String.valueOf(workOrder.getThickness()));
+        holder.setLength(String.valueOf(workOrder.getLength()));
+        holder.setBreadth(String.valueOf(workOrder.getBreadth()));
         holder.setLayoutText(workOrder.getLayoutName());
         holder.setDateText(workOrder.getLayoutDate());
         holder.setProdOperator(workOrder.getProdName());
         holder.setProductionDate(workOrder.getProdDate());
         holder.setTimeTaken(workOrder.getProdTime());
+        holder.setDespatchDate(workOrder.getDespatchDate());
+        holder.setDespatchDCNum(workOrder.getDespatchDC());
+        holder.setScrapDate(workOrder.getScrapDate());
+        holder.setScrapDCNum(workOrder.getScrapDC());
     }
 
     @Override
@@ -63,7 +67,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText, layoutText, productionDate, prodOperator, timeTaken;
+                length,breadth,thickness, dateText, layoutText, productionDate, prodOperator, timeTaken,
+        despatchDate,despatchDCNum,scrapDate,scrapDCNum;
         private ImageButton timerButton;
 
         public ViewHolder(View itemView) {
@@ -74,14 +79,18 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             lotNoText = (TextView) mview.findViewById(R.id.lotNoText);
             workOrderText = (TextView) mview.findViewById(R.id.workOrderNo);
             inspectionRemarkText = (TextView) mview.findViewById(R.id.remark);
-            size1 = (TextView) mview.findViewById(R.id.size1);
-            size2 = (TextView) mview.findViewById(R.id.size2);
-            size3 = (TextView) mview.findViewById(R.id.size3);
+            length = (TextView) mview.findViewById(R.id.length);
+            breadth = (TextView) mview.findViewById(R.id.breadth);
+            thickness = (TextView) mview.findViewById(R.id.thickness);
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
             productionDate = (TextView) mview.findViewById(R.id.prod_date);
             prodOperator = (TextView) mview.findViewById(R.id.operatorName);
             timeTaken = (TextView) mview.findViewById(R.id.timeText);
+            despatchDate = (TextView) mview.findViewById(R.id.despatchDate);
+            despatchDCNum =  (TextView) mview.findViewById(R.id.DespatchDC);
+            scrapDate =  (TextView) mview.findViewById(R.id.scrapDate);
+            scrapDCNum =  (TextView) mview.findViewById(R.id.scrapDCNum);
 
         }
 
@@ -101,16 +110,16 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             inspectionRemarkText.setText(text);
         }
 
-        public void setSize1(String text) {
-            size1.setText(text);
+        public void setLength(String text) {
+            length.setText(text);
         }
 
-        public void setSize2(String text) {
-            size1.setText(text);
+        public void setBreadth(String text) {
+            breadth.setText(text);
         }
 
-        public void setSize3(String text) {
-            size1.setText(text);
+        public void setThickness(String text) {
+            thickness.setText(text);
         }
 
         public void setLayoutText(String text) {
@@ -132,6 +141,11 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         public void setTimeTaken(String time) {
             timeTaken.setText(time);
         }
+
+        public void setDespatchDate(String date){despatchDate.setText(date);}
+        public void setDespatchDCNum(String dcNum){despatchDCNum.setText(dcNum);}
+        public void setScrapDate(String date){scrapDate.setText(date);}
+        public void setScrapDCNum(String dcNum){scrapDCNum.setText(dcNum);}
 
     }
 }
