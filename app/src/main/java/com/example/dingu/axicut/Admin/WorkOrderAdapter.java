@@ -53,6 +53,10 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         holder.setProdOperator(workOrder.getProdName());
         holder.setProductionDate(workOrder.getProdDate());
         holder.setTimeTaken(workOrder.getProdTime());
+        holder.setDespatchDate(workOrder.getDespatchDate());
+        holder.setDespatchDCNum(workOrder.getDespatchDC());
+        holder.setScrapDate(workOrder.getScrapDate());
+        holder.setScrapDCNum(workOrder.getScrapDC());
     }
 
     @Override
@@ -63,7 +67,8 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mview;
         TextView materialText, lotNoText, workOrderText, inspectionRemarkText,
-                size1, size2, size3, dateText, layoutText, productionDate, prodOperator, timeTaken;
+                size1, size2, size3, dateText, layoutText, productionDate, prodOperator, timeTaken,
+        despatchDate,despatchDCNum,scrapDate,scrapDCNum;
         private ImageButton timerButton;
 
         public ViewHolder(View itemView) {
@@ -82,6 +87,10 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             productionDate = (TextView) mview.findViewById(R.id.prod_date);
             prodOperator = (TextView) mview.findViewById(R.id.operatorName);
             timeTaken = (TextView) mview.findViewById(R.id.timeText);
+            despatchDate = (TextView) mview.findViewById(R.id.despatchDate);
+            despatchDCNum =  (TextView) mview.findViewById(R.id.DespatchDC);
+            scrapDate =  (TextView) mview.findViewById(R.id.scrapDate);
+            scrapDCNum =  (TextView) mview.findViewById(R.id.scrapDCNum);
 
         }
 
@@ -132,6 +141,11 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         public void setTimeTaken(String time) {
             timeTaken.setText(time);
         }
+
+        public void setDespatchDate(String date){despatchDate.setText(date);}
+        public void setDespatchDCNum(String dcNum){despatchDCNum.setText(dcNum);}
+        public void setScrapDate(String date){scrapDate.setText(date);}
+        public void setScrapDCNum(String dcNum){scrapDCNum.setText(dcNum);}
 
     }
 }
