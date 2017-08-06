@@ -22,8 +22,6 @@ public class DesignValidator implements Validator {
 
     @Override
     public boolean isValid(WorkOrder workOrder) {
-        if(workOrder.getProdName()==null || workOrder.getProdName().equals(""))
-            return true;
-        return false;
+        return workOrder.getProdName() == null || workOrder.getProdName().equals("");
     }
 }

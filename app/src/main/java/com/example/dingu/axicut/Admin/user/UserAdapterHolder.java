@@ -46,7 +46,7 @@ public class UserAdapterHolder implements CustomAdapterHolder{
 
     @Override
     public Filter getFilter() {
-        return ((Filterable)userAdapter).getFilter();
+        return userAdapter.getFilter();
     }
 
     @Override

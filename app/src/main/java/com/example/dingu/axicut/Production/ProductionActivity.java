@@ -135,7 +135,7 @@ public class ProductionActivity extends AppCompatActivity implements SaleOrderNu
         switch (item.getItemId())
         {
             case R.id.logout:
-                mAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
             case R.id.limitSaleOrders:
                 saleOrderDisplayLimiter.setupDialog();
                 saleOrderDisplayLimiter.showDialog();

@@ -1,8 +1,5 @@
 package com.example.dingu.axicut.Production;
 
-/**
- * Created by root on 22/5/17.
- */
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,9 +23,6 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 
-/**
- * Created by root on 20/5/17.
- */
 
 public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.ViewHolder> {
     private Context context;

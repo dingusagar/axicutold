@@ -14,14 +14,10 @@
     <color name="secondary_text">#757575</color>
     <color name="admin_text_color">#264d09</color>
 
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#BDBDBD</color>
-
-
     <color name="grey_background">#68636463</color>
     <color name="loginText">#eceef2</color>
     <color name="list_header">@color/colorPrimaryDark</color>
-    <color name="light_text_color">#cfecf2b3</color>
+    <!--<color name="light_text_color">#cfecf2b3</color>-->
     <color name="button_disabled_text_color">#81ffffff</color>
     <color name="button_enabled_text_color">#ffffff</color>
 

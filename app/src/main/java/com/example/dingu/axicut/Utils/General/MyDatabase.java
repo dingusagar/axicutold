@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MyDatabase {
     private static FirebaseDatabase mDatabase;
-    private MyDatabase(){};
+    private MyDatabase(){}
     public static FirebaseDatabase getDatabase() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();

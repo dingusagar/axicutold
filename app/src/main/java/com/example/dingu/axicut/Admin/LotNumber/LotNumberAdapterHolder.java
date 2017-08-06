@@ -47,7 +47,7 @@ public class LotNumberAdapterHolder implements CustomAdapterHolder {
 
     @Override
     public Filter getFilter() {
-        return ((Filterable)lotNumberAdapter).getFilter();
+        return lotNumberAdapter.getFilter();
     }
 
     @Override

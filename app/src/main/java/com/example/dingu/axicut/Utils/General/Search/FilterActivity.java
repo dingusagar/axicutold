@@ -70,10 +70,10 @@ public class FilterActivity extends AppCompatActivity {
                             formatter = new SimpleDateFormat("dd/MM/yyyy");
                             String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                             Date date = formatter.parse(dateInString);
-                            fromDateText.setText(formatter.format(date).toString());
+                            fromDateText.setText(formatter.format(date));
 
                         } catch (Exception ex) {
-                            Toast.makeText(getApplicationContext(),"Error parsing date",Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext(),"Error parsing date",Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -92,10 +92,10 @@ public class FilterActivity extends AppCompatActivity {
                             formatter = new SimpleDateFormat("dd/MM/yyyy");
                             String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                             Date date = formatter.parse(dateInString);
-                            toDateText.setText(formatter.format(date).toString());
+                            toDateText.setText(formatter.format(date));
 
                         } catch (Exception ex) {
-                            Toast.makeText(getApplicationContext(),"Error parsing date",Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext(),"Error parsing date",Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -138,14 +138,14 @@ public class FilterActivity extends AppCompatActivity {
 
 
 
-        if(fromDateText.getText().toString().equals("") || fromDateText.getText().toString() == "")
+        if(fromDateText.getText().toString().equals(""))
         {
-            Toast.makeText(getApplicationContext(),"From date and To date required",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"From date and To date required",Toast.LENGTH_LONG).show();
             return;
         }
-        if(limitText.getText().toString().equals("") || limitText.getText().toString() == "")
+        if(limitText.getText().toString().equals(""))
         {
-            Toast.makeText(getApplicationContext(),"Showing "+DEFAULT_LIMIT+" SaleOrders",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Showing "+DEFAULT_LIMIT+" SaleOrders",Toast.LENGTH_LONG).show();
             searchFields.setLimitNumber(DEFAULT_LIMIT);
         }else
         {
@@ -163,7 +163,7 @@ public class FilterActivity extends AppCompatActivity {
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
             searchFields.setToTimeStamp(timestamp.getTime());
         } catch (ParseException e){
-            Toast.makeText(getApplicationContext(),"Date parsing error",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Date parsing error",Toast.LENGTH_LONG).show();
         }
 
         Intent intent = new Intent(this,SearchResultsActivity.class);

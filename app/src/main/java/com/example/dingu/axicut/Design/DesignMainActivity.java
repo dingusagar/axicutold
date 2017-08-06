@@ -137,7 +137,7 @@ public class DesignMainActivity extends AppCompatActivity implements SaleOrderNu
         switch (item.getItemId())
         {
             case R.id.logout:
-                mAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 break;
             case R.id.limitSaleOrders:
                 saleOrderDisplayLimiter.setupDialog();

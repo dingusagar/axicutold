@@ -129,7 +129,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                             formatter = new SimpleDateFormat("dd/MM/yyyy");
                             String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                             Date date = formatter.parse(dateInString);
-                            dateText.setText(formatter.format(date).toString());
+                            dateText.setText(formatter.format(date));
 
                         } catch (Exception ex) {
                             displayError("date time error ",ex);

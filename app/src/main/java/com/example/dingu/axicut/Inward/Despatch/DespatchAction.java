@@ -5,5 +5,5 @@ package com.example.dingu.axicut.Inward.Despatch;
  */
 
 public enum DespatchAction {
-    DESPATCH_WORKORDER,SEND_SCRAP;
+    DESPATCH_WORKORDER,SEND_SCRAP
 }
