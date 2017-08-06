@@ -114,7 +114,7 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
                 @Override
                 public void onClick(View v) {
                     WorkOrder workOrder = workOrdersList.get(getAdapterPosition());
-                    if(workOrder.getLayoutName().equals("") || workOrder.getLayoutName() == null)
+                    if(workOrder.getLayoutName() == null || workOrder.getLayoutName().equals(""))
                     {
                         workOrdersList.remove(getAdapterPosition());
                         notifyItemRemoved(getAdapterPosition());
