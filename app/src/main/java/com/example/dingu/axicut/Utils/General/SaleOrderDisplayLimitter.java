@@ -174,7 +174,7 @@ public class SaleOrderDisplayLimitter implements MyCustomDialog {
                     formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                     Date date = formatter.parse(dateInString);
-                    textview.setText(formatter.format(date).toString());
+                    textview.setText(formatter.format(date));
 
                 } catch (Exception ex) {
                     Toast.makeText(context,"Error getting date",Toast.LENGTH_LONG);

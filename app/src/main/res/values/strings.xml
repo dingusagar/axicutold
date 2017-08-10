@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Axicut</string>
 
-    <string-array name="adminOptions">
-        <item>Add User</item>
-        <item>Remove User</item>
-        <item>Add Company</item>
-        <item>Remove Company</item>
-        <item>Search WorkOrders</item>
+    <!--<string-array name="adminOptions">-->
+        <!--<item>Add User</item>-->
+        <!--<item>Remove User</item>-->
+        <!--<item>Add Company</item>-->
+        <!--<item>Remove Company</item>-->
+        <!--<item>Search WorkOrders</item>-->
 
-    </string-array>
+    <!--</string-array>-->
 
     <string-array name="materials">
         <item>MS</item>
@@ -21,17 +21,17 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_user">UserActivity</string>
+    <!--<string name="action_settings">Settings</string>-->
+    <!--<string name="title_activity_user">UserActivity</string>-->
     <string name="title_activity_projector">Projector</string>
-    <string name="title_activity_inward_main_page">InwardMainPage</string>
-    <string name="longtext">Of course, some code must have been written to govern the behaviors of the widgets and Views in our samples above. The CoordinatorLayout automatically does all this already. However, you might want to define your own reactions and behaviors, rather than use the default and standard behaviors. It is remarkably easy to do. The complexity lies in how unique a behavior you want, and not in implementing a behavior. Our custom behavior is really simple. From the FabFollowsWidget sample above, we want the CircleImageView to grow larger as the user scrolls to the end of the CardsOf course, some code must have been written to govern the behaviors of the widgets and Views in our samples above. The CoordinatorLayout automatically does all this already. However, you might want to define your own reactions and behaviors, rather than use the default and standard behaviors. It is remarkably easy to do. The complexity lies in how unique a behavior you want, and not in implementing a behavior. Our custom behavior is really simple. From the FabFollowsWidget sample above, we want the CircleImageView to grow larger as the user scrolls to the end of the Cardslksjdflwjlefj sl sldjfl wjefkjsdl ;sdjfsdj vlsjdzflksajdzv;xk szdxnlsjDbl jszxv;k sznxl nkjdfzlxzmkjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkcsldjkcccccccccccccccsodjflv zjxlkjv;l zsjd cjzlkxjckkkkkkkkkkkkkkkkkkkkkk</string>
-    <string name="title_activity_inward_main">InwardMainActivity</string>
+    <!--<string name="title_activity_inward_main_page">InwardMainPage</string>-->
+    <!--<string name="longtext">Of course, some code must have been written to govern the behaviors of the widgets and Views in our samples above. The CoordinatorLayout automatically does all this already. However, you might want to define your own reactions and behaviors, rather than use the default and standard behaviors. It is remarkably easy to do. The complexity lies in how unique a behavior you want, and not in implementing a behavior. Our custom behavior is really simple. From the FabFollowsWidget sample above, we want the CircleImageView to grow larger as the user scrolls to the end of the CardsOf course, some code must have been written to govern the behaviors of the widgets and Views in our samples above. The CoordinatorLayout automatically does all this already. However, you might want to define your own reactions and behaviors, rather than use the default and standard behaviors. It is remarkably easy to do. The complexity lies in how unique a behavior you want, and not in implementing a behavior. Our custom behavior is really simple. From the FabFollowsWidget sample above, we want the CircleImageView to grow larger as the user scrolls to the end of the Cardslksjdflwjlefj sl sldjfl wjefkjsdl ;sdjfsdj vlsjdzflksajdzv;xk szdxnlsjDbl jszxv;k sznxl nkjdfzlxzmkjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkcsldjkcccccccccccccccsodjflv zjxlkjv;l zsjd cjzlkxjckkkkkkkkkkkkkkkkkkkkkk</string>-->
+    <!--<string name="title_activity_inward_main">InwardMainActivity</string>-->
     <string name="work_order_list_empty_message">Touch the plus button to add work orders</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_production">ProductionActivity</string>
-    <string name="title_activity_add_lot_num">AddLotNum</string>
+    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <!--<string name="title_activity_production">ProductionActivity</string>-->
+    <!--<string name="title_activity_add_lot_num">AddLotNum</string>-->
 
 </resources>

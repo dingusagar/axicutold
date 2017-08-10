@@ -60,7 +60,7 @@ public class MassEntryDialog implements MyCustomDialog {
         materialSpinner = (Spinner)contentView.findViewById(R.id.materialSpinner);
         lotNoSpinner = (Spinner)contentView.findViewById(R.id.lotNoSpinner);
         materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
-//        lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
+        lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getLotNos()));
         length = (EditText)contentView.findViewById(R.id.length);
         breadth = (EditText)contentView.findViewById(R.id.breadth);
         thickness = (EditText)contentView.findViewById(R.id.thickness);
@@ -135,9 +135,9 @@ public class MassEntryDialog implements MyCustomDialog {
             workOrder.setMaterialType(materialSpinner.getSelectedItem().toString());
             workOrder.setLotNumber(lotNoSpinner.getSelectedItem().toString());
             workOrder.setLength(Float.parseFloat(length.getText().toString()));
-            workOrder.setBreadth(Float.parseFloat(length.getText().toString()));
-            workOrder.setLength(Float.parseFloat(length.getText().toString()));
-
+            workOrder.setBreadth(Float.parseFloat(breadth.getText().toString()));
+            workOrder.setThickness(Float.parseFloat(thickness.getText().toString()));
+            workOrder.setInspectionRemark(inspectionRemark.getText().toString());
             workOrder.setWorkOrderNumber(""+(lastNum + i));
             workOrders.add(workOrder);
         }

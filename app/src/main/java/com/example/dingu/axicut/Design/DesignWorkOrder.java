@@ -67,7 +67,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
             public void adapterNotify(String layout) {
                 for(int i = 0 ; i<validSelections.size();i++){
                     WorkOrder w = validSelections.get(i);
-                    if(selectedItems.containsKey(w.getWorkOrderNumber()) == true){
+                    if(selectedItems.containsKey(w.getWorkOrderNumber())){
                         w.setLayoutName(layout);
                         w.setLayoutDate(InwardUtilities.getServerDate());
                     }

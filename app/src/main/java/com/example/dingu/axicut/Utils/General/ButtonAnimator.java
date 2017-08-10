@@ -93,7 +93,7 @@ public class ButtonAnimator {
     }
 
     public  enum Effects {
-        SIMPLE_ON_TOUCH_GREY , REVERSE_BACKGROUND_FOREGROUND;
+        SIMPLE_ON_TOUCH_GREY , REVERSE_BACKGROUND_FOREGROUND
     }
 
 }

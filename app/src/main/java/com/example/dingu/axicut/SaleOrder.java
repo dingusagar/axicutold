@@ -125,10 +125,7 @@ public class SaleOrder implements Serializable{
     {
         String saleorderNumber = getSaleOrderNumber();
 
-        if(saleorderNumber.length() == SALE_ORDER_NUM_LENGTH && saleorderNumber.startsWith("SO"))
-            return true;
-        else
-            return false;
+        return saleorderNumber.length() == SALE_ORDER_NUM_LENGTH && saleorderNumber.startsWith("SO");
 
     }
 

@@ -94,8 +94,6 @@ public class RangeSelector {
 
     private boolean isbetweenRange(WorkOrder workOrder){
         int num = (int)Math.floor(Float.parseFloat(workOrder.getWorkOrderNumber()));
-       if(num>=from && num<=to)
-           return true;
-        return false;
+        return num >= from && num <= to;
     }
 }

@@ -66,9 +66,11 @@ public  class InwardUtilities {
                 if(map2 != null)
                 materialTypes = map2.keySet().toArray(new String[map2.size()]);
 
+                Map<String,Object> map3  = (Map<String, Object>) dataSnapshot.child("lotNumberTypes").getValue();
 
-//                materialTypes = (ArrayList3<String>) dataSnapshot.child("materialTypes").getValue();
-//                lotNos = (ArrayList<String>) dataSnapshot.child("lotNos").getValue();
+                if(map3 != null)
+                    lotNos = map3.keySet().toArray(new String[map3.size()]);
+
             }
 
             @Override

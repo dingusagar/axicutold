@@ -163,7 +163,7 @@ public class InwardMainActivity extends AppCompatActivity implements SaleOrderNu
         switch (item.getItemId())
         {
             case R.id.logout:
-                mAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 break;
             case R.id.inward_entry:
                 item.setChecked(true);

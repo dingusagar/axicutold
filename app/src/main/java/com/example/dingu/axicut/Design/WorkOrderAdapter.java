@@ -3,7 +3,7 @@ package com.example.dingu.axicut.Design;
 import android.content.Context;
 
 import android.support.v7.widget.RecyclerView;
-;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,9 +99,9 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
             lotNoText = (TextView) mview.findViewById(R.id.lotNoText);
             workOrderText = (TextView) mview.findViewById(R.id.workOrderNo);
             inspectionRemarkText = (TextView) mview.findViewById(R.id.remark);
-            length = (TextView) mview.findViewById(R.id.size1);
-            breadth = (TextView) mview.findViewById(R.id.size2);
-            thickness = (TextView) mview.findViewById(R.id.size3);
+            length = (TextView) mview.findViewById(R.id.length);
+            breadth = (TextView) mview.findViewById(R.id.breadth);
+            thickness = (TextView) mview.findViewById(R.id.thickness);
             layoutText = (TextView) mview.findViewById(R.id.DesignLayout);
             dateText = (TextView) mview.findViewById(R.id.DateModified);
             checkBox = (CheckBox)mview.findViewById(R.id.selected);
@@ -146,6 +146,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.View
         public void setCheckBoxTicked(Boolean isTicked){
             if(isTicked==null)
                 checkBox.setChecked(false);
+            else
             checkBox.setChecked(isTicked);
         }
         public void setPercentageText(String text){

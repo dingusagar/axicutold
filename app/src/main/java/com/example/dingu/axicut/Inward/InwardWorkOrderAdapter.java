@@ -77,6 +77,8 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
             materialSpinner= (Spinner)view.findViewById(R.id.materialSpinner);
             materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
             lotNoSpinner = (Spinner)view.findViewById(R.id.lotNoSpinner);
+            lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getLotNos()));
+
 
 
             length = (EditText)view.findViewById(R.id.size1);
@@ -112,7 +114,7 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
                 @Override
                 public void onClick(View v) {
                     WorkOrder workOrder = workOrdersList.get(getAdapterPosition());
-                    if(workOrder.getLayoutName().equals("") || workOrder.getLayoutName() == null)
+                    if(workOrder.getLayoutName() == null || workOrder.getLayoutName().equals(""))
                     {
                         workOrdersList.remove(getAdapterPosition());
                         notifyItemRemoved(getAdapterPosition());

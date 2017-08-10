@@ -27,7 +27,7 @@ public class AdminAddMaterials extends AppCompatActivity {
     private EditText id;
     private Button addMaterial;
     private DatabaseReference materialRef= FirebaseDatabase.getInstance().getReference().child("Material");
-    private DatabaseReference materialRefQuickAccess= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("materialTypes");;
+    private DatabaseReference materialRefQuickAccess= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("materialTypes");
     private ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

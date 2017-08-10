@@ -104,7 +104,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                     {
                         SearchItem item = new SearchItem();
                         item.setSaleOrderNum(saleOrder.getSaleOrderNumber());
-                        ArrayList<String> workOrderNums = new ArrayList<String>();
+                        ArrayList<String> workOrderNums = new ArrayList<>();
 
                         for(WorkOrder wo : workOrders)
                         {

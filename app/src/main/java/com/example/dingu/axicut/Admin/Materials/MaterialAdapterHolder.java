@@ -53,7 +53,7 @@ public class MaterialAdapterHolder implements CustomAdapterHolder  {
 
     @Override
     public Filter getFilter() {
-        return ((Filterable)materialAdapter).getFilter();
+        return materialAdapter.getFilter();
     }
 
     @Override
