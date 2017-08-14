@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.R;
@@ -33,10 +34,14 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
     private ArrayList<WorkOrder> workOrderArrayList;
 
     private SaleOrder saleOrder;
+    private NetworkLostDetector networkLostDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_work_order);
+        networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
+
         saleOrder=(SaleOrder) getIntent().getSerializableExtra("SaleOrder");
         workOrderArrayList=saleOrder.getWorkOrders();
         Validator validator = new DesignValidator();
