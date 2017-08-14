@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dingu.axicut.Admin.Materials.Material;
 import com.example.dingu.axicut.R;
@@ -27,7 +28,7 @@ public class AddLotNum extends AppCompatActivity {
     private EditText lotNumId;
     private Button addLotNum;
     private DatabaseReference lotNumRef= FirebaseDatabase.getInstance().getReference().child("Lot Numbers");
-    private DatabaseReference lotNumberQuickRef= FirebaseDatabase.getInstance().getReference().child("QuickDataFetcher").child("lotNumberTypes");
+    private DatabaseReference lotNumberQuickRef= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("lotNumberTypes");
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class AddLotNum extends AppCompatActivity {
     }
 
     public void addLotNum(){
-        String lotNum = lotNumId.getText().toString().trim();
+        final String lotNum = lotNumId.getText().toString().trim();
         progressDialog.setMessage("Adding new Lot number......");
         progressDialog.show();
         DatabaseReference dbRootRef= MyDatabase.getDatabase().getInstance().getReference();
@@ -53,25 +54,26 @@ public class AddLotNum extends AppCompatActivity {
         if(lotNum!=null) {
             LotNumber lotNumber = new LotNumber(lotNum);
             update.put("Lot Numbers/"+lotNumber.getLotNum(),lotNumber);
-            update.put("QuickDataFetcher/lotNumberTypes/"+lotNumber.getLotNum(),true);
+            update.put("InwardUtilities/lotNumberTypes/"+lotNumber.getLotNum(),true);
 //            lotNumRef.child(lotNumber.getLotNum()).setValue(lotNumber);
 //            lotNumberQuickRef.child(lotNumber.getLotNum()).setValue(true);
             dbRootRef.updateChildren(update).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     progressDialog.dismiss();
-                    Snackbar.make(findViewById(android.R.id.content),"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
-                            .setAction("Action", null).show();
+
+                    Toast.makeText(getApplicationContext(), "Added lot Number : "+ lotNum,Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Snackbar.make(findViewById(android.R.id.content),"ERROR : " + e.toString(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Toast.makeText(getApplicationContext(), "Error adding lot number : "+ e.toString(),Toast.LENGTH_LONG).show();
+                    onBackPressed();
                 }
             });
-            onBackPressed();
+
         }
     }
 }

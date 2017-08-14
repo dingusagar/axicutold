@@ -31,7 +31,7 @@ public class LotNumberAdapter extends RecyclerView.Adapter<LotNumberViewHolder> 
     ArrayList<LotNumber> lotNumberList;
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getInstance().getReference().child("Lot Numbers");
-    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("QuickDataFetcher").child("lotNumberTypes");
+    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("InwardUtilities").child("lotNumberTypes");
 
 
     public LotNumberAdapter() {
@@ -194,22 +194,3 @@ public class LotNumberAdapter extends RecyclerView.Adapter<LotNumberViewHolder> 
 }
 
 
-
-
-// for editing
-//
-//    private void replaceAndNotify(Material updatedMaterial) {
-//
-//        String materialID = updatedMaterial.getMaterialId();
-//
-//        for(int i=0; i<materialList.size();i++)
-//        {
-//            if(materialList.get(i).getMaterialId().equals(materialID))
-//            {
-//                materialList.set(i,updatedMaterial);
-//                filteredMaterialList = materialList;
-//                notifyDataSetChanged();
-//                break;
-//            }
-//        }
-//    }

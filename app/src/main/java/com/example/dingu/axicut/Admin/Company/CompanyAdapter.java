@@ -29,7 +29,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyViewHolder> impl
     ArrayList<Company> companyList;
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getInstance().getReference().child("Company");
-    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("QuickDataFetcher").child("customerIDs");
+    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("InwardUtilities").child("customerIDs");
 
 
     public CompanyAdapter() {

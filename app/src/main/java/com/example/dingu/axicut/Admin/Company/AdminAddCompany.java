@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
@@ -52,7 +53,7 @@ public class AdminAddCompany extends AppCompatActivity {
         DatabaseReference dbRootRef= MyDatabase.getDatabase().getInstance().getReference();
         Map<String, Object> update = new HashMap<>();
         String companyName =companyNameText.getText().toString().trim();
-        String companyId = companyIdText.getText().toString().trim();
+        final String companyId = companyIdText.getText().toString().trim();
         final Company company = new Company(companyName,companyId);
         if(companyName!=null && companyId !=null) {
             update.put("Company/"+company.getCompanyId(),company);
@@ -65,19 +66,18 @@ public class AdminAddCompany extends AppCompatActivity {
                     if(task.isSuccessful())
                     {
                         progress.dismiss();
-                        Snackbar.make(findViewById(android.R.id.content),"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
-                                .setAction("Action", null).show();
+                        Toast.makeText(getApplicationContext(), "Added new Company :"+ companyId ,Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progress.dismiss();
-                    Snackbar.make(findViewById(android.R.id.content),"ERROR : " + e.toString(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Toast.makeText(getApplicationContext(), "Error adding : " +e.toString(),Toast.LENGTH_LONG).show();
+                    onBackPressed();
                 }
             });
         }
-        onBackPressed();
     }
 }

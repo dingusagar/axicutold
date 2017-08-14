@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.example.dingu.axicut.R;
@@ -153,14 +154,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> implements
                 {
                     try{
                         User user = dataSnapshot.getValue(User.class);
-                        Log.e("App","detected : " + user.toString());
                         if(!userList.contains(user))
                         {
                             userList.add(0,user);
                             filteredUserList.add(0,user);
-                            Log.e("App","detected ulist: " + userList.toString());
-                            Log.e("App","detected flist: " + filteredUserList.toString());
-
                             notifyDataSetChanged();
                         }
 

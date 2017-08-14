@@ -31,7 +31,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> im
     ArrayList<Material> materialList;
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getInstance().getReference().child("Material");
-    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("QuickDataFetcher").child("materialTypes");
+    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("InwardUtilities").child("materialTypes");
 
 
     public MaterialAdapter() {
@@ -197,20 +197,3 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> im
 
 
 
-// for editing
-//
-//    private void replaceAndNotify(Material updatedMaterial) {
-//
-//        String materialID = updatedMaterial.getMaterialId();
-//
-//        for(int i=0; i<materialList.size();i++)
-//        {
-//            if(materialList.get(i).getMaterialId().equals(materialID))
-//            {
-//                materialList.set(i,updatedMaterial);
-//                filteredMaterialList = materialList;
-//                notifyDataSetChanged();
-//                break;
-//            }
-//        }
-//    }
