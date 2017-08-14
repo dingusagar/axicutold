@@ -1,6 +1,5 @@
 package com.example.dingu.axicut;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,7 +22,7 @@ import android.widget.Toast;
 import com.example.dingu.axicut.Design.DesignMainActivity;
 import com.example.dingu.axicut.Inward.InwardMainActivity;
 import com.example.dingu.axicut.Production.ProductionActivity;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.Effects.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,12 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.example.dingu.axicut.Admin.*;
-
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 

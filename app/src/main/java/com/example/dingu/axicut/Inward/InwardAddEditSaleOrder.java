@@ -2,10 +2,8 @@ package com.example.dingu.axicut.Inward;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,7 +23,8 @@ import android.widget.Toast;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.ButtonAnimator;
+import com.example.dingu.axicut.Utils.Effects.MyVibrator;
+import com.example.dingu.axicut.Utils.Effects.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
 import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
@@ -68,8 +67,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     Calendar calendar;
     ImageButton dateButton , timeButton;
 
-    Vibrator vibrator;
-    int VIBRATE_DURATION = 100;
+    MyVibrator myVibrator;
 
     TextView workOrderListEmptyMessage;
     InwardAction inwardAction;
@@ -79,7 +77,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inward_add_edit_sale_order);
+
         networkLostDetector = new NetworkLostDetector(android.R.id.content,this);
+        myVibrator = new MyVibrator(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -158,7 +158,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         });
 
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         confirmButton = (Button)findViewById(R.id.confirmButton);
         ButtonAnimator.setEffect(confirmButton, ButtonAnimator.Effects.REVERSE_BACKGROUND_FOREGROUND);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +199,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
 
     private void confirmButtonAction(View view) {
-        vibrator.vibrate(VIBRATE_DURATION);
+        myVibrator.vibrate();
         new AlertDialog.Builder(InwardAddEditSaleOrder.this)
                 .setTitle("Confirm Entry")
                 .setMessage("Do you want to save the changes ?")

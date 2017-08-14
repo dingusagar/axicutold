@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Utils.General;
+package com.example.dingu.axicut.Utils.Effects;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
