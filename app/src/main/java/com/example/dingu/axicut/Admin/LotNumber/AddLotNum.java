@@ -53,7 +53,7 @@ public class AddLotNum extends AppCompatActivity {
         if(lotNum!=null) {
             LotNumber lotNumber = new LotNumber(lotNum);
             update.put("Lot Numbers/"+lotNumber.getLotNum(),lotNumber);
-            update.put("InwardUtilities/lotNumberTypes"+lotNumber.getLotNum(),true);
+            update.put("InwardUtilities/lotNumberTypes/"+lotNumber.getLotNum(),true);
 //            lotNumRef.child(lotNumber.getLotNum()).setValue(lotNumber);
 //            lotNumberQuickRef.child(lotNumber.getLotNum()).setValue(true);
             dbRootRef.updateChildren(update).addOnCompleteListener(new OnCompleteListener<Void>() {
