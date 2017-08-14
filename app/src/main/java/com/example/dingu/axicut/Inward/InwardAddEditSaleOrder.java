@@ -294,7 +294,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                         progress.dismiss();
                         Snackbar.make(parentLayout,"Successfully Saved Data ", Snackbar.LENGTH_SHORT)
                                 .setAction("Action", null).show();
-                        goBackToPreviousActivity.start();
+
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -383,18 +383,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         return saleOrder;
     }
 
-    // Thread to wait till the Toast Message to disappear
-    Thread goBackToPreviousActivity = new Thread(){
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(3000); // As I am using LENGTH_LONG in Toast
-                InwardAddEditSaleOrder.this.finish();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
+  
 
 
 }
