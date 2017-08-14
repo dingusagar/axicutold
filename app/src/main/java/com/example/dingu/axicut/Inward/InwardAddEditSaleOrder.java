@@ -383,7 +383,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         return saleOrder;
     }
 
-  
+
 
 
 }

@@ -43,7 +43,7 @@ public class NetworkLostDetector {
                         }
                     });
                     snackbar.show();
-                } else if(connected && datasnapshotCounter!=1)
+                } else if(connected && datasnapshotCounter > 1)
                 {
 
                     if(snackbar != null){
