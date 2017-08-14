@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
@@ -75,9 +75,9 @@ public class InwardWorkOrderAdapter extends RecyclerView.Adapter<InwardWorkOrder
 
             workOrderNoText = (TextView)view.findViewById(R.id.workOrderNo);
             materialSpinner= (Spinner)view.findViewById(R.id.materialSpinner);
-            materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
+            materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getMaterialTypes()));
             lotNoSpinner = (Spinner)view.findViewById(R.id.lotNoSpinner);
-            lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getLotNos()));
+            lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getLotNos()));
 
 
 

@@ -3,35 +3,27 @@ package com.example.dingu.axicut.Production;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardAddEditSaleOrder;
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.WorkOrder;
-import com.google.android.gms.common.api.BooleanResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -171,7 +163,7 @@ public class TimePickerDialog implements MyCustomDialog {
     private void upDateDB(WorkOrder workOrder,float time){
         String email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String userName = email.substring(0,email.lastIndexOf("@"));
-        String date = InwardUtilities.getServerDate();
+        String date = QuickDataFetcher.getServerDate();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
         DatabaseReference workOrderRef= dbRef.child(String.valueOf(saleOrder.getWorkOrders().indexOf(workOrder)));
         DatabaseReference operatorRef = workOrderRef.child("prodName");

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
@@ -53,8 +53,8 @@ public class DoDespatch implements MyCustomDialog {
         workOrders = saleOrder.getWorkOrders();
         errorMessage = new ErrorMessage(context);
 
-        if(InwardUtilities.getServerDate() != null)
-            currentDate = InwardUtilities.getServerDate();
+        if(QuickDataFetcher.getServerDate() != null)
+            currentDate = QuickDataFetcher.getServerDate();
 
     }
 
@@ -71,8 +71,8 @@ public class DoDespatch implements MyCustomDialog {
 
          dateText = (EditText) contentView.findViewById(R.id.Date);
          dcText = (EditText) contentView.findViewById(R.id.DCNumber);
-        InwardUtilities.fetchServerTimeStamp();
-        dateText.setText(InwardUtilities.getServerDate());
+        QuickDataFetcher.fetchServerTimeStamp();
+        dateText.setText(QuickDataFetcher.getServerDate());
 
         builder = new AlertDialog.Builder(context);
         builder.setTitle(title);

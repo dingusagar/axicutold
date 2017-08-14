@@ -29,7 +29,7 @@ import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.ButtonAnimator;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.NetworkLostDetector;
-import com.example.dingu.axicut.WorkOrder;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +40,6 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -111,7 +110,7 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         dateButton = (ImageButton)findViewById(R.id.dateButton) ;
         timeButton = (ImageButton)findViewById(R.id.timeButton) ;
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
-        customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,InwardUtilities.getCustomerIDs()));
+        customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getCustomerIDs()));
         customerDCText = (TextView)findViewById(R.id.customerDC);
         saleOrderNumberText = (TextView)findViewById(R.id.saleOrderNum);
 

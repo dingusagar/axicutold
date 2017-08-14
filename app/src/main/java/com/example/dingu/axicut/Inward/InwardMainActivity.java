@@ -1,6 +1,5 @@
 package com.example.dingu.axicut.Inward;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +18,10 @@ import android.widget.Toast;
 
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +29,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class InwardMainActivity extends AppCompatActivity implements SaleOrderNumsFetcher{
 
@@ -61,8 +58,8 @@ public class InwardMainActivity extends AppCompatActivity implements SaleOrderNu
         myDBRefSaleOrderNums = MyDatabase.getDatabase().getInstance().getReference("SaleOrderNums");
         myDBRefSaleOrderNums.keepSynced(true);
 
-        InwardUtilities.fetchDataFromDatabase();
-        InwardUtilities.fetchServerTimeStamp();
+        QuickDataFetcher.fetchDataFromDatabase();
+        QuickDataFetcher.fetchServerTimeStamp();
 
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.InwardRecyclerList);
         saleOrderRecyclerView.setHasFixedSize(true);

@@ -14,11 +14,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Inward.SaleOrderNumsFetcher;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
 import com.example.dingu.axicut.Utils.General.Search.FilterActivity;
@@ -30,7 +29,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.logging.Filter;
 
 public class DesignMainActivity extends AppCompatActivity implements SaleOrderNumsFetcher{
     RecyclerView saleOrderRecyclerView;
@@ -43,8 +41,8 @@ public class DesignMainActivity extends AppCompatActivity implements SaleOrderNu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_main);
-        InwardUtilities.fetchServerTimeStamp();
-        InwardUtilities.fetchDataFromDatabase();
+        QuickDataFetcher.fetchServerTimeStamp();
+        QuickDataFetcher.fetchDataFromDatabase();
         setTitle("Design");
         mAuth = FirebaseAuth.getInstance();
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);

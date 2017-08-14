@@ -1,8 +1,5 @@
 package com.example.dingu.axicut.Design;
-import android.support.annotation.NonNull;
-import android.support.constraint.solver.ArrayLinkedVariables;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,23 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Utils.RangeSelector;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
 import com.example.dingu.axicut.Utils.Validator;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.Timestamp;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRefresher{
     private RecyclerView workOrderRecyclerView;
@@ -69,7 +61,7 @@ public class DesignWorkOrder extends AppCompatActivity implements RecyclerViewRe
                     WorkOrder w = validSelections.get(i);
                     if(selectedItems.containsKey(w.getWorkOrderNumber())){
                         w.setLayoutName(layout);
-                        w.setLayoutDate(InwardUtilities.getServerDate());
+                        w.setLayoutDate(QuickDataFetcher.getServerDate());
                     }
                 }
                 workOrderAdapter.notifyDataSetChanged();

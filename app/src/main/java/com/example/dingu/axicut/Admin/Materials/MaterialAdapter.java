@@ -31,7 +31,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> im
     ArrayList<Material> materialList;
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getInstance().getReference().child("Material");
-    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("InwardUtilities").child("materialTypes");
+    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("QuickDataFetcher").child("materialTypes");
 
 
     public MaterialAdapter() {

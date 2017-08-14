@@ -2,16 +2,12 @@ package com.example.dingu.axicut.Design;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;

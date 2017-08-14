@@ -1,33 +1,24 @@
 package com.example.dingu.axicut.Production;
 
 
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.dingu.axicut.Design.DesignLayoutCommunicator;
-import com.example.dingu.axicut.Design.EditDesignLayout;
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.R;
 import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.WorkOrder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
 
 
 /**
@@ -148,7 +139,7 @@ public class ProdTimer extends DialogFragment implements View.OnClickListener {
     public void saveToDataBase(String time){
         String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String userName = email.substring(0,email.lastIndexOf("@"));
-        String date = InwardUtilities.getServerDate();
+        String date = QuickDataFetcher.getServerDate();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(saleOrder.getSaleOrderNumber()).child("workOrders");
         DatabaseReference workOrderRef= dbRef.child(String.valueOf(workOrderPos));
         DatabaseReference operatorRef = workOrderRef.child("prodName");

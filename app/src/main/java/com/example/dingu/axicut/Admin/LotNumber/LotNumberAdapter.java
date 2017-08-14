@@ -31,7 +31,7 @@ public class LotNumberAdapter extends RecyclerView.Adapter<LotNumberViewHolder> 
     ArrayList<LotNumber> lotNumberList;
 
     DatabaseReference dbRef = MyDatabase.getDatabase().getInstance().getReference().child("Lot Numbers");
-    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("InwardUtilities").child("lotNumberTypes");
+    DatabaseReference dbRefQuick = MyDatabase.getDatabase().getInstance().getReference().child("QuickDataFetcher").child("lotNumberTypes");
 
 
     public LotNumberAdapter() {

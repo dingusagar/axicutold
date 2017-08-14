@@ -27,7 +27,7 @@ public class AddLotNum extends AppCompatActivity {
     private EditText lotNumId;
     private Button addLotNum;
     private DatabaseReference lotNumRef= FirebaseDatabase.getInstance().getReference().child("Lot Numbers");
-    private DatabaseReference lotNumberQuickRef= FirebaseDatabase.getInstance().getReference().child("InwardUtilities").child("lotNumberTypes");
+    private DatabaseReference lotNumberQuickRef= FirebaseDatabase.getInstance().getReference().child("QuickDataFetcher").child("lotNumberTypes");
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class AddLotNum extends AppCompatActivity {
         if(lotNum!=null) {
             LotNumber lotNumber = new LotNumber(lotNum);
             update.put("Lot Numbers/"+lotNumber.getLotNum(),lotNumber);
-            update.put("InwardUtilities/lotNumberTypes/"+lotNumber.getLotNum(),true);
+            update.put("QuickDataFetcher/lotNumberTypes/"+lotNumber.getLotNum(),true);
 //            lotNumRef.child(lotNumber.getLotNum()).setValue(lotNumber);
 //            lotNumberQuickRef.child(lotNumber.getLotNum()).setValue(true);
             dbRootRef.updateChildren(update).addOnCompleteListener(new OnCompleteListener<Void>() {

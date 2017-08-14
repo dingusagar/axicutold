@@ -1,4 +1,4 @@
-package com.example.dingu.axicut.Inward;
+package com.example.dingu.axicut.Utils.General;
 
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by dingu on 20/5/17.
  */
 
-public  class InwardUtilities {
+public  class QuickDataFetcher {
     public static String[] getCustomerIDs() {
 
         return customerIDs;
@@ -47,7 +47,7 @@ public  class InwardUtilities {
     }
 
     static String serverDate;
-    static DatabaseReference dbRefUtilities = MyDatabase.getDatabase().getInstance().getReference("InwardUtilities");
+    static DatabaseReference dbRefUtilities = MyDatabase.getDatabase().getInstance().getReference("QuickDataFetcher");
     static DatabaseReference dbRefTimeStamp = MyDatabase.getDatabase().getInstance().getReference("Utils");
 
     public static void fetchDataFromDatabase()

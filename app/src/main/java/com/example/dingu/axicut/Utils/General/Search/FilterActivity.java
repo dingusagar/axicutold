@@ -13,13 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.R;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class FilterActivity extends AppCompatActivity {
@@ -49,10 +48,10 @@ public class FilterActivity extends AppCompatActivity {
         limitText = (EditText)findViewById(R.id.limitNumber);
         limitText.setText(""+DEFAULT_LIMIT);
         customerID_Spinner = (Spinner) findViewById(R.id.customerID);
-        customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getCustomerIDs()));
+        customerID_Spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getCustomerIDs()));
 
         materialSpinner = (Spinner) findViewById(R.id.materialSpinner);
-        materialSpinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
+        materialSpinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getMaterialTypes()));
 
         okButton = (Button)findViewById(R.id.okButton);
         cancelButton = (Button)findViewById(R.id.cancelButton);

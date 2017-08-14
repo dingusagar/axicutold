@@ -14,12 +14,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.dingu.axicut.Design.DesignAdapter;
-import com.example.dingu.axicut.Inward.InwardUtilities;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.Inward.SaleOrderNumsFetcher;
 import com.example.dingu.axicut.LoginActivity;
 import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.SaleOrder;
 import com.example.dingu.axicut.Utils.General.MyDatabase;
 import com.example.dingu.axicut.Utils.General.SaleOrderDisplayLimitter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +40,7 @@ public class ProductionActivity extends AppCompatActivity implements SaleOrderNu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_main);
-        InwardUtilities.fetchServerTimeStamp();
+        QuickDataFetcher.fetchServerTimeStamp();
         setTitle("Production");
         mAuth = FirebaseAuth.getInstance();
         saleOrderRecyclerView = (RecyclerView)findViewById(R.id.DesignRecyclerList);

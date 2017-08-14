@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.dingu.axicut.R;
+import com.example.dingu.axicut.Utils.General.QuickDataFetcher;
 import com.example.dingu.axicut.WorkOrder;
 
 import java.util.ArrayList;
@@ -59,8 +60,8 @@ public class MassEntryDialog implements MyCustomDialog {
         workOrderNoText = (TextView) contentView.findViewById(R.id.workOrderNo);
         materialSpinner = (Spinner)contentView.findViewById(R.id.materialSpinner);
         lotNoSpinner = (Spinner)contentView.findViewById(R.id.lotNoSpinner);
-        materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getMaterialTypes()));
-        lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, InwardUtilities.getLotNos()));
+        materialSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getMaterialTypes()));
+        lotNoSpinner.setAdapter(new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item, QuickDataFetcher.getLotNos()));
         length = (EditText)contentView.findViewById(R.id.length);
         breadth = (EditText)contentView.findViewById(R.id.breadth);
         thickness = (EditText)contentView.findViewById(R.id.thickness);

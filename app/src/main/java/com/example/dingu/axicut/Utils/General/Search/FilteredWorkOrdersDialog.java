@@ -1,26 +1,16 @@
 package com.example.dingu.axicut.Utils.General.Search;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.dingu.axicut.Inward.InwardUtilities;
 import com.example.dingu.axicut.Inward.MyCustomDialog;
 import com.example.dingu.axicut.R;
-import com.example.dingu.axicut.SaleOrder;
-import com.example.dingu.axicut.Utils.ErrorMessage;
-import com.example.dingu.axicut.Utils.General.MyDatabase;
-import com.example.dingu.axicut.Utils.RecyclerViewRefresher;
-import com.example.dingu.axicut.WorkOrder;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by dingu on 20/7/17.
