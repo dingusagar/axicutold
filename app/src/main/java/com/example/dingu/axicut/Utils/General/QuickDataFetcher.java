@@ -47,7 +47,7 @@ public  class QuickDataFetcher {
     }
 
     static String serverDate;
-    static DatabaseReference dbRefUtilities = MyDatabase.getDatabase().getInstance().getReference("QuickDataFetcher");
+    static DatabaseReference dbRefUtilities = MyDatabase.getDatabase().getInstance().getReference("InwardUtilities");
     static DatabaseReference dbRefTimeStamp = MyDatabase.getDatabase().getInstance().getReference("Utils");
 
     public static void fetchDataFromDatabase()

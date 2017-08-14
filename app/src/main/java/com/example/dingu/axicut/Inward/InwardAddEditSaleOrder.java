@@ -9,7 +9,6 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -175,8 +174,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         if(inwardAction.equals(InwardAction.EDIT_SALE_ORDER))
         {
             saleOrder = (SaleOrder) getIntent().getSerializableExtra("SaleOrder");
-            confirmButton.setEnabled(true);
-            confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
         }
         else if(inwardAction.equals(InwardAction.CREATE_NEW_SALE_ORDER))
         {
@@ -203,7 +200,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
     private void confirmButtonAction(View view) {
         vibrator.vibrate(VIBRATE_DURATION);
-        final Button button = (Button)view;
         new AlertDialog.Builder(InwardAddEditSaleOrder.this)
                 .setTitle("Confirm Entry")
                 .setMessage("Do you want to save the changes ?")
@@ -211,19 +207,10 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        if (button.isEnabled()) {
-                            button.setEnabled(false);
-                            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_disabled_text_color));
-                        }
                         UpdateSaleOrderObject();
                         writeBackOnDatabase();
                     }})
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
-                    }
-                }).show();
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     private SaleOrder setUpNewSaleOrder() {
@@ -241,8 +228,6 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
                     saleOrder.invalidateSaleOrderNumber(serverTimeStamp,lastSaleOrderNumber);
                     saleOrder.setTimestamp(serverTimeStamp);
                     saleOrderNumberText.setText(saleOrder.getSaleOrderNumber());
-                    confirmButton.setEnabled(true);
-                    confirmButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.button_enabled_text_color));
                 }
             }
 
@@ -280,6 +265,9 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
 
     public void writeBackOnDatabase()
     {
+        if(!checkMandatoryFields())
+            return;
+
         // everything is ready to be added to the database
 
         progress.setMessage("Adding new Sale Order...");
@@ -325,6 +313,38 @@ public class InwardAddEditSaleOrder extends AppCompatActivity {
         }
 
 
+    }
+
+    private boolean checkMandatoryFields() {
+        StringBuffer errorMessage = new StringBuffer("");
+        boolean isError = false;
+        if(saleOrder.getCustomerDC() == null || saleOrder.getCustomerDC().equals(""))
+        {
+            errorMessage.append("-> Customer DC Number cannot be empty").append("\n");
+            isError = true;
+        }
+
+        if(saleOrder.getSaleOrderNumber() == null || saleOrder.getSaleOrderNumber().equals(""))
+        {
+            errorMessage.append("-> SaleOrder Number Error. Check Internet connection").append("\n");
+            isError = true;
+        }
+
+
+        if(isError)
+        {
+            final Snackbar snackbar = Snackbar.make(parentLayout, errorMessage ,Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Okay", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.show();
+            return false;
+        }
+
+        return true;
     }
 
     private void InvalidateViews() {

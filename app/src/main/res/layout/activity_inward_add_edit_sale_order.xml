@@ -113,7 +113,6 @@
             android:layout_height="wrap_content"
             android:text="Confirm Entry"
             android:id="@+id/confirmButton"
-            android:enabled="false"
             android:background="@color/colorPrimary"
             android:textColor="@color/primary_light"
             android:layout_alignParentBottom="true"
