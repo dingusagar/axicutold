@@ -51,8 +51,7 @@
         <Spinner
             android:id="@+id/materialSpinner"
             android:layout_width="144dp"
-            android:layout_height="41dp"
-            android:entries="@array/materials" />
+            android:layout_height="41dp" />
 
 
 

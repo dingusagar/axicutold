@@ -61,6 +61,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
                     android:id="@+id/workorderRecyclerview"
                     android:background="@color/grey_background"/>
 

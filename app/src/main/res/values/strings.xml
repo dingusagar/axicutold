@@ -10,12 +10,12 @@
 
     <!--</string-array>-->
 
-    <string-array name="materials">
-        <item>MS</item>
-        <item>DS</item>
-        <item>VS</item>
-        <item>TS</item>
-    </string-array>
+    <!--<string-array name="materials">-->
+        <!--<item>MS</item>-->
+        <!--<item>DS</item>-->
+        <!--<item>VS</item>-->
+        <!--<item>TS</item>-->
+    <!--</string-array>-->
     <string name="title_activity_admin">Administrator</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

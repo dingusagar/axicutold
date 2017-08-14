@@ -60,8 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/materialSpinner"
-                    android:layout_weight="1"
-                    android:entries="@array/materials" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -86,8 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lotNoSpinner"
-                android:layout_weight="1"
-                android:entries="@array/materials" />
+                android:layout_weight="1" />
         </LinearLayout>
         <TextView
             android:text="Sheet Size :"

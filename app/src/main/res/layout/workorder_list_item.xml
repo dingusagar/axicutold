@@ -61,13 +61,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:showDividers="middle"
-            android:divider="?android:dividerVertical"
-            android:layout_marginTop="3dp">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:showDividers="middle"-->
+            <!--android:divider="?android:dividerVertical"-->
+            <!--android:layout_marginTop="3dp">-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,34 +88,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/materialSpinner"
-                    android:layout_weight="1"
-                    android:entries="@array/materials" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="3dp">
+            <TextView
+                android:text="Lot No : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="3dp">
-                <TextView
-                    android:text="Lot No : "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView14"
-                    android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:textStyle="normal|bold" />
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lotNoSpinner"
-                    android:layout_weight="1"
-                    android:entries="@array/materials" />
-            </LinearLayout>
-
-
+                android:id="@+id/textView14"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lotNoSpinner"
+                android:layout_weight="1" />
         </LinearLayout>
+
+
+
 
         <LinearLayout
             android:orientation="horizontal"
