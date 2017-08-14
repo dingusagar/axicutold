@@ -17,16 +17,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class NetworkLostDetector {
 
-    DatabaseReference connectedRef;
-    Snackbar snackbar;
-    View parentView;
-    Activity activity;
-    Boolean connected = true;
-    int datasnapshotCounter = 0; // to avoid "connected" message for the first time
+    private DatabaseReference connectedRef;
+    private Snackbar snackbar;
+    private View parentView;
+    private Boolean connected = true;
+    private int datasnapshotCounter = 0; // to avoid "connected" message for the first time
 
     public NetworkLostDetector(final int parentLayoutId, Activity activity) {
-        this.activity = activity;
-         parentView = activity.findViewById(parentLayoutId);
+
+        parentView = activity.findViewById(parentLayoutId);
         connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
         connectedRef.addValueEventListener(new ValueEventListener() {
             @Override
